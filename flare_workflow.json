@@ -1,5 +1,5 @@
 {
-  "WorkflowName": "fcre_flare",
+  "WorkflowName": "fcre-flare",
   "FunctionInvoke": "check-weather",
   "InvocationID": "123456",
   "DefaultDataStore": "My_S3_Bucket",
