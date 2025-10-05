@@ -7,7 +7,7 @@
   "FaaSrLog": "FaaSrLog_flare",
   
   "ComputeServers": {
-    "My_GitHub_Account": {
+    "GH": {
       "FaaSType": "GitHubActions",
       "UserName": "Ashish-Ramrakhiani",
       "ActionRepoName": "FaaSr-workflow-public",
@@ -86,7 +86,7 @@
   "ActionList": {
     "check-weather": {
       "FunctionName": "check_weather",
-      "FaaSServer": "My_GitHub_Account",
+      "FaaSServer": "GH",
       "Type": "R",
       "Arguments": {
         "lake_directory": "./",
@@ -97,7 +97,7 @@
     },
     "run-weir-inflow": {
       "FunctionName": "run_weir_inflow",
-      "FaaSServer": "My_GitHub_Account",
+      "FaaSServer": "GH",
       "Type": "R",
       "Arguments": {
         "configure_run_file": "configure_run.yml",
@@ -107,7 +107,7 @@
     },
     "forecast-HOx-off": {
       "FunctionName": "forecast_HOx_off",
-      "FaaSServer": "My_GitHub_Account",
+      "FaaSServer": "GH",
       "Type": "R",
       "Arguments": {
         "configure_run_file": "configure_run.yml",
@@ -117,7 +117,7 @@
     },
     "check-anoxia": {
       "FunctionName": "check_anoxia",
-      "FaaSServer": "My_GitHub_Account",
+      "FaaSServer": "GH",
       "Type": "R",
       "Arguments": {
         "configure_run_file": "configure_run.yml",
@@ -132,7 +132,7 @@
     },
     "forecast-HOx-on": {
       "FunctionName": "forecast_HOx_on",
-      "FaaSServer": "My_GitHub_Account",
+      "FaaSServer": "GH",
       "Type": "R",
       "Arguments": {
         "configure_run_file": "configure_run.yml",
@@ -142,7 +142,7 @@
     },
     "viz-HOx-off": {
       "FunctionName": "viz_HOx_off",
-      "FaaSServer": "My_GitHub_Account",
+      "FaaSServer": "GH",
       "Type": "R",
       "Arguments": {
         "plots_directory": "./plots/glm_aed_flare_v3_faasr_HOx_off",
@@ -153,7 +153,7 @@
     },
     "viz-HOx-on": {
       "FunctionName": "viz_HOx_on",
-      "FaaSServer": "My_GitHub_Account",
+      "FaaSServer": "GH",
       "Type": "R",
       "Arguments": {
         "plots_directory": "./plots/glm_aed_flare_v3_faasr_HOx_on",
@@ -164,7 +164,7 @@
     },
     "check-notify": {
       "FunctionName": "check_notify",
-      "FaaSServer": "My_GitHub_Account",
+      "FaaSServer": "GH",
       "Type": "R",
       "Arguments": {},
       "InvokeNext": []
@@ -183,14 +183,14 @@
   },
   
   "FunctionGitRepo": {
-    "check-weather": ["Ashish-Ramrakhiani/FCRE-forecast-code-FaaSr"],
-    "run-weir-inflow": ["Ashish-Ramrakhiani/FCRE-forecast-code-FaaSr"],
-    "forecast-HOx-off": ["Ashish-Ramrakhiani/FCRE-forecast-code-FaaSr"],
-    "check-anoxia": ["Ashish-Ramrakhiani/FCRE-forecast-code-FaaSr"],
-    "forecast-HOx-on": ["Ashish-Ramrakhiani/FCRE-forecast-code-FaaSr"],
-    "viz-HOx-off": ["Ashish-Ramrakhiani/FCRE-forecast-code-FaaSr"],
-    "viz-HOx-on": ["Ashish-Ramrakhiani/FCRE-forecast-code-FaaSr"],
-    "check-notify": ["Ashish-Ramrakhiani/FCRE-forecast-code-FaaSr"]
+    "check_weather": ["Ashish-Ramrakhiani/FCRE-forecast-code-FaaSr"],
+    "run_weir_inflow": ["Ashish-Ramrakhiani/FCRE-forecast-code-FaaSr"],
+    "forecast_HOx_off": ["Ashish-Ramrakhiani/FCRE-forecast-code-FaaSr"],
+    "check_anoxia": ["Ashish-Ramrakhiani/FCRE-forecast-code-FaaSr"],
+    "forecast_HOx_on": ["Ashish-Ramrakhiani/FCRE-forecast-code-FaaSr"],
+    "viz_HOx_off": ["Ashish-Ramrakhiani/FCRE-forecast-code-FaaSr"],
+    "viz_HOx_on": ["Ashish-Ramrakhiani/FCRE-forecast-code-FaaSr"],
+    "check_notify": ["Ashish-Ramrakhiani/FCRE-forecast-code-FaaSr"]
   },
 
   "FunctionCRANPackage": {
