@@ -74,14 +74,12 @@
     "vera_forecasts": {
       "Endpoint": "https://amnh1.osn.mghpcc.org",
       "Bucket": "bio230121-bucket01",
-      "Region": "us-east-1",
-      "Anonymous": "TRUE"
+      "Region": "us-east-1"
     },
     "targets": {
       "Endpoint": "https://amnh1.osn.mghpcc.org",
       "Bucket": "bio230121-bucket01",
-      "Region": "us-east-1",
-      "Anonymous": "TRUE"
+      "Region": "us-east-1"
     }
   },
   
