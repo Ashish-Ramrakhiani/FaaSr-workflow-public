@@ -125,7 +125,12 @@
         "configure_run_file": "configure_run.yml",
         "config_set_name": "glm_aed_flare_v3_faasr_HOx_off"
       },
-      "InvokeNext": ["forecast-HOx-on[TRUE]", "viz-HOx-off[FALSE]"]
+      "InvokeNext": [
+        {
+          "True": ["forecast-HOx-on"],
+          "False": ["viz-HOx-off"]
+        }
+      ]
     },
     "forecast-HOx-on": {
       "FunctionName": "forecast_HOx_on",
