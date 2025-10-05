@@ -185,7 +185,7 @@
   "viz_HOx_off": "ghcr.io/ashish-ramrakhiani/github-actions-flare:latest",
   "viz_HOx_on": "ghcr.io/ashish-ramrakhiani/github-actions-flare:latest",
   "check_notify": "ghcr.io/ashish-ramrakhiani/github-actions-flare:latest"
-,
+  },
   
   "FunctionGitRepo": {
     "check_weather": ["Ashish-Ramrakhiani/FCRE-forecast-code-FaaSr"],
