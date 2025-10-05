@@ -87,7 +87,7 @@
   
   "ActionList": {
     "check-weather": {
-      "FunctionName": "check-weather",
+      "FunctionName": "check_weather",
       "FaaSServer": "My_GitHub_Account",
       "Type": "R",
       "Arguments": {
@@ -98,7 +98,7 @@
       "InvokeNext": ["run-weir-inflow"]
     },
     "run-weir-inflow": {
-      "FunctionName": "run-weir-inflow",
+      "FunctionName": "run_weir_inflow",
       "FaaSServer": "My_GitHub_Account",
       "Type": "R",
       "Arguments": {
@@ -108,7 +108,7 @@
       "InvokeNext": ["forecast-HOx-off"]
     },
     "forecast-HOx-off": {
-      "FunctionName": "forecast-HOx-off",
+      "FunctionName": "forecast_HOx_off",
       "FaaSServer": "My_GitHub_Account",
       "Type": "R",
       "Arguments": {
@@ -118,7 +118,7 @@
       "InvokeNext": ["check-anoxia"]
     },
     "check-anoxia": {
-      "FunctionName": "check-anoxia",
+      "FunctionName": "check_anoxia",
       "FaaSServer": "My_GitHub_Account",
       "Type": "R",
       "Arguments": {
@@ -128,7 +128,7 @@
       "InvokeNext": ["forecast-HOx-on[TRUE]", "viz-HOx-off[FALSE]"]
     },
     "forecast-HOx-on": {
-      "FunctionName": "forecast-HOx-on",
+      "FunctionName": "forecast_HOx_on",
       "FaaSServer": "My_GitHub_Account",
       "Type": "R",
       "Arguments": {
@@ -138,7 +138,7 @@
       "InvokeNext": ["viz-HOx-on"]
     },
     "viz-HOx-off": {
-      "FunctionName": "viz-HOx-off",
+      "FunctionName": "viz_HOx_off",
       "FaaSServer": "My_GitHub_Account",
       "Type": "R",
       "Arguments": {
@@ -149,7 +149,7 @@
       "InvokeNext": []
     },
     "viz-HOx-on": {
-      "FunctionName": "viz-HOx-on",
+      "FunctionName": "viz_HOx_on",
       "FaaSServer": "My_GitHub_Account",
       "Type": "R",
       "Arguments": {
@@ -160,7 +160,7 @@
       "InvokeNext": ["check-notify"]
     },
     "check-notify": {
-      "FunctionName": "check-notify",
+      "FunctionName": "check_notify",
       "FaaSServer": "My_GitHub_Account",
       "Type": "R",
       "Arguments": {},
@@ -177,49 +177,6 @@
     "viz-HOx-off": "ghcr.io/ashish-ramrakhiani/github-actions-flare:latest",
     "viz-HOx-on": "ghcr.io/ashish-ramrakhiani/github-actions-flare:latest",
     "check-notify": "ghcr.io/ashish-ramrakhiani/github-actions-flare:latest"
-  },
-  
-  "FunctionList": {
-    "check-weather": {
-      "FunctionName": "check-weather",
-      "Type": "R",
-      "InvokeNext": ["run-weir-inflow"]
-    },
-    "run-weir-inflow": {
-      "FunctionName": "run-weir-inflow",
-      "Type": "R",
-      "InvokeNext": ["forecast-HOx-off"]
-    },
-    "forecast-HOx-off": {
-      "FunctionName": "forecast-HOx-off",
-      "Type": "R",
-      "InvokeNext": ["check-anoxia"]
-    },
-    "check-anoxia": {
-      "FunctionName": "check-anoxia",
-      "Type": "R",
-      "InvokeNext": ["forecast-HOx-on", "viz-HOx-off"]
-    },
-    "forecast-HOx-on": {
-      "FunctionName": "forecast-HOx-on",
-      "Type": "R",
-      "InvokeNext": ["viz-HOx-on"]
-    },
-    "viz-HOx-off": {
-      "FunctionName": "viz-HOx-off",
-      "Type": "R",
-      "InvokeNext": []
-    },
-    "viz-HOx-on": {
-      "FunctionName": "viz-HOx-on",
-      "Type": "R",
-      "InvokeNext": ["check-notify"]
-    },
-    "check-notify": {
-      "FunctionName": "check-notify",
-      "Type": "R",
-      "InvokeNext": []
-    }
   },
   
   "FunctionGitRepo": {
