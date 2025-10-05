@@ -89,7 +89,6 @@
     "check-weather": {
       "FunctionName": "check-weather",
       "FaaSServer": "My_GitHub_Account",
-      "Actioncontainer": "ghcr.io/ashish-ramrakhiani/github-actions-flare:latest",
       "Type": "R",
       "Arguments": {
         "lake_directory": "./",
@@ -101,7 +100,6 @@
     "run-weir-inflow": {
       "FunctionName": "run-weir-inflow",
       "FaaSServer": "My_GitHub_Account",
-      "Actioncontainer": "ghcr.io/ashish-ramrakhiani/github-actions-flare:latest",
       "Type": "R",
       "Arguments": {
         "configure_run_file": "configure_run.yml",
@@ -112,7 +110,6 @@
     "forecast-HOx-off": {
       "FunctionName": "forecast-HOx-off",
       "FaaSServer": "My_GitHub_Account",
-      "Actioncontainer": "ghcr.io/ashish-ramrakhiani/github-actions-flare:latest",
       "Type": "R",
       "Arguments": {
         "configure_run_file": "configure_run.yml",
@@ -123,7 +120,6 @@
     "check-anoxia": {
       "FunctionName": "check-anoxia",
       "FaaSServer": "My_GitHub_Account",
-      "Actioncontainer": "ghcr.io/ashish-ramrakhiani/github-actions-flare:latest",
       "Type": "R",
       "Arguments": {
         "configure_run_file": "configure_run.yml",
@@ -134,7 +130,6 @@
     "forecast-HOx-on": {
       "FunctionName": "forecast-HOx-on",
       "FaaSServer": "My_GitHub_Account",
-      "Actioncontainer": "ghcr.io/ashish-ramrakhiani/github-actions-flare:latest",
       "Type": "R",
       "Arguments": {
         "configure_run_file": "configure_run.yml",
@@ -145,7 +140,6 @@
     "viz-HOx-off": {
       "FunctionName": "viz-HOx-off",
       "FaaSServer": "My_GitHub_Account",
-      "Actioncontainer": "ghcr.io/ashish-ramrakhiani/github-actions-flare:latest",
       "Type": "R",
       "Arguments": {
         "plots_directory": "./plots/glm_aed_flare_v3_faasr_HOx_off",
@@ -157,7 +151,6 @@
     "viz-HOx-on": {
       "FunctionName": "viz-HOx-on",
       "FaaSServer": "My_GitHub_Account",
-      "Actioncontainer": "ghcr.io/ashish-ramrakhiani/github-actions-flare:latest",
       "Type": "R",
       "Arguments": {
         "plots_directory": "./plots/glm_aed_flare_v3_faasr_HOx_on",
@@ -169,7 +162,6 @@
     "check-notify": {
       "FunctionName": "check-notify",
       "FaaSServer": "My_GitHub_Account",
-      "Actioncontainer": "ghcr.io/ashish-ramrakhiani/github-actions-flare:latest",
       "Type": "R",
       "Arguments": {},
       "InvokeNext": []
