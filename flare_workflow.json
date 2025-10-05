@@ -1,6 +1,6 @@
 {
   "WorkflowName": "fcre_flare",
-  "FunctionInvoke": "check_weather",
+  "FunctionInvoke": "check-weather",
   "InvocationID": "123456",
   "DefaultDataStore": "My_S3_Bucket",
   "LoggingDataStore": "My_S3_Bucket",
@@ -86,8 +86,8 @@
   },
   
   "ActionList": {
-    "check_weather": {
-      "FunctionName": "check_weather",
+    "check-weather": {
+      "FunctionName": "check-weather",
       "FaaSServer": "My_GitHub_Account",
       "Actioncontainer": "ghcr.io/ashish-ramrakhiani/github-actions-flare:latest",
       "Type": "R",
@@ -96,10 +96,10 @@
         "configure_run_file": "configure_run.yml",
         "config_set_name": "glm_aed_flare_v3_faasr_HOx_off"
       },
-      "InvokeNext": ["run_weir_inflow[TRUE]"]
+      "InvokeNext": ["run-weir-inflow"]
     },
-    "run_weir_inflow": {
-      "FunctionName": "run_weir_inflow",
+    "run-weir-inflow": {
+      "FunctionName": "run-weir-inflow",
       "FaaSServer": "My_GitHub_Account",
       "Actioncontainer": "ghcr.io/ashish-ramrakhiani/github-actions-flare:latest",
       "Type": "R",
@@ -107,10 +107,10 @@
         "configure_run_file": "configure_run.yml",
         "config_set_name": "glm_aed_flare_v3_faasr_HOx_off"
       },
-      "InvokeNext": ["forecast_HOx_off"]
+      "InvokeNext": ["forecast-HOx-off"]
     },
-    "forecast_HOx_off": {
-      "FunctionName": "forecast_HOx_off",
+    "forecast-HOx-off": {
+      "FunctionName": "forecast-HOx-off",
       "FaaSServer": "My_GitHub_Account",
       "Actioncontainer": "ghcr.io/ashish-ramrakhiani/github-actions-flare:latest",
       "Type": "R",
@@ -118,10 +118,10 @@
         "configure_run_file": "configure_run.yml",
         "config_set_name": "glm_aed_flare_v3_faasr_HOx_off"
       },
-      "InvokeNext": ["check_anoxia"]
+      "InvokeNext": ["check-anoxia"]
     },
-    "check_anoxia": {
-      "FunctionName": "check_anoxia",
+    "check-anoxia": {
+      "FunctionName": "check-anoxia",
       "FaaSServer": "My_GitHub_Account",
       "Actioncontainer": "ghcr.io/ashish-ramrakhiani/github-actions-flare:latest",
       "Type": "R",
@@ -129,10 +129,10 @@
         "configure_run_file": "configure_run.yml",
         "config_set_name": "glm_aed_flare_v3_faasr_HOx_off"
       },
-      "InvokeNext": ["forecast_HOx_on[TRUE]", "viz_HOx_off[FALSE]"]
+      "InvokeNext": ["forecast-HOx-on[TRUE]", "viz-HOx-off[FALSE]"]
     },
-    "forecast_HOx_on": {
-      "FunctionName": "forecast_HOx_on",
+    "forecast-HOx-on": {
+      "FunctionName": "forecast-HOx-on",
       "FaaSServer": "My_GitHub_Account",
       "Actioncontainer": "ghcr.io/ashish-ramrakhiani/github-actions-flare:latest",
       "Type": "R",
@@ -140,10 +140,10 @@
         "configure_run_file": "configure_run.yml",
         "config_set_name": "glm_aed_flare_v3_faasr_HOx_on"
       },
-      "InvokeNext": ["viz_HOx_on"]
+      "InvokeNext": ["viz-HOx-on"]
     },
-    "viz_HOx_off": {
-      "FunctionName": "viz_HOx_off",
+    "viz-HOx-off": {
+      "FunctionName": "viz-HOx-off",
       "FaaSServer": "My_GitHub_Account",
       "Actioncontainer": "ghcr.io/ashish-ramrakhiani/github-actions-flare:latest",
       "Type": "R",
@@ -154,8 +154,8 @@
       },
       "InvokeNext": []
     },
-    "viz_HOx_on": {
-      "FunctionName": "viz_HOx_on",
+    "viz-HOx-on": {
+      "FunctionName": "viz-HOx-on",
       "FaaSServer": "My_GitHub_Account",
       "Actioncontainer": "ghcr.io/ashish-ramrakhiani/github-actions-flare:latest",
       "Type": "R",
@@ -164,10 +164,10 @@
         "configure_run_file": "configure_run.yml",
         "config_set_name": "glm_aed_flare_v3_faasr_HOx_on"
       },
-      "InvokeNext": ["check_notify"]
+      "InvokeNext": ["check-notify"]
     },
-    "check_notify": {
-      "FunctionName": "check_notify",
+    "check-notify": {
+      "FunctionName": "check-notify",
       "FaaSServer": "My_GitHub_Account",
       "Actioncontainer": "ghcr.io/ashish-ramrakhiani/github-actions-flare:latest",
       "Type": "R",
@@ -177,47 +177,89 @@
   },
   
   "ActionContainers": {
-  "check_weather": "ghcr.io/ashish-ramrakhiani/github-actions-flare:latest",
-  "run_weir_inflow": "ghcr.io/ashish-ramrakhiani/github-actions-flare:latest",
-  "forecast_HOx_off": "ghcr.io/ashish-ramrakhiani/github-actions-flare:latest",
-  "check_anoxia": "ghcr.io/ashish-ramrakhiani/github-actions-flare:latest",
-  "forecast_HOx_on": "ghcr.io/ashish-ramrakhiani/github-actions-flare:latest",
-  "viz_HOx_off": "ghcr.io/ashish-ramrakhiani/github-actions-flare:latest",
-  "viz_HOx_on": "ghcr.io/ashish-ramrakhiani/github-actions-flare:latest",
-  "check_notify": "ghcr.io/ashish-ramrakhiani/github-actions-flare:latest"
+    "check-weather": "ghcr.io/ashish-ramrakhiani/github-actions-flare:latest",
+    "run-weir-inflow": "ghcr.io/ashish-ramrakhiani/github-actions-flare:latest",
+    "forecast-HOx-off": "ghcr.io/ashish-ramrakhiani/github-actions-flare:latest",
+    "check-anoxia": "ghcr.io/ashish-ramrakhiani/github-actions-flare:latest",
+    "forecast-HOx-on": "ghcr.io/ashish-ramrakhiani/github-actions-flare:latest",
+    "viz-HOx-off": "ghcr.io/ashish-ramrakhiani/github-actions-flare:latest",
+    "viz-HOx-on": "ghcr.io/ashish-ramrakhiani/github-actions-flare:latest",
+    "check-notify": "ghcr.io/ashish-ramrakhiani/github-actions-flare:latest"
+  },
+  
+  "FunctionList": {
+    "check-weather": {
+      "FunctionName": "check-weather",
+      "Type": "R",
+      "InvokeNext": ["run-weir-inflow"]
+    },
+    "run-weir-inflow": {
+      "FunctionName": "run-weir-inflow",
+      "Type": "R",
+      "InvokeNext": ["forecast-HOx-off"]
+    },
+    "forecast-HOx-off": {
+      "FunctionName": "forecast-HOx-off",
+      "Type": "R",
+      "InvokeNext": ["check-anoxia"]
+    },
+    "check-anoxia": {
+      "FunctionName": "check-anoxia",
+      "Type": "R",
+      "InvokeNext": ["forecast-HOx-on", "viz-HOx-off"]
+    },
+    "forecast-HOx-on": {
+      "FunctionName": "forecast-HOx-on",
+      "Type": "R",
+      "InvokeNext": ["viz-HOx-on"]
+    },
+    "viz-HOx-off": {
+      "FunctionName": "viz-HOx-off",
+      "Type": "R",
+      "InvokeNext": []
+    },
+    "viz-HOx-on": {
+      "FunctionName": "viz-HOx-on",
+      "Type": "R",
+      "InvokeNext": ["check-notify"]
+    },
+    "check-notify": {
+      "FunctionName": "check-notify",
+      "Type": "R",
+      "InvokeNext": []
+    }
   },
   
   "FunctionGitRepo": {
-    "check_weather": ["Ashish-Ramrakhiani/FCRE-forecast-code-FaaSr"],
-    "run_weir_inflow": ["Ashish-Ramrakhiani/FCRE-forecast-code-FaaSr"],
-    "forecast_HOx_off": ["Ashish-Ramrakhiani/FCRE-forecast-code-FaaSr"],
-    "check_anoxia": ["Ashish-Ramrakhiani/FCRE-forecast-code-FaaSr"],
-    "forecast_HOx_on": ["Ashish-Ramrakhiani/FCRE-forecast-code-FaaSr"],
-    "viz_HOx_off": ["Ashish-Ramrakhiani/FCRE-forecast-code-FaaSr"],
-    "viz_HOx_on": ["Ashish-Ramrakhiani/FCRE-forecast-code-FaaSr"],
-    "check_notify": ["Ashish-Ramrakhiani/FCRE-forecast-code-FaaSr"]
+    "check-weather": ["Ashish-Ramrakhiani/FCRE-forecast-code-FaaSr"],
+    "run-weir-inflow": ["Ashish-Ramrakhiani/FCRE-forecast-code-FaaSr"],
+    "forecast-HOx-off": ["Ashish-Ramrakhiani/FCRE-forecast-code-FaaSr"],
+    "check-anoxia": ["Ashish-Ramrakhiani/FCRE-forecast-code-FaaSr"],
+    "forecast-HOx-on": ["Ashish-Ramrakhiani/FCRE-forecast-code-FaaSr"],
+    "viz-HOx-off": ["Ashish-Ramrakhiani/FCRE-forecast-code-FaaSr"],
+    "viz-HOx-on": ["Ashish-Ramrakhiani/FCRE-forecast-code-FaaSr"],
+    "check-notify": ["Ashish-Ramrakhiani/FCRE-forecast-code-FaaSr"]
   },
 
   "FunctionCRANPackage": {
-    "check_weather": [],
-    "run_weir_inflow": [],
-    "forecast_HOx_off": [],
-    "check_anoxia": [],
-    "forecast_HOx_on": [],
-    "viz_HOx_off": [],
-    "viz_HOx_on": [],
-    "check_notify": []
+    "check-weather": [],
+    "run-weir-inflow": [],
+    "forecast-HOx-off": [],
+    "check-anoxia": [],
+    "forecast-HOx-on": [],
+    "viz-HOx-off": [],
+    "viz-HOx-on": [],
+    "check-notify": []
   },
   
   "FunctionGitHubPackage": {
-    "check_weather": [],
-    "run_weir_inflow": [],
-    "forecast_HOx_off": [],
-    "check_anoxia": [],
-    "forecast_HOx_on": [],
-    "viz_HOx_off": [],
-    "viz_HOx_on": [],
-    "check_notify": []
+    "check-weather": [],
+    "run-weir-inflow": [],
+    "forecast-HOx-off": [],
+    "check-anoxia": [],
+    "forecast-HOx-on": [],
+    "viz-HOx-off": [],
+    "viz-HOx-on": [],
+    "check-notify": []
   }
-  
 }
