@@ -176,6 +176,17 @@
     }
   },
   
+  "ActionContainers": {
+  "check_weather": "ghcr.io/ashish-ramrakhiani/github-actions-flare:latest",
+  "run_weir_inflow": "ghcr.io/ashish-ramrakhiani/github-actions-flare:latest",
+  "forecast_HOx_off": "ghcr.io/ashish-ramrakhiani/github-actions-flare:latest",
+  "check_anoxia": "ghcr.io/ashish-ramrakhiani/github-actions-flare:latest",
+  "forecast_HOx_on": "ghcr.io/ashish-ramrakhiani/github-actions-flare:latest",
+  "viz_HOx_off": "ghcr.io/ashish-ramrakhiani/github-actions-flare:latest",
+  "viz_HOx_on": "ghcr.io/ashish-ramrakhiani/github-actions-flare:latest",
+  "check_notify": "ghcr.io/ashish-ramrakhiani/github-actions-flare:latest"
+,
+  
   "FunctionGitRepo": {
     "check_weather": ["Ashish-Ramrakhiani/FCRE-forecast-code-FaaSr"],
     "run_weir_inflow": ["Ashish-Ramrakhiani/FCRE-forecast-code-FaaSr"],
