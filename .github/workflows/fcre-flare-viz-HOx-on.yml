@@ -1,0 +1,49 @@
+name: fcre-flare-viz-HOx-on
+
+on:
+    workflow_dispatch:
+        inputs:
+            OVERWRITTEN:
+                description: "Overwritten fields"
+                required: true
+            PAYLOAD_URL:
+                description: "URL to payload"
+                required: true
+
+jobs:
+    run_docker_image:
+        runs-on: ubuntu-latest
+        container: ghcr.io/ashish-ramrakhiani/github-actions-flare:latest
+
+        env:
+            My_GitHub_Account_PAT: ${{ secrets.My_GitHub_Account_PAT}}
+            My_S3_Bucket_AccessKey: ${{ secrets.My_S3_Bucket_AccessKey}}
+            My_S3_Bucket_SecretKey: ${{ secrets.My_S3_Bucket_SecretKey}}
+            drivers_AccessKey: ${{ secrets.drivers_AccessKey}}
+            drivers_SecretKey: ${{ secrets.drivers_SecretKey}}
+            restart_AccessKey: ${{ secrets.restart_AccessKey}}
+            restart_SecretKey: ${{ secrets.restart_SecretKey}}
+            inflow_drivers_AccessKey: ${{ secrets.inflow_drivers_AccessKey}}
+            inflow_drivers_SecretKey: ${{ secrets.inflow_drivers_SecretKey}}
+            outflow_drivers_AccessKey: ${{ secrets.outflow_drivers_AccessKey}}
+            outflow_drivers_SecretKey: ${{ secrets.outflow_drivers_SecretKey}}
+            forecasts_AccessKey: ${{ secrets.forecasts_AccessKey}}
+            forecasts_SecretKey: ${{ secrets.forecasts_SecretKey}}
+            forecasts_parquet_AccessKey: ${{ secrets.forecasts_parquet_AccessKey}}
+            forecasts_parquet_SecretKey: ${{ secrets.forecasts_parquet_SecretKey}}
+            scores_AccessKey: ${{ secrets.scores_AccessKey}}
+            scores_SecretKey: ${{ secrets.scores_SecretKey}}
+            output_plots_AccessKey: ${{ secrets.output_plots_AccessKey}}
+            output_plots_SecretKey: ${{ secrets.output_plots_SecretKey}}
+            vera_forecasts_AccessKey: ${{ secrets.vera_forecasts_AccessKey}}
+            vera_forecasts_SecretKey: ${{ secrets.vera_forecasts_SecretKey}}
+            targets_AccessKey: ${{ secrets.targets_AccessKey}}
+            targets_SecretKey: ${{ secrets.targets_SecretKey}}
+            OVERWRITTEN: ${{ github.event.inputs.OVERWRITTEN }}
+            PAYLOAD_URL: ${{ github.event.inputs.PAYLOAD_URL }}
+
+        steps:
+          - name: Run Python entrypoint
+            run: |
+                cd /action
+                python3 faasr_entry.py
