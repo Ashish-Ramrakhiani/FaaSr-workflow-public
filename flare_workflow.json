@@ -176,49 +176,6 @@
     }
   },
   
-  "FunctionList": {
-    "check_weather": {
-      "FunctionName": "check_weather",
-      "Type": "R",
-      "InvokeNext": ["run_weir_inflow"]
-    },
-    "run_weir_inflow": {
-      "FunctionName": "run_weir_inflow",
-      "Type": "R",
-      "InvokeNext": ["forecast_HOx_off"]
-    },
-    "forecast_HOx_off": {
-      "FunctionName": "forecast_HOx_off",
-      "Type": "R",
-      "InvokeNext": ["check_anoxia"]
-    },
-    "check_anoxia": {
-      "FunctionName": "check_anoxia",
-      "Type": "R",
-      "InvokeNext": ["forecast_HOx_on", "viz_HOx_off"]
-    },
-    "forecast_HOx_on": {
-      "FunctionName": "forecast_HOx_on",
-      "Type": "R",
-      "InvokeNext": ["viz_HOx_on"]
-    },
-    "viz_HOx_off": {
-      "FunctionName": "viz_HOx_off",
-      "Type": "R",
-      "InvokeNext": []
-    },
-    "viz_HOx_on": {
-      "FunctionName": "viz_HOx_on",
-      "Type": "R",
-      "InvokeNext": ["check_notify"]
-    },
-    "check_notify": {
-      "FunctionName": "check_notify",
-      "Type": "R",
-      "InvokeNext": []
-    }
-  },
-  
   "FunctionGitRepo": {
     "check_weather": ["Ashish-Ramrakhiani/FCRE-forecast-code-FaaSr"],
     "run_weir_inflow": ["Ashish-Ramrakhiani/FCRE-forecast-code-FaaSr"],
@@ -228,6 +185,28 @@
     "viz_HOx_off": ["Ashish-Ramrakhiani/FCRE-forecast-code-FaaSr"],
     "viz_HOx_on": ["Ashish-Ramrakhiani/FCRE-forecast-code-FaaSr"],
     "check_notify": ["Ashish-Ramrakhiani/FCRE-forecast-code-FaaSr"]
+  },
+
+  "FunctionCRANPackage": {
+    "check_weather": [],
+    "run_weir_inflow": [],
+    "forecast_HOx_off": [],
+    "check_anoxia": [],
+    "forecast_HOx_on": [],
+    "viz_HOx_off": [],
+    "viz_HOx_on": [],
+    "check_notify": []
+  },
+  
+  "FunctionGitHubPackage": {
+    "check_weather": [],
+    "run_weir_inflow": [],
+    "forecast_HOx_off": [],
+    "check_anoxia": [],
+    "forecast_HOx_on": [],
+    "viz_HOx_off": [],
+    "viz_HOx_on": [],
+    "check_notify": []
   }
   
 }
