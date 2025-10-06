@@ -243,6 +243,121 @@ class VMInjectionTool:
         logger.info(f"Updated FunctionInvoke to: {vm_start_name}")
         
         logger.info("VM actions injected successfully")
+
+    def inject_vm_actions_strategy_parallel(self):
+        """
+        Strategy: Parallel execution with per-action polling.
+        
+        - faasr-vm-start: Fire VM start command at beginning (no wait)
+        - faasr-vm-poll: Before each VM-requiring action (waits for ready)
+        - faasr-vm-stop: After all leaves (unchanged)
+        
+        This allows non-VM actions to run in parallel while VM starts.
+        """
+        logger.info("Applying Parallel Strategy: Start fires, poll before each VM action")
+        
+        if "VMConfig" not in self.workflow:
+            raise ValueError("VMConfig required for VM workflows")
+        
+        entry_action = self.find_entry_action()
+        leaf_actions = self.find_leaf_actions()
+        github_server = self.find_github_server()
+        container = self.find_container_for_server(github_server)
+        
+        logger.info(f"Entry action: {entry_action}")
+        logger.info(f"Leaf actions: {leaf_actions}")
+        
+        # Define injected action names
+        vm_start_name = "faasr-vm-start"
+        vm_stop_name = "faasr-vm-stop"
+        
+        # Check for name conflicts
+        if vm_start_name in self.workflow["ActionList"]:
+            raise ValueError(f"Action name conflict: {vm_start_name} already exists")
+        if vm_stop_name in self.workflow["ActionList"]:
+            raise ValueError(f"Action name conflict: {vm_stop_name} already exists")
+        
+        # Create VM start action (fire and forget)
+        self.workflow["ActionList"][vm_start_name] = {
+            "FunctionName": "vm_start",
+            "FaaSServer": github_server,
+            "Type": "Python",
+            "RequiresVM": False,
+            "InvokeNext": [entry_action],
+            "_faasr_builtin": True
+        }
+        
+        # Create VM stop action (unchanged)
+        self.workflow["ActionList"][vm_stop_name] = {
+            "FunctionName": "vm_stop",
+            "FaaSServer": github_server,
+            "Type": "Python",
+            "RequiresVM": False,
+            "InvokeNext": [],
+            "_faasr_builtin": True
+        }
+        
+        # Find all VM-requiring actions and inject poll before each
+        vm_actions = []
+        for action_name, action_config in self.workflow["ActionList"].items():
+            if action_config.get("RequiresVM", False):
+                vm_actions.append(action_name)
+        
+        logger.info(f"Found {len(vm_actions)} VM-requiring actions: {vm_actions}")
+        
+        # For each VM action, inject a poll action as its predecessor
+        for vm_action_name in vm_actions:
+            poll_action_name = f"faasr-vm-poll-{vm_action_name}"
+            
+            if poll_action_name in self.workflow["ActionList"]:
+                raise ValueError(f"Action name conflict: {poll_action_name} already exists")
+            
+            # Create poll action
+            self.workflow["ActionList"][poll_action_name] = {
+                "FunctionName": "vm_poll",
+                "FaaSServer": github_server,
+                "Type": "Python",
+                "RequiresVM": False,
+                "InvokeNext": [vm_action_name],
+                "_faasr_builtin": True
+            }
+            
+            if container:
+                self.workflow["ActionContainers"][poll_action_name] = container
+            
+            # Find all actions that invoke this VM action and redirect them to poll
+            for action_name, action_config in self.workflow["ActionList"].items():
+                if action_name == poll_action_name:
+                    continue
+                
+                invoke_next = action_config.get("InvokeNext", [])
+                if isinstance(invoke_next, str):
+                    invoke_next = [invoke_next]
+                
+                if vm_action_name in invoke_next:
+                    # Replace vm_action with poll_action
+                    new_invoke_next = [poll_action_name if x == vm_action_name else x for x in invoke_next]
+                    action_config["InvokeNext"] = new_invoke_next
+                    logger.info(f"Redirected '{action_name}' to invoke poll before '{vm_action_name}'")
+        
+        # Modify leaf actions to point to stop
+        for leaf_name in leaf_actions:
+            self.workflow["ActionList"][leaf_name]["InvokeNext"] = [vm_stop_name]
+            logger.info(f"Modified leaf '{leaf_name}' to invoke VM stop")
+        
+        # Add containers for injected actions
+        if "ActionContainers" not in self.workflow:
+            self.workflow["ActionContainers"] = {}
+        
+        if container:
+            self.workflow["ActionContainers"][vm_start_name] = container
+            self.workflow["ActionContainers"][vm_stop_name] = container
+        
+        # Update FunctionInvoke to point to vm_start
+        self.workflow["FunctionInvoke"] = vm_start_name
+        logger.info(f"Updated FunctionInvoke to: {vm_start_name}")
+        
+        logger.info("VM actions injected successfully with parallel strategy")
     
     def save_workflow(self):
         """Save augmented workflow to output file."""
@@ -253,34 +368,32 @@ class VMInjectionTool:
         
         logger.info("Augmented workflow saved")
     
-    def run(self):
+    def run(self, strategy="sequential"): 
         """Execute full injection process."""
         try:
-            # Load and validate input
             self.load_workflow()
             
-            # Check if VM injection needed
             if not self.needs_vm():
                 logger.info("Workflow does not require VM - no injection needed")
-                logger.info("Copying original workflow to output unchanged")
                 self.save_workflow()
                 return True
             
-            # Inject VM actions
-            self.inject_vm_actions_strategy1()
+            # Apply selected strategy
+            if strategy == "parallel":
+                self.inject_vm_actions_strategy_parallel()
+            elif strategy == "sequential":
+                self.inject_vm_actions_strategy1()
+            else:
+                raise ValueError(f"Unknown strategy: {strategy}")
             
-            # Save
             self.save_workflow()
             
             logger.info("=" * 60)
             logger.info("SUCCESS: Workflow augmented with VM orchestration")
+            logger.info(f"Strategy: {strategy}")
             logger.info(f"Input:  {self.workflow_path}")
             logger.info(f"Output: {self.output_path}")
             logger.info("=" * 60)
-            logger.info("Next steps:")
-            logger.info(f"1. Review: {self.output_path}")
-            logger.info(f"2. Register: python scripts/register_workflow.py --workflow-file {self.output_path}")
-            logger.info(f"3. Invoke: python scripts/invoke_workflow.py --workflow-file {self.output_path}")
             
             return True
             
@@ -306,27 +419,22 @@ def main():
     )
     parser.add_argument(
         "--strategy",
-        type=int,
-        default=1,
-        choices=[1],
-        help="VM orchestration strategy (currently only 1 supported)"
+        default="sequential",
+        choices=["sequential", "parallel"],
+        help="VM orchestration strategy: sequential (start/wait/stop) or parallel (poll per VM action)"
     )
     
     args = parser.parse_args()
 
     if os.getenv("GITHUB_ACTIONS") == "true":
-          logger.info("Running in GitHub Actions environment")
-    
-    if args.strategy != 1:
-        logger.error(f"Strategy {args.strategy} not yet implemented")
-        sys.exit(1)
+        logger.info("Running in GitHub Actions environment")
     
     tool = VMInjectionTool(args.input, args.output)
-    success = tool.run()
+    success = tool.run(strategy=args.strategy)
 
     if os.getenv("GITHUB_ACTIONS") == "true":
-          output_file = tool.output_path
-          print(f"::set-output name=augmented_file::{output_file}")
+        output_file = tool.output_path
+        print(f"::set-output name=augmented_file::{output_file}")
     
     sys.exit(0 if success else 1)
 

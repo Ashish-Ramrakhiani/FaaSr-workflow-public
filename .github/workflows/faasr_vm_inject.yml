@@ -10,10 +10,11 @@ on:
       strategy:
         description: 'VM orchestration strategy'
         required: false
-        default: '1'
+        default: 'sequential'
         type: choice
         options:
-          - '1'
+          - 'sequential'
+          - 'parallel'
       commit_result:
         description: 'Commit augmented workflow back to repo'
         required: false
@@ -57,7 +58,7 @@ jobs:
           if git diff --staged --quiet; then
             echo "No changes to commit"
           else
-            git commit -m "Auto-generated: VM-augmented workflow from ${{ github.event.inputs.workflow_file }}"
+            git commit -m "chore: inject VM orchestration (${{ github.event.inputs.strategy }}) into ${{ github.event.inputs.workflow_file }}"
             git push
           fi
       
