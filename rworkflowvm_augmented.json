@@ -33,7 +33,7 @@
                 "message": "Running on GitHub-hosted serverless runner"
             },
             "InvokeNext": [
-                "rfunc2"
+                "faasr-vm-poll-rfunc2"
             ]
         },
         "rfunc2": {
@@ -65,11 +65,22 @@
             "RequiresVM": false,
             "InvokeNext": [],
             "_faasr_builtin": true
+        },
+        "faasr-vm-poll-rfunc2": {
+            "FunctionName": "vm_poll",
+            "FaaSServer": "GH",
+            "Type": "Python",
+            "RequiresVM": false,
+            "InvokeNext": [
+                "rfunc2"
+            ],
+            "_faasr_builtin": true
         }
     },
     "ActionContainers": {
         "rfunc": "ghcr.io/ashish-ramrakhiani/github-actions-r:dev",
         "rfunc2": "ghcr.io/ashish-ramrakhiani/github-actions-r:dev",
+        "faasr-vm-poll-rfunc2": "ghcr.io/ashish-ramrakhiani/github-actions-r:dev",
         "faasr-vm-start": "ghcr.io/ashish-ramrakhiani/github-actions-r:dev",
         "faasr-vm-stop": "ghcr.io/ashish-ramrakhiani/github-actions-r:dev"
     },
