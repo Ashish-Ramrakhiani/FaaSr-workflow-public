@@ -9,7 +9,7 @@
         }
     },
     "DataStores": {
-        "My_S3_Bucket": {
+        "My_Minio_Bucket": {
             "Endpoint": "https://play.min.io",
             "Bucket": "faasr",
             "Region": "us-east-1"
@@ -59,8 +59,8 @@
     },
     "FunctionInvoke": "rfunc",
     "FaaSrLog": "FaaSrLog",
-    "LoggingDataStore": "My_S3_Bucket",
-    "DefaultDataStore": "My_S3_Bucket",
+    "LoggingDataStore": "My_Minio_Bucket",
+    "DefaultDataStore": "My_Minio_Bucket",
     "InvocationID": "1234",
     "InvocationIDFromDate": "%Y%m%d%H%M",
     "WorkflowName": "test-vm-workflow"
