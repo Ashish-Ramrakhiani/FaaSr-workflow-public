@@ -1,0 +1,133 @@
+{
+    "ComputeServers": {
+        "GH": {
+            "FaaSType": "GitHubActions",
+            "UseSecretStore": true,
+            "UserName": "Ashish-Ramrakhiani",
+            "ActionRepoName": "FaaSr-workflow-public",
+            "Branch": "main"
+        }
+    },
+    "DataStores": {
+        "My_Minio_Bucket": {
+            "Endpoint": "https://play.min.io",
+            "Bucket": "faasr",
+            "Region": "us-east-1"
+        }
+    },
+    "VMConfig": {
+        "Name": "AWS_VM",
+        "Provider": "AWS",
+        "Strategy": "simple_start_end",
+        "InstanceId": "i-09405009da063a647",
+        "Region": "us-west-2",
+        "RunnerName": "ip-172-31-39-220"
+    },
+    "ActionList": {
+        "data-ingest": {
+            "FunctionName": "r_log",
+            "FaaSServer": "GH",
+            "Type": "R",
+            "RequiresVM": false,
+            "Arguments": {
+                "message": "Ingesting data from sources"
+            },
+            "InvokeNext": ["transform-1", "transform-2", "transform-3"]
+        },
+        "transform-1": {
+            "FunctionName": "r_log",
+            "FaaSServer": "GH",
+            "Type": "R",
+            "RequiresVM": false,
+            "Arguments": {
+                "message": "Lightweight transformation on serverless"
+            },
+            "InvokeNext": ["aggregate"]
+        },
+        "transform-2": {
+            "FunctionName": "r_log",
+            "FaaSServer": "GH",
+            "Type": "R",
+            "RequiresVM": true,
+            "Arguments": {
+                "message": "Heavy ML training on VM"
+            },
+            "InvokeNext": ["aggregate"]
+        },
+        "transform-3": {
+            "FunctionName": "r_log",
+            "FaaSServer": "GH",
+            "Type": "R",
+            "RequiresVM": false,
+            "Arguments": {
+                "message": "Quick validation on serverless"
+            },
+            "InvokeNext": ["aggregate"]
+        },
+        "aggregate": {
+            "FunctionName": "r_log",
+            "FaaSServer": "GH",
+            "Type": "R",
+            "RequiresVM": false,
+            "Arguments": {
+                "message": "Aggregating results from parallel tasks"
+            },
+            "InvokeNext": ["compute-intensive", "reporting"]
+        },
+        "compute-intensive": {
+            "FunctionName": "r_log",
+            "FaaSServer": "GH",
+            "Type": "R",
+            "RequiresVM": true,
+            "Arguments": {
+                "message": "Running simulations on VM"
+            },
+            "InvokeNext": ["finalize"]
+        },
+        "reporting": {
+            "FunctionName": "r_log",
+            "FaaSServer": "GH",
+            "Type": "R",
+            "RequiresVM": false,
+            "Arguments": {
+                "message": "Generating reports on serverless"
+            },
+            "InvokeNext": ["finalize"]
+        },
+        "finalize": {
+            "FunctionName": "r_log",
+            "FaaSServer": "GH",
+            "Type": "R",
+            "RequiresVM": false,
+            "Arguments": {
+                "message": "Final cleanup and notification"
+            },
+            "InvokeNext": []
+        }
+    },
+    "ActionContainers": {
+        "data-ingest": "ghcr.io/ashish-ramrakhiani/github-actions-r:dev",
+        "transform-1": "ghcr.io/ashish-ramrakhiani/github-actions-r:dev",
+        "transform-2": "ghcr.io/ashish-ramrakhiani/github-actions-r:dev",
+        "transform-3": "ghcr.io/ashish-ramrakhiani/github-actions-r:dev",
+        "aggregate": "ghcr.io/ashish-ramrakhiani/github-actions-r:dev",
+        "compute-intensive": "ghcr.io/ashish-ramrakhiani/github-actions-r:dev",
+        "reporting": "ghcr.io/ashish-ramrakhiani/github-actions-r:dev",
+        "finalize": "ghcr.io/ashish-ramrakhiani/github-actions-r:dev"
+    },
+    "FunctionCRANPackage": {
+        "r_log": [
+            "gapminder"
+        ]
+    },
+    "FunctionGitRepo": {
+        "r_log": "nolcut/test-py"
+    },
+    "FunctionInvoke": "data-ingest",
+    "FaaSrLog": "FaaSrLog",
+    "LoggingDataStore": "My_Minio_Bucket",
+    "DefaultDataStore": "My_Minio_Bucket",
+    "InvocationID": "1234",
+    "InvocationIDFromDate": "%Y%m%d%H%M",
+    "WorkflowName": "complex-vm-workflow"
+}
