@@ -32,7 +32,7 @@
             "Arguments": {
                 "message": "Running on GitHub-hosted serverless runner"
             },
-            "InvokeNext": ["rfunc2(2)"]
+            "InvokeNext": ["rfunc2","rfunc3"]
         },
         "rfunc2": {
             "FunctionName": "r_log",
@@ -42,9 +42,19 @@
             "Arguments": {
                 "message": "Running on self-hosted EC2 VM"
             },
-            "InvokeNext": ["rfunc3"]
+            "InvokeNext": ["rfunc4(2)"]
         },
         "rfunc3": {
+            "FunctionName": "r_log",
+            "FaaSServer": "GH",
+            "Type": "R",
+            "RequiresVM": false,
+            "Arguments": {
+                "message": "Running on self-hosted EC2 VM"
+            },
+            "InvokeNext": ["rfunc4(2)"]
+        },
+          "rfunc4": {
             "FunctionName": "r_log",
             "FaaSServer": "GH",
             "Type": "R",
@@ -58,7 +68,9 @@
     "ActionContainers": {
         "rfunc": "ghcr.io/ashish-ramrakhiani/github-actions-r:dev",
         "rfunc2": "ghcr.io/ashish-ramrakhiani/github-actions-r:dev",
-         "rfunc3": "ghcr.io/ashish-ramrakhiani/github-actions-r:dev"
+         "rfunc3": "ghcr.io/ashish-ramrakhiani/github-actions-r:dev",
+        "rfunc4": "ghcr.io/ashish-ramrakhiani/github-actions-r:dev"
+        
     },
     "FunctionCRANPackage": {
         "r_log": [
