@@ -42,7 +42,7 @@
             "Arguments": {
                 "message": "Running on self-hosted EC2 VM"
             },
-            "InvokeNext": ["rfunc3(3)"]
+            "InvokeNext": ["rfunc3"]
         },
         "rfunc3": {
             "FunctionName": "r_log",
