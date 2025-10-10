@@ -1,0 +1,3 @@
+myfunction <- function() {
+  return(TRUE)
+}
