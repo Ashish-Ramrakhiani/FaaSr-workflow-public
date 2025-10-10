@@ -24,15 +24,20 @@
         "RunnerName":"ip-172-31-39-220"
     },
     "ActionList": {
-        "rfunc": {
-            "FunctionName": "r_log",
+              "myfunction": {
+            "FunctionName": "myfunction",
             "FaaSServer": "GH",
             "Type": "R",
             "RequiresVM": false,
             "Arguments": {
                 "message": "Running on GitHub-hosted serverless runner"
             },
-            "InvokeNext": ["rfunc2","rfunc3"]
+            "InvokeNext": [
+            {
+              "True": ["rfunc2(2)"],
+              "False": ["rfunc3"]
+            }
+      ]
         },
         "rfunc2": {
             "FunctionName": "r_log",
@@ -42,19 +47,9 @@
             "Arguments": {
                 "message": "Running on self-hosted EC2 VM"
             },
-            "InvokeNext": ["rfunc4(2)"]
+            "InvokeNext": ["rfunc3"]
         },
         "rfunc3": {
-            "FunctionName": "r_log",
-            "FaaSServer": "GH",
-            "Type": "R",
-            "RequiresVM": false,
-            "Arguments": {
-                "message": "Running on self-hosted EC2 VM"
-            },
-            "InvokeNext": ["rfunc4(2)"]
-        },
-          "rfunc4": {
             "FunctionName": "r_log",
             "FaaSServer": "GH",
             "Type": "R",
@@ -66,10 +61,9 @@
         }
     },
     "ActionContainers": {
-        "rfunc": "ghcr.io/ashish-ramrakhiani/github-actions-r:dev",
+        "myfunction": "ghcr.io/ashish-ramrakhiani/github-actions-r:dev",
         "rfunc2": "ghcr.io/ashish-ramrakhiani/github-actions-r:dev",
-         "rfunc3": "ghcr.io/ashish-ramrakhiani/github-actions-r:dev",
-        "rfunc4": "ghcr.io/ashish-ramrakhiani/github-actions-r:dev"
+         "rfunc3": "ghcr.io/ashish-ramrakhiani/github-actions-r:dev"
         
     },
     "FunctionCRANPackage": {
@@ -80,7 +74,7 @@
     "FunctionGitRepo": {
         "r_log": "nolcut/test-py"
     },
-    "FunctionInvoke": "rfunc",
+    "FunctionInvoke": "myfunction",
     "FaaSrLog": "FaaSrLog",
     "LoggingDataStore": "My_Minio_Bucket",
     "DefaultDataStore": "My_Minio_Bucket",
