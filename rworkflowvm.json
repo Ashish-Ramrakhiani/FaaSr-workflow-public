@@ -30,7 +30,6 @@
             "Type": "R",
             "RequiresVM": false,
             "Arguments": {
-                "message": "Running on GitHub-hosted serverless runner"
             },
             "InvokeNext": [
             {
@@ -72,7 +71,8 @@
         ]
     },
     "FunctionGitRepo": {
-        "r_log": "nolcut/test-py"
+        "r_log": "nolcut/test-py",
+        "myfunction":"Ashish-Ramrakhiani/FaaSr-workflow-public"
     },
     "FunctionInvoke": "myfunction",
     "FaaSrLog": "FaaSrLog",
