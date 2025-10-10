@@ -33,7 +33,7 @@
             },
             "InvokeNext": [
             {
-              "True": ["rfunc2(2)"],
+              "True": ["rfunc2"],
               "False": ["rfunc3"]
             }
       ]
