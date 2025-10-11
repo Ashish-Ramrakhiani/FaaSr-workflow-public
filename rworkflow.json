@@ -50,7 +50,7 @@
         ]
     },
     "FunctionGitRepo": {
-        "r_log": "nolcut/test-py"
+        "r_log": "Ashish-Ramrakhiani/test-py"
     },
     "FunctionInvoke": "rfunc",
     "FaaSrLog": "FaaSrLog",
