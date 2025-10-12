@@ -24,27 +24,13 @@
         "RunnerName":"ip-172-31-39-220"
     },
     "ActionList": {
-              "myfunction": {
-            "FunctionName": "myfunction",
-            "FaaSServer": "GH",
-            "Type": "R",
-            "RequiresVM": false,
-            "Arguments": {
-            },
-            "InvokeNext": [
-            {
-              "True": ["rfunc2"],
-              "False": ["rfunc3"]
-            }
-      ]
-        },
         "rfunc2": {
             "FunctionName": "r_log",
             "FaaSServer": "GH",
             "Type": "R",
             "RequiresVM": false,
             "Arguments": {
-                "message": "Running on self-hosted EC2 VM"
+                "message": "Running on github-hosted EC2 VM"
             },
             "InvokeNext": ["rfunc3"]
         },
@@ -52,7 +38,7 @@
             "FunctionName": "r_log",
             "FaaSServer": "GH",
             "Type": "R",
-            "RequiresVM": false,
+            "RequiresVM": true,
             "Arguments": {
                 "message": "Running on self-hosted EC2 VM"
             },
@@ -60,7 +46,6 @@
         }
     },
     "ActionContainers": {
-        "myfunction": "ghcr.io/ashish-ramrakhiani/github-actions-r:dev",
         "rfunc2": "ghcr.io/ashish-ramrakhiani/github-actions-r:dev",
          "rfunc3": "ghcr.io/ashish-ramrakhiani/github-actions-r:dev"
         
@@ -71,10 +56,9 @@
         ]
     },
     "FunctionGitRepo": {
-        "r_log": "nolcut/test-py",
-        "myfunction":"Ashish-Ramrakhiani/FaaSr-workflow-public"
+        "r_log": "nolcut/test-py"
     },
-    "FunctionInvoke": "myfunction",
+    "FunctionInvoke": "rfunc2",
     "FaaSrLog": "FaaSrLog",
     "LoggingDataStore": "My_Minio_Bucket",
     "DefaultDataStore": "My_Minio_Bucket",
