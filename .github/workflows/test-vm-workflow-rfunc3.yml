@@ -11,8 +11,8 @@ on:
                 required: true
 
 jobs:
-    run_docker_image:
-        runs-on: ubuntu-latest
+    run_on_vm:
+        runs-on: self-hosted
         container: ghcr.io/ashish-ramrakhiani/github-actions-r:dev
 
         env:
