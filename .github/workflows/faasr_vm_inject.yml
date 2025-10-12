@@ -4,17 +4,17 @@ on:
   workflow_dispatch:
     inputs:
       workflow_file:
-        description: 'Path to workflow JSON file (e.g., rworkflowvm.json)'
+        description: 'Path to workflow JSON file'
         required: true
         type: string
       strategy:
         description: 'VM orchestration strategy'
         required: false
-        default: 'sequential'
+        default: 'parallel'
         type: choice
         options:
-          - 'sequential'
           - 'parallel'
+          - 'sequential' 
       commit_result:
         description: 'Commit augmented workflow back to repo'
         required: false

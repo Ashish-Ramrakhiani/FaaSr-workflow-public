@@ -2,8 +2,24 @@
 """
 FaaSr VM Injection Tool
 
-Augments workflows with VM start/stop actions based on strategy.
-Strategy 1: Start at beginning, stop after all leaves complete.
+Augments workflows with VM orchestration actions based on selected strategy.
+
+Available Strategies:
+
+1. Sequential Strategy (--strategy sequential):
+   - Injects vm_start at workflow beginning (blocks until VM ready)
+   - Injects vm_stop after all workflow leaves complete
+   - Simple approach: workflow waits for VM startup before proceeding
+
+2. Parallel Strategy (--strategy parallel):
+   - Injects vm_start at workflow beginning (non-blocking fire-and-forget)
+   - Injects vm_poll before each VM-requiring action (polls until ready)
+   - Injects vm_stop after all workflow leaves complete
+   - Efficient approach: non-VM actions run in parallel during VM startup
+
+Usage:
+    python faasr_inject_vm.py --input workflow.json --strategy parallel
+    python faasr_inject_vm.py --input workflow.json --strategy sequential --output custom.json
 """
 
 import argparse
@@ -173,14 +189,20 @@ class VMInjectionTool:
         
         return None
     
-    def inject_vm_actions_strategy1(self):
+    def inject_vm_actions_sequential(self):
         """
-        Inject VM start at beginning and stop after all leaves.
+        Inject VM actions using sequential strategy.
         
-        Strategy 1: Start-at-beginning, stop-at-end
+        Sequential Strategy:
+        - Injects vm_start at workflow entry point
+        - vm_start blocks and waits until VM is fully ready
+        - All workflow actions wait for VM startup to complete
+        - Injects vm_stop after all leaf actions complete
+        
+        Workflow Flow:
+            [vm_start + wait] → [action1] → [action2] → ... → [vm_stop]
         """
-        logger.info("Applying Strategy 1: Start at beginning, stop at end")
-        
+        logger.info("Applying Sequential Strategy: Start and wait, then execute")
         # Validate prerequisites
         if "VMConfig" not in self.workflow:
             raise ValueError("VMConfig required for VM workflows")
@@ -244,17 +266,24 @@ class VMInjectionTool:
         
         logger.info("VM actions injected successfully")
 
-    def inject_vm_actions_strategy_parallel(self):
+    def inject_vm_actions_parallel(self):
         """
-        Strategy: Parallel execution with per-action polling.
+        Inject VM actions using parallel strategy with polling.
         
-        - faasr-vm-start: Fire VM start command at beginning (no wait)
-        - faasr-vm-poll: Before each VM-requiring action (waits for ready)
-        - faasr-vm-stop: After all leaves (unchanged)
+        Parallel Strategy:
+        - Injects vm_start at workflow entry (fire-and-forget, non-blocking)
+        - Injects vm_poll before each VM-requiring action (polls until ready)
+        - Non-VM actions can execute in parallel during VM startup
+        - Injects vm_stop after all leaf actions complete
         
-        This allows non-VM actions to run in parallel while VM starts.
+        Workflow Flow:
+            [vm_start (async)] → [non-vm-action] (runs immediately)
+                            ↓
+                        [vm_poll] → [vm-action] → ...
+                        ↑ waits here
         """
         logger.info("Applying Parallel Strategy: Start fires, poll before each VM action")
+    
         
         if "VMConfig" not in self.workflow:
             raise ValueError("VMConfig required for VM workflows")
@@ -368,7 +397,7 @@ class VMInjectionTool:
         
         logger.info("Augmented workflow saved")
     
-    def run(self, strategy="sequential"): 
+    def run(self, strategy="parallel"): 
         """Execute full injection process."""
         try:
             self.load_workflow()
@@ -380,9 +409,9 @@ class VMInjectionTool:
             
             # Apply selected strategy
             if strategy == "parallel":
-                self.inject_vm_actions_strategy_parallel()
+                self.inject_vm_actions_parallel()
             elif strategy == "sequential":
-                self.inject_vm_actions_strategy1()
+                self.inject_vm_actions_sequential()
             else:
                 raise ValueError(f"Unknown strategy: {strategy}")
             
@@ -419,9 +448,9 @@ def main():
     )
     parser.add_argument(
         "--strategy",
-        default="sequential",
+        default="parallel",
         choices=["sequential", "parallel"],
-        help="VM orchestration strategy: sequential (start/wait/stop) or parallel (poll per VM action)"
+        help="VM orchestration strategy: 'sequential' blocks until VM ready (simple), 'parallel' polls per VM action (efficient, default)"
     )
     
     args = parser.parse_args()
