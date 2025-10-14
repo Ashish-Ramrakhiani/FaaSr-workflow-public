@@ -41,8 +41,8 @@
         }
     },
     "ActionContainers": {
-        "rfunc": "faasr/gcp-r:2.0.1 ",
-        "rfunc2": "faasr/gcp-r:2.0.1 "
+        "rfunc": "ramrakha/gcp-r:dev ",
+        "rfunc2": "ramrakha/gcp-r:dev "
     },
     "FunctionCRANPackage": {
         "r_log": [
@@ -58,5 +58,5 @@
     "DefaultDataStore": "My_S3_Bucket",
     "InvocationID":"1234",
     "InvocationIDFromDate": "%Y%m%d%H%M",
-    "WorkflowName": "test-gcp"
+    "WorkflowName": "test_gcp"
 }
