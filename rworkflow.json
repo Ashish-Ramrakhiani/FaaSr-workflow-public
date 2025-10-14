@@ -27,7 +27,8 @@
             "Type": "R",
             "Arguments": {
                 "message": "testing testing testing"
-            }
+            },
+            "InvokeNext": []
         }
     },
     "ActionContainers": {
