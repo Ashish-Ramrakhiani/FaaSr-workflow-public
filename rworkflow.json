@@ -28,7 +28,7 @@
             "Arguments": {
                 "message": "testing testing testing"
             },
-            "InvokeNext": ["rfunc2"]
+            "InvokeNext": []
         }
     },
     "ActionContainers": {
