@@ -45,6 +45,5 @@
     "FaaSrLog": "FaaSrLog",
     "LoggingDataStore": "My_S3_Bucket",
     "DefaultDataStore": "My_S3_Bucket",
-    "InvocationIDFromDate": "%Y%m%d%H%M",
     "WorkflowName": "test-gcp"
 }
