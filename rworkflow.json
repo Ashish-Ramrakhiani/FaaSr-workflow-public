@@ -31,7 +31,7 @@
         }
     },
     "ActionContainers": {
-        "rfunc": "ramrakha/gcp-r:dev "
+        "rfunc": "ramrakha/gcp-r:invoke_fix "
     },
     "FunctionCRANPackage": {
         "r_log": [
