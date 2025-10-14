@@ -1010,6 +1010,13 @@ def main():
     # Store the workflow file path in the workflow data
     workflow_data["_workflow_file"] = args.workflow_file
 
+    print("Validating workflow against FaaSr schema...")
+    try:
+        faasr_gf.validate_json(workflow_data)
+    except SystemExit:
+        print("Workflow validation failed - check logs for details")
+
+
     # Validate workflow for cycles and unreachable states
     print("Validating workflow for cycles and unreachable states...")
     try:
