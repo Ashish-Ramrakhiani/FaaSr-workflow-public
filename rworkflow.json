@@ -29,20 +29,10 @@
                 "message": "testing testing testing"
             },
             "InvokeNext": ["rfunc2"]
-        },
-         "rfunc2": {
-            "FunctionName": "r_log",
-            "FaaSServer": "GCP",
-            "Type": "R",
-            "Arguments": {
-                "message": "testing testing testing"
-            },
-            "InvokeNext": []
         }
     },
     "ActionContainers": {
-        "rfunc": "ramrakha/gcp-r:dev ",
-        "rfunc2": "ramrakha/gcp-r:dev "
+        "rfunc": "ramrakha/gcp-r:dev "
     },
     "FunctionCRANPackage": {
         "r_log": [
