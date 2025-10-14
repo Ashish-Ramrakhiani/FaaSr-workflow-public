@@ -1011,12 +1011,8 @@ def main():
     workflow_data["_workflow_file"] = args.workflow_file
 
     print("Validating workflow against FaaSr schema...")
-    try:
-        faasr_gf.validate_json(workflow_data)
-    except SystemExit:
-        print("Workflow validation failed - check logs for details")
-
-
+    faasr_gf.validate_json(workflow_data)
+    
     # Validate workflow for cycles and unreachable states
     print("Validating workflow for cycles and unreachable states...")
     try:
