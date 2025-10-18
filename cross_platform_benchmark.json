@@ -18,7 +18,7 @@
             "Memory": 512,
             "TimeLimit": 3600
         },
-        "AWS_Lambda": {
+        "AWS": {
             "FaaSType": "Lambda",
             "Region": "us-east-1",
             "UseSecretStore": true,
@@ -57,7 +57,7 @@
         },
         "action_lambda": {
             "FunctionName": "timestamp_logger",
-            "FaaSServer": "AWS_Lambda",
+            "FaaSServer": "AWS",
             "Type": "Python",
             "Arguments": {
                 "folder": "runtime_test",
@@ -91,7 +91,7 @@
         "start": "ghcr.io/faasr/github-actions-python:latest",
         "action_gcp": "faasr/gcp-r:latest",
         "action_lambda": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-python:latest",
-        "action_gh": "ghcr.io/faasr/github-actions-python:latest,
+        "action_gh": "ghcr.io/faasr/github-actions-python:latest",
         "action_vm": "ghcr.io/faasr/github-actions-python:latest"
     },
 "VMConfig": {
