@@ -45,13 +45,13 @@
                 "tag": "start"
             },
             "InvokeNext": [
-                "action_gcp",
-                "action_lambda",
-                "action_gh",
-                "faasr-vm-poll-action_vm"
+                "action-gcp",
+                "action-lambda",
+                "action-gh",
+                "faasr-vm-poll-action-vm"
             ]
         },
-        "action_gcp": {
+        "action-gcp": {
             "FunctionName": "timestamp_logger",
             "FaaSServer": "GCP",
             "Type": "Python",
@@ -63,9 +63,9 @@
                 "faasr-vm-stop"
             ]
         },
-        "action_lambda": {
+        "action-lambda": {
             "FunctionName": "timestamp_logger",
-            "FaaSServer": "GH",
+            "FaaSServer": "AWS",
             "Type": "Python",
             "Arguments": {
                 "folder": "runtime_test",
@@ -75,7 +75,7 @@
                 "faasr-vm-stop"
             ]
         },
-        "action_gh": {
+        "action-gh": {
             "FunctionName": "timestamp_logger",
             "FaaSServer": "GH",
             "Type": "Python",
@@ -87,7 +87,7 @@
                 "faasr-vm-stop"
             ]
         },
-        "action_vm": {
+        "action-vm": {
             "FunctionName": "timestamp_logger",
             "FaaSServer": "GH",
             "Type": "Python",
@@ -118,13 +118,13 @@
             "InvokeNext": [],
             "_faasr_builtin": true
         },
-        "faasr-vm-poll-action_vm": {
+        "faasr-vm-poll-action-vm": {
             "FunctionName": "vm_poll",
             "FaaSServer": "GH",
             "Type": "Python",
             "RequiresVM": false,
             "InvokeNext": [
-                "action_vm"
+                "action-vm"
             ],
             "_faasr_builtin": true
         }
@@ -135,7 +135,7 @@
         "action_lambda": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-python:latest",
         "action_gh": "ghcr.io/faasr/github-actions-python:latest",
         "action_vm": "ghcr.io/faasr/github-actions-python:latest",
-        "faasr-vm-poll-action_vm": "ghcr.io/faasr/github-actions-python:latest",
+        "faasr-vm-poll-action-vm": "ghcr.io/faasr/github-actions-python:latest",
         "faasr-vm-start": "ghcr.io/faasr/github-actions-python:latest",
         "faasr-vm-stop": "ghcr.io/faasr/github-actions-python:latest"
     },
@@ -155,5 +155,5 @@
     "LoggingDataStore": "My_S3_Bucket",
     "DefaultDataStore": "My_S3_Bucket",
     "InvocationIDFromDate": "%Y%m%d%H%M",
-    "WorkflowName": "cross-platform-benchmark"
+    "WorkflowName": "cross_platform_benchmark"
 }
