@@ -4,6 +4,7 @@
             "FaaSType": "GitHubActions",
             "UseSecretStore": true,
             "UserName": "Ashish-Ramrakhiani",
+            "Branch": "main",
             "ActionRepoName": "FaaSr-workflow-public"
         },
         "GCP": {
