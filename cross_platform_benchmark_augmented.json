@@ -31,8 +31,7 @@
         "My_S3_Bucket": {
             "Endpoint": "https://s3.us-west-2.amazonaws.com",
             "Bucket": "faasr-bucket-0001",
-            "Region": "us-west-2",
-            "Writable": true
+            "Region": "us-west-2"
         }
     },
     "ActionList": {
