@@ -32,7 +32,7 @@
       "Endpoint": "https://s3.us-west-2.amazonaws.com",
       "Bucket": "faasr-bucket-0001",
       "Region": "us-west-2",
-      "Writable": TRUE
+      "Writable": true
          }
     },
     "ActionList": {
