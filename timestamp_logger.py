@@ -2,7 +2,7 @@ import os
 import time
 import json
 from datetime import datetime
-import FaaSr_py
+from FaaSr_py import faasr_invocation_id
 
 def timestamp_logger(folder, tag):
     """
