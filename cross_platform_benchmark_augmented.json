@@ -65,7 +65,7 @@
         },
         "action_lambda": {
             "FunctionName": "timestamp_logger",
-            "FaaSServer": "AWS",
+            "FaaSServer": "GH",
             "Type": "Python",
             "Arguments": {
                 "folder": "runtime_test",
