@@ -44,9 +44,9 @@
                 "folder": "runtime_test",
                 "tag": "start"
             },
-            "InvokeNext": ["action_gcp", "action_lambda", "action_gh", "action_vm"]
+            "InvokeNext": ["action-gcp", "action-lambda", "action-gh", "action-vm"]
         },
-        "action_gcp": {
+        "action-gcp": {
             "FunctionName": "timestamp_logger",
             "FaaSServer": "GCP",
             "Type": "Python",
@@ -56,7 +56,7 @@
             },
             "InvokeNext": []
         },
-        "action_lambda": {
+        "action-lambda": {
             "FunctionName": "timestamp_logger",
             "FaaSServer": "AWS",
             "Type": "Python",
@@ -66,7 +66,7 @@
             },
             "InvokeNext": []
         },
-        "action_gh": {
+        "action-gh": {
             "FunctionName": "timestamp_logger",
             "FaaSServer": "GH",
             "Type": "Python",
@@ -76,7 +76,7 @@
             },
             "InvokeNext": []
         },
-        "action_vm": {
+        "action-vm": {
             "FunctionName": "timestamp_logger",
             "FaaSServer": "GH",
             "Type": "Python",
