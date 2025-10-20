@@ -30,12 +30,12 @@
             },
             "InvokeNext": [
                 {
-                    "True": ["rfunc_true"],
-                    "False": ["rfunc_false"]
+                    "True": ["rfunc-true"],
+                    "False": ["rfunc-false"]
                 }
             ]
         },
-        "rfunc_true": {
+        "rfunc-true": {
             "FunctionName": "r_log",
             "FaaSServer": "GCP",
             "Type": "R",
@@ -44,7 +44,7 @@
             },
             "InvokeNext": []
         },
-        "rfunc_false": {
+        "rfunc-false": {
             "FunctionName": "r_log",
             "FaaSServer": "GCP",
             "Type": "R",
@@ -56,8 +56,8 @@
     },
     "ActionContainers": {
         "rfunc": "ramrakha/gcp-r:dev",
-        "rfunc_true": "ramrakha/gcp-r:dev",
-        "rfunc_false": "ramrakha/gcp-r:dev"
+        "rfunc-true": "ramrakha/gcp-r:dev",
+        "rfunc-false": "ramrakha/gcp-r:dev"
     },
     "FunctionCRANPackage": {
         "r_log": [
