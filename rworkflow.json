@@ -42,7 +42,7 @@
             "Arguments": {
                 "message": "This executed because rfunc returned TRUE"
             },
-            "InvokeNext": []
+            "InvokeNext": ["rfunc-final"]
         },
         "rfunc-false": {
             "FunctionName": "r_log",
@@ -51,13 +51,23 @@
             "Arguments": {
                 "message": "This executed because rfunc returned FALSE"
             },
-            "InvokeNext": ["rfunc-true"]
+            "InvokeNext": ["rfunc-final"]
+        },
+         "rfunc-final": {
+            "FunctionName": "r_log",
+            "FaaSServer": "GCP",
+            "Type": "R",
+            "Arguments": {
+                "message": "This executed because rfunc returned FALSE"
+            },
+            "InvokeNext": []
         }
     },
     "ActionContainers": {
         "rfunc": "ramrakha/gcp-r:dev",
         "rfunc-true": "ramrakha/gcp-r:dev",
-        "rfunc-false": "ramrakha/gcp-r:dev"
+        "rfunc-false": "ramrakha/gcp-r:dev",
+        "rfunc-final":"ramrakha/gcp-r:dev"
     },
     "FunctionCRANPackage": {
         "r_log": [
