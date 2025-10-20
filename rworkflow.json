@@ -14,24 +14,50 @@
         }
     },
     "DataStores": {
-    "My_S3_Bucket": {
-      "Endpoint": "https://play.min.io",
-      "Bucket": "faasr",
-      "Region": "us-east-1"
-    }
+        "My_S3_Bucket": {
+            "Endpoint": "https://play.min.io",
+            "Bucket": "faasr",
+            "Region": "us-east-1"
+        }
     },
     "ActionList": {
         "rfunc": {
+            "FunctionName": "myfunction",
+            "FaaSServer": "GCP",
+            "Type": "R",
+            "Arguments": {
+                "message": "testing conditional branching"
+            },
+            "InvokeNext": [
+                {
+                    "True": ["rfunc_true"],
+                    "False": ["rfunc_false"]
+                }
+            ]
+        },
+        "rfunc_true": {
             "FunctionName": "r_log",
             "FaaSServer": "GCP",
             "Type": "R",
             "Arguments": {
-                "message": "testing testing testing"
-            }
+                "message": "This executed because rfunc returned TRUE"
+            },
+            "InvokeNext": []
+        },
+        "rfunc_false": {
+            "FunctionName": "r_log",
+            "FaaSServer": "GCP",
+            "Type": "R",
+            "Arguments": {
+                "message": "This executed because rfunc returned FALSE"
+            },
+            "InvokeNext": []
         }
     },
     "ActionContainers": {
-        "rfunc": "ramrakha/gcp-r:invoke_fix "
+        "rfunc": "ramrakha/gcp-r:dev",
+        "rfunc_true": "ramrakha/gcp-r:dev",
+        "rfunc_false": "ramrakha/gcp-r:dev"
     },
     "FunctionCRANPackage": {
         "r_log": [
@@ -39,12 +65,13 @@
         ]
     },
     "FunctionGitRepo": {
-        "r_log": "Ashish-Ramrakhiani/test-py"
+        "r_log": "Ashish-Ramrakhiani/test-py",
+        "myfunction":"Ashish-Ramrakhiani/FaaSr-worfklow-public"
     },
     "FunctionInvoke": "rfunc",
     "FaaSrLog": "FaaSrLog",
     "LoggingDataStore": "My_S3_Bucket",
     "DefaultDataStore": "My_S3_Bucket",
-    "InvocationID":"1234",
-    "WorkflowName": "test-gcp"
+    "InvocationID": "1234",
+    "WorkflowName": "test-gcp-conditional"
 }
