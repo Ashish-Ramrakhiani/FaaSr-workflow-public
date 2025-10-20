@@ -1,0 +1,95 @@
+{
+    "ComputeServers": {
+        "GCP": {
+            "FaaSType": "GoogleCloud",
+            "Namespace": "faasr-dev",
+            "Region": "us-central1",
+            "Endpoint": "https://run.googleapis.com/v2/projects/",
+            "UseSecretStore": true,
+            "ClientEmail": "faasr-workflow-runner@faasr-dev.iam.gserviceaccount.com",
+            "TokenUri": "https://oauth2.googleapis.com/token",
+            "CPUsPerTask": 1,
+            "Memory": 512,
+            "TimeLimit": 3600
+        },
+        "GH": {
+            "FaaSType": "GitHubActions",
+            "UseSecretStore": true,
+            "UserName": "Ashish-Ramrakhiani",
+            "ActionRepoName": "FaaSr-workflow-public",
+            "Branch": "main"
+        }
+    },
+    "DataStores": {
+        "OSNS3": {
+            "Endpoint": "https://amnh1.osn.mghpcc.org",
+            "Bucket": "deb170011-flare",
+            "Region": "us-east-1",
+            "Writable": "TRUE"
+        }
+    },
+    "ActionList": {
+        "rfunc": {
+            "FunctionName": "myfunction",
+            "FaaSServer": "GH",
+            "Type": "R",
+            "Arguments": {
+                "message": "testing conditional branching"
+            },
+            "InvokeNext": [
+                {
+                    "True": ["rfunc-true"],
+                    "False": ["rfunc-false"]
+                }
+            ]
+        },
+        "rfunc-true": {
+            "FunctionName": "r_log",
+            "FaaSServer": "GH",
+            "Type": "R",
+            "Arguments": {
+                "message": "This executed because rfunc returned TRUE"
+            },
+            "InvokeNext": ["rfunc-final"]
+        },
+        "rfunc-false": {
+            "FunctionName": "r_log",
+            "FaaSServer": "GH",
+            "Type": "R",
+            "Arguments": {
+                "message": "This executed because rfunc returned FALSE"
+            },
+            "InvokeNext": ["rfunc-final"]
+        },
+         "rfunc-final": {
+            "FunctionName": "r_log",
+            "FaaSServer": "GH",
+            "Type": "R",
+            "Arguments": {
+                "message": "This executed because rfunc returned FALSE"
+            },
+            "InvokeNext": []
+        }
+    },
+    "ActionContainers": {
+        "rfunc": "ghcr.io/ashish-ramrakhiani/github-actions-r:dev",
+        "rfunc-true": "ghcr.io/ashish-ramrakhiani/github-actions-r:dev",
+        "rfunc-false": "ghcr.io/ashish-ramrakhiani/github-actions-r:dev",
+        "rfunc-final":"ghcr.io/ashish-ramrakhiani/github-actions-r:dev"
+    },
+    "FunctionCRANPackage": {
+        "r_log": [
+            "gapminder"
+        ]
+    },
+    "FunctionGitRepo": {
+        "r_log": "Ashish-Ramrakhiani/test-py",
+        "myfunction":"Ashish-Ramrakhiani/FaaSr-worfklow-public"
+    },
+    "FunctionInvoke": "rfunc",
+    "FaaSrLog": "FaaSrLog",
+    "LoggingDataStore": "OSN3",
+    "DefaultDataStore": "OSN3",
+    "InvocationID": "1234",
+    "WorkflowName": "test-gcp-conditional"
+}
