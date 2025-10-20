@@ -1020,6 +1020,7 @@ def main():
         print("Workflow validation passed")
     except SystemExit:
         print("Workflow validation failed - check logs for details")
+        sys.exit(1)
 
     # Get all unique FaaSTypes from workflow data
     faas_types = set()
