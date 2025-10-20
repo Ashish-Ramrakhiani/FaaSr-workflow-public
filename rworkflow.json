@@ -11,6 +11,13 @@
             "CPUsPerTask": 1,
             "Memory": 512,
             "TimeLimit": 3600
+        },
+        "GH": {
+            "FaaSType": "GitHubActions",
+            "UseSecretStore": true,
+            "UserName": "Ashish-Ramrakhiani",
+            "ActionRepoName": "FaaSr-workflow-public",
+            "Branch": "main"
         }
     },
     "DataStores": {
@@ -24,7 +31,7 @@
     "ActionList": {
         "rfunc": {
             "FunctionName": "myfunction",
-            "FaaSServer": "GCP",
+            "FaaSServer": "GH",
             "Type": "R",
             "Arguments": {
                 "message": "testing conditional branching"
@@ -38,7 +45,7 @@
         },
         "rfunc-true": {
             "FunctionName": "r_log",
-            "FaaSServer": "GCP",
+            "FaaSServer": "GH",
             "Type": "R",
             "Arguments": {
                 "message": "This executed because rfunc returned TRUE"
@@ -47,7 +54,7 @@
         },
         "rfunc-false": {
             "FunctionName": "r_log",
-            "FaaSServer": "GCP",
+            "FaaSServer": "GH",
             "Type": "R",
             "Arguments": {
                 "message": "This executed because rfunc returned FALSE"
@@ -56,7 +63,7 @@
         },
          "rfunc-final": {
             "FunctionName": "r_log",
-            "FaaSServer": "GCP",
+            "FaaSServer": "GH",
             "Type": "R",
             "Arguments": {
                 "message": "This executed because rfunc returned FALSE"
@@ -65,10 +72,10 @@
         }
     },
     "ActionContainers": {
-        "rfunc": "ramrakha/gcp-r:dev",
-        "rfunc-true": "ramrakha/gcp-r:dev",
-        "rfunc-false": "ramrakha/gcp-r:dev",
-        "rfunc-final":"ramrakha/gcp-r:dev"
+        "rfunc": "ghcr.io/ashish-ramrakhiani/github-actions-r:dev",
+        "rfunc-true": "ghcr.io/ashish-ramrakhiani/github-actions-r:dev",
+        "rfunc-false": "ghcr.io/ashish-ramrakhiani/github-actions-r:dev",
+        "rfunc-final":"ghcr.io/ashish-ramrakhiani/github-actions-r:dev"
     },
     "FunctionCRANPackage": {
         "r_log": [
@@ -81,8 +88,8 @@
     },
     "FunctionInvoke": "rfunc",
     "FaaSrLog": "FaaSrLog",
-    "LoggingDataStore": "My_S3_Bucket",
-    "DefaultDataStore": "My_S3_Bucket",
+    "LoggingDataStore": "OSN3",
+    "DefaultDataStore": "OSN3",
     "InvocationID": "1234",
     "WorkflowName": "test-gcp-conditional"
 }
