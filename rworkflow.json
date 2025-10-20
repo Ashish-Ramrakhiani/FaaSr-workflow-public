@@ -51,7 +51,7 @@
             "Arguments": {
                 "message": "This executed because rfunc returned FALSE"
             },
-            "InvokeNext": []
+            "InvokeNext": ["rfunc-true"]
         }
     },
     "ActionContainers": {
