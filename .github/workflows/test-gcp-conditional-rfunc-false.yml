@@ -18,8 +18,6 @@ jobs:
         env:
             GCP_SecretKey: ${{ secrets.GCP_SecretKey}}
             GH_PAT: ${{ secrets.GH_PAT}}
-            OSNS3_AccessKey: ${{ secrets.OSNS3_AccessKey}}
-            OSNS3_SecretKey: ${{ secrets.OSNS3_SecretKey}}
             My_S3_Bucket_AccessKey: ${{ secrets.My_S3_Bucket_AccessKey}}
             My_S3_Bucket_SecretKey: ${{ secrets.My_S3_Bucket_SecretKey}}
             OVERWRITTEN: ${{ github.event.inputs.OVERWRITTEN }}
