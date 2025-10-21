@@ -70,10 +70,10 @@
         }
     },
     "ActionContainers": {
-        "rfunc": "ghcr.io/ashish-ramrakhiani/github-actions-r:2.0",
-        "rfunc-true": "ghcr.io/ashish-ramrakhiani/github-actions-r:2.0",
-        "rfunc-false": "ghcr.io/ashish-ramrakhiani/github-actions-r:2.0",
-        "rfunc-final":"ghcr.io/ashish-ramrakhiani/github-actions-r:2.0"
+        "rfunc": "ghcr.io/ashish-ramrakhiani/github-actions-r:2.1",
+        "rfunc-true": "ghcr.io/ashish-ramrakhiani/github-actions-r:2.1",
+        "rfunc-false": "ghcr.io/ashish-ramrakhiani/github-actions-r:2.1",
+        "rfunc-final":"ghcr.io/ashish-ramrakhiani/github-actions-r:2.1"
     },
     "FunctionCRANPackage": {
         "r_log": [
