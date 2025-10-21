@@ -18,8 +18,8 @@ jobs:
         env:
             GCP_SecretKey: ${{ secrets.GCP_SecretKey}}
             GH_PAT: ${{ secrets.GH_PAT}}
-            My_S3_Bucket_AccessKey: ${{ secrets.My_S3_Bucket_AccessKey}}
-            My_S3_Bucket_SecretKey: ${{ secrets.My_S3_Bucket_SecretKey}}
+            PublicS3_AccessKey: ${{ secrets.PublicS3_AccessKey}}
+            PublicS3_SecretKey: ${{ secrets.PublicS3_SecretKey}}
             OVERWRITTEN: ${{ github.event.inputs.OVERWRITTEN }}
             PAYLOAD_URL: ${{ github.event.inputs.PAYLOAD_URL }}
 
