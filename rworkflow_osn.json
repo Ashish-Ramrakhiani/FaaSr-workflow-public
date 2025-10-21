@@ -21,7 +21,7 @@
         }
     },
     "DataStores": {
-        "OSNS3": {
+        "OSN3": {
             "Endpoint": "https://amnh1.osn.mghpcc.org",
             "Bucket": "deb170011-flare",
             "Region": "us-east-1",
