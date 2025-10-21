@@ -34,7 +34,6 @@
             "FaaSServer": "GH",
             "Type": "R",
             "Arguments": {
-                "message": "testing conditional branching"
             },
             "InvokeNext": [
                 {
