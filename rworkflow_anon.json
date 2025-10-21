@@ -24,7 +24,7 @@
        "PublicS3": {
         "Region": "us-west-2",
         "Bucket": "nr-images",
-        "Anonymous": true
+        "Anonymous": "true"
     }
     },
     "ActionList": {
