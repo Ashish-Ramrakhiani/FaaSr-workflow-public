@@ -18,57 +18,13 @@ jobs:
         env:
             GCP_SecretKey: ${{ secrets.GCP_SecretKey}}
             GH_PAT: ${{ secrets.GH_PAT}}
-            OSNS3_AccessKey: ${{ secrets.OSNS3_AccessKey}}
-            OSNS3_SecretKey: ${{ secrets.OSNS3_SecretKey}}
+            OSN3_AccessKey: ${{ secrets.OSN3_AccessKey}}
+            OSN3_SecretKey: ${{ secrets.OSN3_SecretKey}}
             OVERWRITTEN: ${{ github.event.inputs.OVERWRITTEN }}
             PAYLOAD_URL: ${{ github.event.inputs.PAYLOAD_URL }}
 
         steps:
-          - name: Debug credentials and run Python entrypoint
+          - name: Run Python entrypoint
             run: |
-              cd /action
-              
-              # Debug credentials in a secure way (only show first/last few characters)
-              echo "Checking if OSNS3_AccessKey is set: ${OSNS3_AccessKey:+YES (set)}"
-              echo "OSNS3_AccessKey length: ${#OSNS3_AccessKey}"
-              echo "OSNS3_AccessKey first 4 chars: ${OSNS3_AccessKey:0:4}..."
-              echo "OSNS3_AccessKey last 4 chars: ...${OSNS3_AccessKey:(-4)}"
-              
-              echo "Checking if OSNS3_SecretKey is set: ${OSNS3_SecretKey:+YES (set)}"
-              echo "OSNS3_SecretKey length: ${#OSNS3_SecretKey}"
-              echo "OSNS3_SecretKey first 4 chars: ${OSNS3_SecretKey:0:4}..."
-              echo "OSNS3_SecretKey last 4 chars: ...${OSNS3_SecretKey:(-4)}"
-              
-              # Test boto3 direct client creation
-              python3 -c "
-              import boto3, os
-              import logging
-              logging.basicConfig(level=logging.DEBUG)
-              
-              access_key = os.environ.get('OSNS3_AccessKey')
-              secret_key = os.environ.get('OSNS3_SecretKey')
-              
-              print(f'Access key in Python: {access_key[:4]}...{access_key[-4:] if access_key else \"None\"}')
-              print(f'Secret key in Python: {secret_key[:4]}...{secret_key[-4:] if secret_key else \"None\"}')
-              
-              # Try listing objects instead of head_bucket
-              try:
-                  print('Testing list_objects instead of head_bucket')
-                  s3 = boto3.client(
-                      's3',
-                      aws_access_key_id=access_key,
-                      aws_secret_access_key=secret_key,
-                      endpoint_url='https://amnh1.osn.mghpcc.org',
-                      region_name='us-east-1'
-                  )
-                  response = s3.list_objects_v2(
-                      Bucket='deb170011-flare',
-                      MaxKeys=1
-                  )
-                  print(f'list_objects SUCCESS: {response}')
-              except Exception as e:
-                  print(f'list_objects FAILED: {e}')
-              "
-              
-              # Now run FaaSr entry
-              python3 faasr_entry.py
+                cd /action
+                python3 faasr_entry.py
