@@ -22,6 +22,8 @@ jobs:
             OSN3_SecretKey: ${{ secrets.OSN3_SecretKey}}
             OVERWRITTEN: ${{ github.event.inputs.OVERWRITTEN }}
             PAYLOAD_URL: ${{ github.event.inputs.PAYLOAD_URL }}
+            AWS_REQUEST_CHECKSUM_CALCULATION: when_required
+            AWS_RESPONSE_CHECKSUM_VALIDATION: when_required
 
         steps:
           - name: Run Python entrypoint
