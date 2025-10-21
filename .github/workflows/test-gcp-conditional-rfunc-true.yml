@@ -13,7 +13,7 @@ on:
 jobs:
     run_docker_image:
         runs-on: ubuntu-latest
-        container: ghcr.io/ashish-ramrakhiani/github-actions-r:2.0
+        container: ghcr.io/ashish-ramrakhiani/github-actions-r:2.1
 
         env:
             GCP_SecretKey: ${{ secrets.GCP_SecretKey}}
