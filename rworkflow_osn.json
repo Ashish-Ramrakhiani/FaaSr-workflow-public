@@ -84,7 +84,7 @@
     },
     "FunctionGitRepo": {
         "r_log": "Ashish-Ramrakhiani/test-py",
-        "myfunction":"Ashish-Ramrakhiani/FaaSr-worfklow-public"
+        "myfunction":"Ashish-Ramrakhiani/FaaSr-workflow-public"
     },
     "FunctionInvoke": "rfunc",
     "FaaSrLog": "FaaSrLog",
