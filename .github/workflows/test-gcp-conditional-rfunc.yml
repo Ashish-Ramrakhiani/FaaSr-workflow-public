@@ -24,7 +24,62 @@ jobs:
             PAYLOAD_URL: ${{ github.event.inputs.PAYLOAD_URL }}
 
         steps:
-          - name: Run Python entrypoint
-            run: |
-                cd /action
-                python3 faasr_entry.py
+         - name: Run Python entrypoint with debugging
+           run: |
+               cd /action
+               
+               # Check boto3 version
+               python3 -c "import boto3; print('Boto3 version:', boto3.__version__)"
+               
+               # Test OSN connectivity directly before FaaSr runs
+               python3 -c "
+               import boto3, os, json, logging
+               
+               # Set up logging
+               logging.basicConfig(level=logging.DEBUG)
+               logging.getLogger('botocore').setLevel(logging.DEBUG)
+               
+               print('Testing OSN S3 connection directly')
+               
+               # Get credentials
+               access_key = os.environ.get('OSNS3_AccessKey')
+               secret_key = os.environ.get('OSNS3_SecretKey')
+               
+               # Try standard config
+               try:
+                   print('Testing standard config')
+                   s3 = boto3.client(
+                       's3', 
+                       aws_access_key_id=access_key,
+                       aws_secret_access_key=secret_key,
+                       endpoint_url='https://amnh1.osn.mghpcc.org',
+                       region_name='us-east-1'
+                   )
+                   s3.head_bucket(Bucket='deb170011-flare')
+                   print('Standard config SUCCESS!')
+               except Exception as e:
+                   print(f'Standard config FAILED: {e}')
+                   
+               # Try path-style config
+               try:
+                   print('Testing path-style config')
+                   config = boto3.session.Config(
+                       s3={'addressing_style': 'path'},
+                       signature_version='s3v4'
+                   )
+                   s3 = boto3.client(
+                       's3', 
+                       aws_access_key_id=access_key,
+                       aws_secret_access_key=secret_key,
+                       endpoint_url='https://amnh1.osn.mghpcc.org',
+                       region_name='us-east-1',
+                       config=config
+                   )
+                   s3.head_bucket(Bucket='deb170011-flare')
+                   print('Path-style config SUCCESS!')
+               except Exception as e:
+                   print(f'Path-style config FAILED: {e}')
+               "
+               
+               # Run the actual FaaSr entry point
+               python3 faasr_entry.py
