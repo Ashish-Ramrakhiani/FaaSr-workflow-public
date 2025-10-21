@@ -122,14 +122,14 @@
         }
     },
     "ActionContainers": {
-        "start": " ghcr.io/ashish-ramrakhiani/github-actions-python:dev",
+        "start": "ghcr.io/ashish-ramrakhiani/github-actions-python:2.1",
         "action-gcp": "faasr/gcp-python:dev",
-        "action-lambda": " ghcr.io/ashish-ramrakhiani/github-actions-python:dev",
-        "action-gh": " ghcr.io/ashish-ramrakhiani/github-actions-python:dev",
-        "action-vm": " ghcr.io/ashish-ramrakhiani/github-actions-python:dev",
-        "faasr-vm-poll-action-vm": " ghcr.io/ashish-ramrakhiani/github-actions-python:dev",
-        "faasr-vm-start": " ghcr.io/ashish-ramrakhiani/github-actions-python:dev",
-        "faasr-vm-stop": " ghcr.io/ashish-ramrakhiani/github-actions-python:dev"
+        "action-lambda": " ghcr.io/ashish-ramrakhiani/github-actions-python:2.1",
+        "action-gh": " ghcr.io/ashish-ramrakhiani/github-actions-python:2.1",
+        "action-vm": " ghcr.io/ashish-ramrakhiani/github-actions-python:2.1",
+        "faasr-vm-poll-action-vm": " ghcr.io/ashish-ramrakhiani/github-actions-python:2.1",
+        "faasr-vm-start": " ghcr.io/ashish-ramrakhiani/github-actions-python:2.1",
+        "faasr-vm-stop": " ghcr.io/ashish-ramrakhiani/github-actions-python:2.1"
     },
     "VMConfig": {
         "Name": "AWS_VM",
