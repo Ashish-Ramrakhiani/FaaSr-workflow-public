@@ -33,7 +33,6 @@
             "FaaSServer": "GH",
             "Type": "R",
             "Arguments": {
-                "message": "testing conditional branching"
             },
             "InvokeNext": [
                 {
@@ -71,10 +70,10 @@
         }
     },
     "ActionContainers": {
-        "rfunc": "ghcr.io/ashish-ramrakhiani/github-actions-r:dev",
-        "rfunc-true": "ghcr.io/ashish-ramrakhiani/github-actions-r:dev",
-        "rfunc-false": "ghcr.io/ashish-ramrakhiani/github-actions-r:dev",
-        "rfunc-final":"ghcr.io/ashish-ramrakhiani/github-actions-r:dev"
+        "rfunc": "ghcr.io/ashish-ramrakhiani/github-actions-r:2.0",
+        "rfunc-true": "ghcr.io/ashish-ramrakhiani/github-actions-r:2.0",
+        "rfunc-false": "ghcr.io/ashish-ramrakhiani/github-actions-r:2.0",
+        "rfunc-final":"ghcr.io/ashish-ramrakhiani/github-actions-r:2.0"
     },
     "FunctionCRANPackage": {
         "r_log": [
@@ -83,7 +82,7 @@
     },
     "FunctionGitRepo": {
         "r_log": "Ashish-Ramrakhiani/test-py",
-        "myfunction":"Ashish-Ramrakhiani/FaaSr-worfklow-public"
+        "myfunction":"Ashish-Ramrakhiani/FaaSr-workflow-public"
     },
     "FunctionInvoke": "rfunc",
     "FaaSrLog": "FaaSrLog",
