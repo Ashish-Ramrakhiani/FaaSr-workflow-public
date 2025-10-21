@@ -92,4 +92,5 @@
     "DefaultDataStore": "OSN3",
     "InvocationID": "1234",
     "WorkflowName": "test-gcp-conditional"
+}
 
