@@ -61,18 +61,22 @@ def generate_github_secret_imports(faasr_payload):
             case "Lambda":
                 access_key = f"{faas_name}_AccessKey"
                 secret_key = f"{faas_name}_SecretKey"
+                print("before lambda")
                 import_statements.extend(
                     f"{access_key}: ${{{{ secrets.{access_key}}}}}",
                     f"{secret_key}: ${{{{ secrets.{secret_key}}}}}",
                 )
+                print("after lambda")
             case "OpenWhisk":
                 api_key = f"{faas_name}_APIkey"
                 import_statements.append(f"{api_key}: ${{{{ secrets.{api_key}}}}}")
             case "GoogleCloud":
                 secret_key = f"{faas_name}_SecretKey"
+                print("before gcp")
                 import_statements.append(
                     f"{secret_key}: ${{{{ secrets.{secret_key}}}}}"
                 )
+                print("after gcp")
             case "SLURM":
                 token = f"{faas_name}_Token"
                 import_statements.append(f"{token}: ${{{{ secrets.{token}}}}}")
