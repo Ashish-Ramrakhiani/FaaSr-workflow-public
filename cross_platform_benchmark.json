@@ -89,11 +89,11 @@
         }
     },
     "ActionContainers": {
-        "start": "ghcr.io/faasr/github-actions-python:latest",
-        "action_gcp": "faasr/gcp-r:latest",
-        "action_lambda": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-python:latest",
-        "action_gh": "ghcr.io/faasr/github-actions-python:latest",
-        "action_vm": "ghcr.io/faasr/github-actions-python:latest"
+        "start": "ghcr.io/faasr/github-actions-python:2.0.2",
+        "action_gcp": "faasr/gcp-r:2.0.2",
+        "action_lambda": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-python:2.0.2",
+        "action_gh": "ghcr.io/faasr/github-actions-python:2.0.2",
+        "action_vm": "ghcr.io/faasr/github-actions-python:2.0.2"
     },
 "VMConfig": {
         "Name": "AWS_VM",
