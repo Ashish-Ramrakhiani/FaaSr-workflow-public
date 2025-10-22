@@ -57,7 +57,7 @@
         },
         "action-lambda": {
             "FunctionName": "timestamp_logger",
-            "FaaSServer": "GH",
+            "FaaSServer": "AWS",
             "Type": "Python",
             "Arguments": {
                 "folder": "runtime_test",
@@ -122,14 +122,14 @@
         }
     },
     "ActionContainers": {
-        "start": "ghcr.io/ashish-ramrakhiani/github-actions-python:2.1",
-        "action-gcp": "faasr/gcp-python:dev",
-        "action-lambda": " ghcr.io/ashish-ramrakhiani/github-actions-python:2.1",
-        "action-gh": " ghcr.io/ashish-ramrakhiani/github-actions-python:2.1",
-        "action-vm": " ghcr.io/ashish-ramrakhiani/github-actions-python:2.1",
-        "faasr-vm-poll-action-vm": " ghcr.io/ashish-ramrakhiani/github-actions-python:2.1",
-        "faasr-vm-start": " ghcr.io/ashish-ramrakhiani/github-actions-python:2.1",
-        "faasr-vm-stop": " ghcr.io/ashish-ramrakhiani/github-actions-python:2.1"
+        "start": "ghcr.io/faasr/github-actions-python:2.0.2",
+        "action-gcp": "faasr/gcp-python:2.0.2",
+        "action-lambda": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-python:2.0.2",
+        "action-gh": " ghcr.io/faasr/github-actions-python:2.0.2",
+        "action-vm": " ghcr.io/faasr/github-actions-python:2.0.2",
+        "faasr-vm-poll-action-vm": "ghcr.io/faasr/github-actions-python:2.0.2",
+        "faasr-vm-start": "ghcr.io/faasr/github-actions-python:2.0.2",
+        "faasr-vm-stop": "ghcr.io/faasr/github-actions-python:2.0.2"
     },
     "VMConfig": {
         "Name": "AWS_VM",
