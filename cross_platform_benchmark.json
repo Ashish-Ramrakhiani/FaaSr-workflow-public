@@ -4,7 +4,8 @@
             "FaaSType": "GitHubActions",
             "UseSecretStore": true,
             "UserName": "Ashish-Ramrakhiani",
-            "ActionRepoName": "FaaSr-workflow-public"
+            "ActionRepoName": "FaaSr-workflow-public",
+            "Branch":"main"
         },
         "GCP": {
             "FaaSType": "GoogleCloud",
@@ -90,7 +91,7 @@
     },
     "ActionContainers": {
         "start": "ghcr.io/faasr/github-actions-python:2.0.2",
-        "action_gcp": "faasr/gcp-r:2.0.2",
+        "action_gcp": "faasr/gcp-python:2.0.2",
         "action_lambda": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-python:2.0.2",
         "action_gh": "ghcr.io/faasr/github-actions-python:2.0.2",
         "action_vm": "ghcr.io/faasr/github-actions-python:2.0.2"
