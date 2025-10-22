@@ -18,6 +18,14 @@
             "CPUsPerTask": 1,
             "Memory": 512,
             "TimeLimit": 3600
+        },
+        "AWS": {
+            "FaaSType": "Lambda",
+            "Region": "us-east-1",
+            "UseSecretStore": true,
+            "CPUsPerTask": 1,
+            "Memory": 512,
+            "TimeLimit": 900
         }
     },
     "DataStores": {
