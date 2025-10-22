@@ -13,11 +13,13 @@ on:
 jobs:
     run_on_vm:
         runs-on: self-hosted
-        container:  ghcr.io/ashish-ramrakhiani/github-actions-python:2.1
+        container: ghcr.io/faasr/github-actions-python:2.0.2
 
         env:
             GH_PAT: ${{ secrets.GH_PAT}}
             GCP_SecretKey: ${{ secrets.GCP_SecretKey}}
+            AWS_AccessKey: ${{ secrets.AWS_AccessKey}}
+            AWS_SecretKey: ${{ secrets.AWS_SecretKey}}
             My_S3_Bucket_AccessKey: ${{ secrets.My_S3_Bucket_AccessKey}}
             My_S3_Bucket_SecretKey: ${{ secrets.My_S3_Bucket_SecretKey}}
             AWS_VM_AccessKey: ${{ secrets.AWS_VM_AccessKey}}
