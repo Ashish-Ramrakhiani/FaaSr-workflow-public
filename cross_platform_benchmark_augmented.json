@@ -4,7 +4,6 @@
             "FaaSType": "GitHubActions",
             "UseSecretStore": true,
             "UserName": "Ashish-Ramrakhiani",
-            "Branch": "main",
             "ActionRepoName": "FaaSr-workflow-public"
         },
         "GCP": {
@@ -32,7 +31,8 @@
         "My_S3_Bucket": {
             "Endpoint": "https://s3.us-west-2.amazonaws.com",
             "Bucket": "faasr-bucket-0001",
-            "Region": "us-west-2"
+            "Region": "us-west-2",
+            "Writable": true
         }
     },
     "ActionList": {
@@ -131,10 +131,10 @@
     },
     "ActionContainers": {
         "start": "ghcr.io/faasr/github-actions-python:2.0.2",
-        "action-gcp": "faasr/gcp-python:2.0.2",
-        "action-lambda": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-python:2.0.2",
-        "action-gh": " ghcr.io/faasr/github-actions-python:2.0.2",
-        "action-vm": " ghcr.io/faasr/github-actions-python:2.0.2",
+        "action_gcp": "faasr/gcp-r:2.0.2",
+        "action_lambda": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-python:2.0.2",
+        "action_gh": "ghcr.io/faasr/github-actions-python:2.0.2",
+        "action_vm": "ghcr.io/faasr/github-actions-python:2.0.2",
         "faasr-vm-poll-action-vm": "ghcr.io/faasr/github-actions-python:2.0.2",
         "faasr-vm-start": "ghcr.io/faasr/github-actions-python:2.0.2",
         "faasr-vm-stop": "ghcr.io/faasr/github-actions-python:2.0.2"
@@ -155,5 +155,5 @@
     "LoggingDataStore": "My_S3_Bucket",
     "DefaultDataStore": "My_S3_Bucket",
     "InvocationIDFromDate": "%Y%m%d%H%M",
-    "WorkflowName": "cross-platform-benchmark"
+    "WorkflowName": "cross_platform_benchmark"
 }
