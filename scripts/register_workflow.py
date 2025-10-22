@@ -63,8 +63,10 @@ def generate_github_secret_imports(faasr_payload):
                 secret_key = f"{faas_name}_SecretKey"
                 print("before lambda")
                 import_statements.extend(
+                    [
                     f"{access_key}: ${{{{ secrets.{access_key}}}}}",
                     f"{secret_key}: ${{{{ secrets.{secret_key}}}}}",
+                    ]
                 )
                 print("after lambda")
             case "OpenWhisk":
