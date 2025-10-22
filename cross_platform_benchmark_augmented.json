@@ -132,10 +132,10 @@
     },
     "ActionContainers": {
         "start": "ghcr.io/ashish-ramrakhiani/github-actions-python:2.0",
-        "action-gcp": "faasr/gcp-python:2.0.2",
-        "action-lambda": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-python:2.0.2",
-        "action-gh": "ghcr.io/faasr/github-actions-python:2.0.2",
-        "action-vm": "ghcr.io/faasr/github-actions-python:2.0.2",
+        "action-gcp": "ramrakha/gcp-python:2.0",
+        "action-lambda": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-python:2.0",
+        "action-gh": "ghcr.io/ashish-ramrakhiani/github-actions-python:2.0",
+        "action-vm": "ghcr.io/ashish-ramrakhiani/github-actions-python:2.0",
         "faasr-vm-poll-action-vm": "ghcr.io/faasr/github-actions-python:2.0.2",
         "faasr-vm-start": "ghcr.io/faasr/github-actions-python:2.0.2",
         "faasr-vm-stop": "ghcr.io/faasr/github-actions-python:2.0.2"
