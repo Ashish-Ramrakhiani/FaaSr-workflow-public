@@ -131,7 +131,7 @@
         }
     },
     "ActionContainers": {
-        "start": "ghcr.io/faasr/github-actions-python:2.0.2",
+        "start": "ghcr.io/ashish-ramrakhiani/github-actions-python:2.0",
         "action-gcp": "faasr/gcp-python:2.0.2",
         "action-lambda": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-python:2.0.2",
         "action-gh": "ghcr.io/faasr/github-actions-python:2.0.2",
