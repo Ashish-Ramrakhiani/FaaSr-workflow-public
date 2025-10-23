@@ -83,14 +83,17 @@ def get_github_actions_config(workflow_data, entry_action):
         sys.exit(1)
 
 
-def get_workflow_yaml_path(entry_action):
-    """Get the path to the workflow YAML file"""
-    if entry_action.endswith('.yml') or entry_action.endswith('.yaml'):
-        workflow_file = entry_action
-    else:
-        workflow_file = f"{entry_action}.yml"
+def get_workflow_yaml_path(workflow_name, entry_action):
+    """
+    Get the path to the workflow YAML file
     
-    return f".github/workflows/{workflow_file}", workflow_file
+    CHANGED: Now constructs filename as workflow_name-action_name.yml
+    """
+    # Construct filename as workflow_name-action_name.yml
+    workflow_file = f"{workflow_name}-{entry_action}.yml"
+    yaml_path = f".github/workflows/{workflow_file}"
+    
+    return yaml_path, workflow_file
 
 
 def check_workflow_registered(yaml_path):
@@ -180,11 +183,16 @@ def main():
     
     workflow_data = load_workflow_json(args.workflow_file)
     
+    # CHANGED: Extract workflow name
+    workflow_name = workflow_data.get("WorkflowName", "default")
+    logger.info(f"Workflow name: {workflow_name}")
+    
     entry_action = get_entry_action(workflow_data)
     
     gh_config = get_github_actions_config(workflow_data, entry_action)
     
-    yaml_path, workflow_file = get_workflow_yaml_path(entry_action)
+    # CHANGED: Pass workflow_name to get_workflow_yaml_path
+    yaml_path, workflow_file = get_workflow_yaml_path(workflow_name, entry_action)
     check_workflow_registered(yaml_path)
     
     workflow_yaml = read_workflow_yaml(yaml_path)
