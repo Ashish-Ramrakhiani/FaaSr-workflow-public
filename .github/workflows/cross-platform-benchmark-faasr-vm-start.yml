@@ -1,5 +1,8 @@
 name: cross-platform-benchmark-faasr-vm-start
-true:
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'
   workflow_dispatch:
     inputs:
       OVERWRITTEN:
@@ -8,28 +11,24 @@ true:
       PAYLOAD_URL:
         description: URL to payload
         required: true
+
 jobs:
   run_docker_image:
     runs-on: ubuntu-latest
     container: ghcr.io/faasr/github-actions-python:2.0.2
     env:
-      GH_PAT: ${{ secrets.GH_PAT}}
-      GCP_SecretKey: ${{ secrets.GCP_SecretKey}}
-      AWS_AccessKey: ${{ secrets.AWS_AccessKey}}
-      AWS_SecretKey: ${{ secrets.AWS_SecretKey}}
-      My_S3_Bucket_AccessKey: ${{ secrets.My_S3_Bucket_AccessKey}}
-      My_S3_Bucket_SecretKey: ${{ secrets.My_S3_Bucket_SecretKey}}
-      AWS_VM_AccessKey: ${{ secrets.AWS_VM_AccessKey}}
-      AWS_VM_SecretKey: ${{ secrets.AWS_VM_SecretKey}}
+      GH_PAT: ${{ secrets.GH_PAT }}
+      GCP_SecretKey: ${{ secrets.GCP_SecretKey }}
+      AWS_AccessKey: ${{ secrets.AWS_AccessKey }}
+      AWS_SecretKey: ${{ secrets.AWS_SecretKey }}
+      My_S3_Bucket_AccessKey: ${{ secrets.My_S3_Bucket_AccessKey }}
+      My_S3_Bucket_SecretKey: ${{ secrets.My_S3_Bucket_SecretKey }}
+      AWS_VM_AccessKey: ${{ secrets.AWS_VM_AccessKey }}
+      AWS_VM_SecretKey: ${{ secrets.AWS_VM_SecretKey }}
       OVERWRITTEN: ${{ github.event.inputs.OVERWRITTEN }}
       PAYLOAD_URL: ${{ github.event.inputs.PAYLOAD_URL }}
     steps:
-    - name: Run Python entrypoint
-      run: 'cd /action
-
-        python3 faasr_entry.py
-
-        '
-'on':
-  schedule:
-  - cron: '*/5 * * * *'
+      - name: Run Python entrypoint
+        run: |
+          cd /action
+          python3 faasr_entry.py
