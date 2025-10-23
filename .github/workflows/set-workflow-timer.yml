@@ -1,0 +1,46 @@
+name: '  (FAASR SET TIMER)'
+
+on:
+  workflow_dispatch:
+    inputs:
+      workflow_file:
+        description: 'Workflow JSON file name (e.g., workflows/my_workflow.json)'
+        required: true
+        type: string
+      cron_schedule:
+        description: 'Cron schedule (e.g., "*/5 * * * *" for every 5 minutes)'
+        required: true
+        type: string
+
+jobs:
+  set-timer:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GH_PAT }}
+          
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.13'
+          
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install PyYAML PyGithub croniter python-dateutil
+          
+      - name: Configure Git
+        run: |
+          git config --global user.name "FaaSr Bot"
+          git config --global user.email "faasr-bot@users.noreply.github.com"
+          
+      - name: Set Workflow Timer
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+        run: |
+          python scripts/set_workflow_timer.py \
+            --workflow-file "${{ github.event.inputs.workflow_file }}" \
+            --cron "${{ github.event.inputs.cron_schedule }}"
