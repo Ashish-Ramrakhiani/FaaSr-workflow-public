@@ -215,7 +215,7 @@ def commit_and_push_changes(yaml_path, workflow_file, cron_schedule, branch):
                       check=True, capture_output=True)
         
         subprocess.run(['git', 'push', 'origin', branch], 
-                      check=True, capture_output=True, stderr=subprocess.STDOUT)
+                      check=True, capture_output=True)
         
         logger.info(f"Changes pushed to branch: {branch}")
         
