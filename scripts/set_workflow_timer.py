@@ -186,69 +186,84 @@ def set_timer_in_yaml(workflow_yaml, cron_schedule, payload_url):
     for OVERWRITTEN and PAYLOAD_URL to support scheduled runs
     """
     
-    # Handle different possible trigger key names and fix them
-    trigger_section = None
-    
+    # Step 1: Handle 'true:' vs 'on:' key and get trigger section
     if 'true' in workflow_yaml:
-        # Fix the 'true:' key to 'on:'
         logger.info("Fixing 'true:' key to 'on:'")
         trigger_section = workflow_yaml.pop('true')
-        workflow_yaml['on'] = trigger_section
     elif 'on' in workflow_yaml:
-        trigger_section = workflow_yaml['on']
+        trigger_section = workflow_yaml.pop('on')  # Remove it temporarily
     else:
-        # Create new 'on' section
         trigger_section = {}
-        workflow_yaml['on'] = trigger_section
     
     # Ensure trigger section is a dict
     if not isinstance(trigger_section, dict):
         logger.warning("Converting trigger section to dict")
-        old_value = trigger_section
         trigger_section = {}
-        workflow_yaml['on'] = trigger_section
     
-    # Check if schedule already exists
+    # Step 2: Build the correct 'on' section with schedule FIRST
+    new_on_section = {}
+    
+    # Add schedule first
+    new_on_section['schedule'] = [{'cron': cron_schedule}]
     had_schedule = 'schedule' in trigger_section
     
-    # Add schedule to the trigger section
-    trigger_section['schedule'] = [{'cron': cron_schedule}]
-    
-    # Add default values to workflow_dispatch inputs if they exist
+    # Add workflow_dispatch second
     if 'workflow_dispatch' in trigger_section:
-        if 'inputs' not in trigger_section['workflow_dispatch']:
-            trigger_section['workflow_dispatch']['inputs'] = {}
+        workflow_dispatch = trigger_section['workflow_dispatch']
         
-        inputs = trigger_section['workflow_dispatch']['inputs']
+        # Update inputs with defaults
+        if 'inputs' in workflow_dispatch:
+            inputs = workflow_dispatch['inputs']
+            
+            # Add defaults to OVERWRITTEN input
+            if 'OVERWRITTEN' in inputs:
+                inputs['OVERWRITTEN']['required'] = False
+                inputs['OVERWRITTEN']['default'] = '{}'
+                logger.info("Added default value to OVERWRITTEN input")
+            
+            # Add defaults to PAYLOAD_URL input
+            if 'PAYLOAD_URL' in inputs:
+                inputs['PAYLOAD_URL']['required'] = False
+                inputs['PAYLOAD_URL']['default'] = payload_url
+                logger.info("Added default payload URL to PAYLOAD_URL input")
         
-        # Add defaults to OVERWRITTEN input
-        if 'OVERWRITTEN' in inputs:
-            inputs['OVERWRITTEN']['required'] = False
-            inputs['OVERWRITTEN']['default'] = '{}'
-            logger.info("Added default value to OVERWRITTEN input")
-        
-        # Add defaults to PAYLOAD_URL input
-        if 'PAYLOAD_URL' in inputs:
-            inputs['PAYLOAD_URL']['required'] = False
-            inputs['PAYLOAD_URL']['default'] = payload_url
-            logger.info("Added default payload URL to PAYLOAD_URL input")
+        new_on_section['workflow_dispatch'] = workflow_dispatch
     
-    # Update environment variables to use defaults when inputs are empty
-    if 'jobs' in workflow_yaml:
-        for job_name, job_config in workflow_yaml['jobs'].items():
+    # Add any other triggers that might exist
+    for key, value in trigger_section.items():
+        if key not in ['schedule', 'workflow_dispatch']:
+            new_on_section[key] = value
+    
+    # Step 3: Insert the new 'on' section at the correct position (after 'name')
+    # Rebuild workflow_yaml in correct order
+    new_workflow_yaml = {}
+    
+    # Add name first
+    if 'name' in workflow_yaml:
+        new_workflow_yaml['name'] = workflow_yaml['name']
+    
+    # Add 'on' second
+    new_workflow_yaml['on'] = new_on_section
+    
+    # Add all other keys
+    for key, value in workflow_yaml.items():
+        if key not in ['name', 'on', 'true']:
+            new_workflow_yaml[key] = value
+    
+    # Step 4: Update environment variables to use defaults when inputs are empty
+    if 'jobs' in new_workflow_yaml:
+        for job_name, job_config in new_workflow_yaml['jobs'].items():
             if 'env' in job_config:
                 env_vars = job_config['env']
                 
                 # Update OVERWRITTEN to use default if empty
                 if 'OVERWRITTEN' in env_vars:
-                    # Check if it already has the || operator
                     current_value = str(env_vars['OVERWRITTEN'])
                     if '||' not in current_value:
                         env_vars['OVERWRITTEN'] = "${{ github.event.inputs.OVERWRITTEN || '{}' }}"
                 
                 # Update PAYLOAD_URL to use default if empty
                 if 'PAYLOAD_URL' in env_vars:
-                    # Check if it already has the || operator
                     current_value = str(env_vars['PAYLOAD_URL'])
                     if '||' not in current_value:
                         env_vars['PAYLOAD_URL'] = f"${{{{ github.event.inputs.PAYLOAD_URL || '{payload_url}' }}}}"
@@ -258,7 +273,7 @@ def set_timer_in_yaml(workflow_yaml, cron_schedule, payload_url):
     else:
         logger.info(f"Added cron schedule: {cron_schedule}")
     
-    return workflow_yaml
+    return new_workflow_yaml
 
 
 def write_workflow_yaml(yaml_path, workflow_yaml):
