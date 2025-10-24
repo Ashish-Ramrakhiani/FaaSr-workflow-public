@@ -100,7 +100,7 @@ jobs:
           GH_PAT: ${{ secrets.GH_PAT }}
         run: |
           # Build command
-          CMD="python scripts/register_workflow.py --workflow-file ${{ github.event.inputs.workflow_file }}"
+          CMD="python scripts/register_set_unset_workflow.py --workflow-file ${{ github.event.inputs.workflow_file }}"
           
           # Add cron parameter if set_timer is checked
           if [ "${{ github.event.inputs.set_timer }}" = "true" ]; then
