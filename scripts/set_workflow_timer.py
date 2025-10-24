@@ -186,47 +186,40 @@ def set_timer_in_yaml(workflow_yaml, cron_schedule, payload_url):
     for OVERWRITTEN and PAYLOAD_URL to support scheduled runs
     """
     
-    # Handle different possible trigger key names
-    trigger_key = None
-    if 'on' in workflow_yaml:
-        trigger_key = 'on'
-    elif 'true' in workflow_yaml:
-        # Handle the case where registration created 'true:' instead of 'on:'
-        trigger_key = 'true'
-        workflow_yaml['on'] = workflow_yaml.pop('true')
-        trigger_key = 'on'
+    # Handle different possible trigger key names and fix them
+    trigger_section = None
+    
+    if 'true' in workflow_yaml:
+        # Fix the 'true:' key to 'on:'
+        logger.info("Fixing 'true:' key to 'on:'")
+        trigger_section = workflow_yaml.pop('true')
+        workflow_yaml['on'] = trigger_section
+    elif 'on' in workflow_yaml:
+        trigger_section = workflow_yaml['on']
     else:
-        trigger_key = 'on'
-        workflow_yaml['on'] = {}
+        # Create new 'on' section
+        trigger_section = {}
+        workflow_yaml['on'] = trigger_section
     
     # Ensure trigger section is a dict
-    if not isinstance(workflow_yaml[trigger_key], dict):
-        existing_trigger = workflow_yaml[trigger_key]
-        workflow_yaml[trigger_key] = {}
-        if isinstance(existing_trigger, str):
-            workflow_yaml[trigger_key][existing_trigger] = None
+    if not isinstance(trigger_section, dict):
+        logger.warning("Converting trigger section to dict")
+        old_value = trigger_section
+        trigger_section = {}
+        workflow_yaml['on'] = trigger_section
     
-    # Add schedule at the top of the 'on' section
-    had_schedule = 'schedule' in workflow_yaml[trigger_key]
+    # Check if schedule already exists
+    had_schedule = 'schedule' in trigger_section
     
-    # Create new 'on' section with schedule first
-    new_on_section = {
-        'schedule': [{'cron': cron_schedule}]
-    }
-    
-    # Add existing triggers after schedule
-    for key, value in workflow_yaml[trigger_key].items():
-        if key != 'schedule':
-            new_on_section[key] = value
-    
-    workflow_yaml[trigger_key] = new_on_section
+    # Add schedule to the trigger section
+    trigger_section['schedule'] = [{'cron': cron_schedule}]
     
     # Add default values to workflow_dispatch inputs if they exist
-    if 'workflow_dispatch' in workflow_yaml[trigger_key]:
-        if 'inputs' not in workflow_yaml[trigger_key]['workflow_dispatch']:
-            workflow_yaml[trigger_key]['workflow_dispatch']['inputs'] = {}
+    if 'workflow_dispatch' in trigger_section:
+        if 'inputs' not in trigger_section['workflow_dispatch']:
+            trigger_section['workflow_dispatch']['inputs'] = {}
         
-        inputs = workflow_yaml[trigger_key]['workflow_dispatch']['inputs']
+        inputs = trigger_section['workflow_dispatch']['inputs']
         
         # Add defaults to OVERWRITTEN input
         if 'OVERWRITTEN' in inputs:
@@ -248,11 +241,17 @@ def set_timer_in_yaml(workflow_yaml, cron_schedule, payload_url):
                 
                 # Update OVERWRITTEN to use default if empty
                 if 'OVERWRITTEN' in env_vars:
-                    env_vars['OVERWRITTEN'] = "${{ github.event.inputs.OVERWRITTEN || '{}' }}"
+                    # Check if it already has the || operator
+                    current_value = str(env_vars['OVERWRITTEN'])
+                    if '||' not in current_value:
+                        env_vars['OVERWRITTEN'] = "${{ github.event.inputs.OVERWRITTEN || '{}' }}"
                 
                 # Update PAYLOAD_URL to use default if empty
                 if 'PAYLOAD_URL' in env_vars:
-                    env_vars['PAYLOAD_URL'] = f"${{{{ github.event.inputs.PAYLOAD_URL || '{payload_url}' }}}}"
+                    # Check if it already has the || operator
+                    current_value = str(env_vars['PAYLOAD_URL'])
+                    if '||' not in current_value:
+                        env_vars['PAYLOAD_URL'] = f"${{{{ github.event.inputs.PAYLOAD_URL || '{payload_url}' }}}}"
     
     if had_schedule:
         logger.info(f"Updated cron schedule: {cron_schedule}")
