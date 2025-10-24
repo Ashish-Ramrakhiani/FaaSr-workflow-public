@@ -4,14 +4,10 @@ on:
     inputs:
       OVERWRITTEN:
         description: Overwritten fields
-        required: false
-        default: '{}'
+        required: true
       PAYLOAD_URL:
         description: URL to payload
-        required: false
-        default: Ashish-Ramrakhiani/FaaSr-workflow-public/main/rworkflow.json
-  schedule:
-  - cron: '*/5 * * * *'
+        required: true
 jobs:
   run_docker_image:
     runs-on: ubuntu-latest
@@ -21,8 +17,8 @@ jobs:
       GH_PAT: ${{ secrets.GH_PAT}}
       My_S3_Bucket_AccessKey: ${{ secrets.My_S3_Bucket_AccessKey}}
       My_S3_Bucket_SecretKey: ${{ secrets.My_S3_Bucket_SecretKey}}
-      OVERWRITTEN: ${{ github.event.inputs.OVERWRITTEN || '{}' }}
-      PAYLOAD_URL: ${{ github.event.inputs.PAYLOAD_URL || 'Ashish-Ramrakhiani/FaaSr-workflow-public/main/rworkflow.json' }}
+      OVERWRITTEN: ${{ github.event.inputs.OVERWRITTEN }}
+      PAYLOAD_URL: ${{ github.event.inputs.PAYLOAD_URL }}
     steps:
     - name: Run Python entrypoint
       run: 'cd /action
