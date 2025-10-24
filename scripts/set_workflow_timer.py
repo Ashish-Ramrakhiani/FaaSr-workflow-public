@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
 Script to set cron timers for FaaSr workflows on GitHub Actions
+Modifies the registered action workflow to add schedule trigger
 """
 import argparse
 import os
@@ -109,7 +110,8 @@ def get_github_actions_config(workflow_data, entry_action):
             sys.exit(1)
         
         config = {
-            "branch": server_config.get("Branch", "main")
+            "branch": server_config.get("Branch", "main"),
+            "repo": server_config.get("ActionRepoName", "")
         }
         
         return config
@@ -120,12 +122,7 @@ def get_github_actions_config(workflow_data, entry_action):
 
 
 def get_workflow_yaml_path(workflow_name, entry_action):
-    """
-    Get the path to the workflow YAML file
-    
-    CHANGED: Now constructs filename as workflow_name-action_name.yml
-    """
-    # Construct filename as workflow_name-action_name.yml
+    """Get the path to the workflow YAML file"""
     workflow_file = f"{workflow_name}-{entry_action}.yml"
     yaml_path = f".github/workflows/{workflow_file}"
     
@@ -162,20 +159,100 @@ def read_workflow_yaml(yaml_path):
         sys.exit(1)
 
 
-def set_timer_in_yaml(workflow_yaml, cron_schedule):
-    """Add or update cron schedule in workflow YAML"""
-    if 'on' not in workflow_yaml:
+def get_payload_url(workflow_file_path, repo, branch):
+    """
+    Construct the GitHub raw URL for the workflow JSON file
+    This will be used as the default PAYLOAD_URL for scheduled runs
+    """
+    # Remove any leading './' or '/' from workflow file path
+    clean_path = workflow_file_path.lstrip('./')
+    
+    # Construct GitHub raw URL
+    # Format: https://raw.githubusercontent.com/owner/repo/branch/path/to/file.json
+    github_repo = os.getenv("GITHUB_REPOSITORY")
+    if not github_repo:
+        logger.error("GITHUB_REPOSITORY environment variable not set")
+        sys.exit(1)
+    
+    payload_url = f"https://raw.githubusercontent.com/{github_repo}/{branch}/{clean_path}"
+    
+    logger.info(f"Default payload URL: {payload_url}")
+    return payload_url
+
+
+def set_timer_in_yaml(workflow_yaml, cron_schedule, payload_url):
+    """
+    Add or update cron schedule in workflow YAML and set default values
+    for OVERWRITTEN and PAYLOAD_URL to support scheduled runs
+    """
+    
+    # Handle different possible trigger key names
+    trigger_key = None
+    if 'on' in workflow_yaml:
+        trigger_key = 'on'
+    elif 'true' in workflow_yaml:
+        # Handle the case where registration created 'true:' instead of 'on:'
+        trigger_key = 'true'
+        workflow_yaml['on'] = workflow_yaml.pop('true')
+        trigger_key = 'on'
+    else:
+        trigger_key = 'on'
         workflow_yaml['on'] = {}
     
-    if not isinstance(workflow_yaml['on'], dict):
-        existing_trigger = workflow_yaml['on']
-        workflow_yaml['on'] = {}
+    # Ensure trigger section is a dict
+    if not isinstance(workflow_yaml[trigger_key], dict):
+        existing_trigger = workflow_yaml[trigger_key]
+        workflow_yaml[trigger_key] = {}
         if isinstance(existing_trigger, str):
-            workflow_yaml['on'][existing_trigger] = None
+            workflow_yaml[trigger_key][existing_trigger] = None
     
-    had_schedule = 'schedule' in workflow_yaml['on']
+    # Add schedule at the top of the 'on' section
+    had_schedule = 'schedule' in workflow_yaml[trigger_key]
     
-    workflow_yaml['on']['schedule'] = [{'cron': cron_schedule}]
+    # Create new 'on' section with schedule first
+    new_on_section = {
+        'schedule': [{'cron': cron_schedule}]
+    }
+    
+    # Add existing triggers after schedule
+    for key, value in workflow_yaml[trigger_key].items():
+        if key != 'schedule':
+            new_on_section[key] = value
+    
+    workflow_yaml[trigger_key] = new_on_section
+    
+    # Add default values to workflow_dispatch inputs if they exist
+    if 'workflow_dispatch' in workflow_yaml[trigger_key]:
+        if 'inputs' not in workflow_yaml[trigger_key]['workflow_dispatch']:
+            workflow_yaml[trigger_key]['workflow_dispatch']['inputs'] = {}
+        
+        inputs = workflow_yaml[trigger_key]['workflow_dispatch']['inputs']
+        
+        # Add defaults to OVERWRITTEN input
+        if 'OVERWRITTEN' in inputs:
+            inputs['OVERWRITTEN']['required'] = False
+            inputs['OVERWRITTEN']['default'] = '{}'
+            logger.info("Added default value to OVERWRITTEN input")
+        
+        # Add defaults to PAYLOAD_URL input
+        if 'PAYLOAD_URL' in inputs:
+            inputs['PAYLOAD_URL']['required'] = False
+            inputs['PAYLOAD_URL']['default'] = payload_url
+            logger.info("Added default payload URL to PAYLOAD_URL input")
+    
+    # Update environment variables to use defaults when inputs are empty
+    if 'jobs' in workflow_yaml:
+        for job_name, job_config in workflow_yaml['jobs'].items():
+            if 'env' in job_config:
+                env_vars = job_config['env']
+                
+                # Update OVERWRITTEN to use default if empty
+                if 'OVERWRITTEN' in env_vars:
+                    env_vars['OVERWRITTEN'] = "${{ github.event.inputs.OVERWRITTEN || '{}' }}"
+                
+                # Update PAYLOAD_URL to use default if empty
+                if 'PAYLOAD_URL' in env_vars:
+                    env_vars['PAYLOAD_URL'] = f"${{{{ github.event.inputs.PAYLOAD_URL || '{payload_url}' }}}}"
     
     if had_schedule:
         logger.info(f"Updated cron schedule: {cron_schedule}")
@@ -242,7 +319,6 @@ def main():
     
     workflow_data = load_workflow_json(args.workflow_file)
     
-    # CHANGED: Extract workflow name
     workflow_name = workflow_data.get("WorkflowName", "default")
     logger.info(f"Workflow name: {workflow_name}")
     
@@ -250,12 +326,14 @@ def main():
     
     gh_config = get_github_actions_config(workflow_data, entry_action)
     
-    # CHANGED: Pass workflow_name to get_workflow_yaml_path
     yaml_path, workflow_file = get_workflow_yaml_path(workflow_name, entry_action)
     check_workflow_registered(yaml_path)
     
+    # Construct the payload URL for the workflow JSON file
+    payload_url = get_payload_url(args.workflow_file, gh_config['repo'], gh_config['branch'])
+    
     workflow_yaml = read_workflow_yaml(yaml_path)
-    workflow_yaml = set_timer_in_yaml(workflow_yaml, args.cron)
+    workflow_yaml = set_timer_in_yaml(workflow_yaml, args.cron, payload_url)
     write_workflow_yaml(yaml_path, workflow_yaml)
     
     commit_and_push_changes(yaml_path, workflow_file, args.cron, gh_config['branch'])
