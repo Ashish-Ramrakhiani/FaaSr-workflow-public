@@ -1,34 +1,36 @@
 name: cross-platform-benchmark-faasr-vm-start
-
-on:
-    workflow_dispatch:
-        inputs:
-            OVERWRITTEN:
-                description: "Overwritten fields"
-                required: true
-            PAYLOAD_URL:
-                description: "URL to payload"
-                required: true
-
+'on':
+  schedule:
+  - cron: '*/5 * * * *'
+true:
+  workflow_dispatch:
+    inputs:
+      OVERWRITTEN:
+        description: Overwritten fields
+        required: true
+      PAYLOAD_URL:
+        description: URL to payload
+        required: true
 jobs:
-    run_docker_image:
-        runs-on: ubuntu-latest
-        container: ghcr.io/faasr/github-actions-python:2.0.2
+  run_docker_image:
+    runs-on: ubuntu-latest
+    container: ghcr.io/faasr/github-actions-python:2.0.2
+    env:
+      GH_PAT: ${{ secrets.GH_PAT}}
+      GCP_SecretKey: ${{ secrets.GCP_SecretKey}}
+      AWS_AccessKey: ${{ secrets.AWS_AccessKey}}
+      AWS_SecretKey: ${{ secrets.AWS_SecretKey}}
+      My_S3_Bucket_AccessKey: ${{ secrets.My_S3_Bucket_AccessKey}}
+      My_S3_Bucket_SecretKey: ${{ secrets.My_S3_Bucket_SecretKey}}
+      AWS_VM_AccessKey: ${{ secrets.AWS_VM_AccessKey}}
+      AWS_VM_SecretKey: ${{ secrets.AWS_VM_SecretKey}}
+      OVERWRITTEN: ${{ github.event.inputs.OVERWRITTEN || '{}' }}
+      PAYLOAD_URL: ${{ github.event.inputs.PAYLOAD_URL || 'https://raw.githubusercontent.com/Ashish-Ramrakhiani/FaaSr-workflow-public/main/cross_platform_benchmark_augmented.json'
+        }}
+    steps:
+    - name: Run Python entrypoint
+      run: 'cd /action
 
-        env:
-            GH_PAT: ${{ secrets.GH_PAT}}
-            GCP_SecretKey: ${{ secrets.GCP_SecretKey}}
-            AWS_AccessKey: ${{ secrets.AWS_AccessKey}}
-            AWS_SecretKey: ${{ secrets.AWS_SecretKey}}
-            My_S3_Bucket_AccessKey: ${{ secrets.My_S3_Bucket_AccessKey}}
-            My_S3_Bucket_SecretKey: ${{ secrets.My_S3_Bucket_SecretKey}}
-            AWS_VM_AccessKey: ${{ secrets.AWS_VM_AccessKey}}
-            AWS_VM_SecretKey: ${{ secrets.AWS_VM_SecretKey}}
-            OVERWRITTEN: ${{ github.event.inputs.OVERWRITTEN }}
-            PAYLOAD_URL: ${{ github.event.inputs.PAYLOAD_URL }}
+        python3 faasr_entry.py
 
-        steps:
-          - name: Run Python entrypoint
-            run: |
-                cd /action
-                python3 faasr_entry.py
+        '
