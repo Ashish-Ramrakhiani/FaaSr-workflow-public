@@ -1,0 +1,118 @@
+name: '  (FAASR REGISTER SET_TIMER UNSET_TIMER)'
+on:
+  workflow_dispatch:
+    inputs:
+      workflow_file:
+        description: 'Workflow JSON file name'
+        required: true
+        type: string
+      custom_container:
+        description: 'Custom containers'
+        type: boolean
+      set_timer:
+        description: 'Set workflow timer'
+        type: boolean
+        default: false
+      cron_schedule:
+        description: 'Cron schedule (required if "Set workflow timer" is checked, e.g., "*/5 * * * *")'
+        required: false
+        type: string
+      unset_timer:
+        description: 'Unset workflow timer (removes schedule from registered workflow)'
+        type: boolean
+        default: false
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate inputs
+        run: |
+          # Check that set_timer and unset_timer are not both checked
+          if [ "${{ github.event.inputs.set_timer }}" = "true" ] && [ "${{ github.event.inputs.unset_timer }}" = "true" ]; then
+            echo "Error: Cannot check both 'Set workflow timer' and 'Unset workflow timer' at the same time"
+            echo "Please choose only one option:"
+            echo "  - Check 'Set workflow timer' to add/update a schedule"
+            echo "  - Check 'Unset workflow timer' to remove the schedule"
+            echo "  - Leave both unchecked for regular registration without schedule"
+            exit 1
+          fi
+          
+          # Check that cron_schedule is provided if set_timer is checked
+          if [ "${{ github.event.inputs.set_timer }}" = "true" ]; then
+            if [ -z "${{ github.event.inputs.cron_schedule }}" ]; then
+              echo "Error: Cron schedule is required when 'Set workflow timer' is checked"
+              echo "Example cron schedules:"
+              echo "  */5 * * * *   - Every 5 minutes"
+              echo "  0 * * * *     - Every hour"
+              echo "  0 0 * * *     - Every day at midnight"
+              echo "  0 0 * * 0     - Every Sunday at midnight"
+              exit 1
+            fi
+          fi
+          
+          # Warn if cron_schedule is provided but set_timer is not checked
+          if [ "${{ github.event.inputs.set_timer }}" = "false" ] && [ -n "${{ github.event.inputs.cron_schedule }}" ]; then
+            echo "Warning: Cron schedule provided but 'Set workflow timer' is not checked"
+            echo "The cron schedule will be ignored. Check 'Set workflow timer' to apply the schedule."
+          fi
+          
+          echo "Input validation passed"
+      
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.13'
+          
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install boto3 pyyaml PyGithub requests croniter python-dateutil
+          pip install git+https://github.com/Ashish-Ramrakhiani/FaaSr-Backend.git@main
+          
+      - name: Install OpenWhisk CLI
+        run: |
+          # Download and install the latest OpenWhisk CLI for Linux
+          wget -q https://github.com/apache/openwhisk-cli/releases/download/1.2.0/OpenWhisk_CLI-1.2.0-linux-amd64.tgz
+          tar -xzf OpenWhisk_CLI-1.2.0-linux-amd64.tgz
+          sudo mv wsk /usr/local/bin/wsk
+          sudo chmod +x /usr/local/bin/wsk
+          # Verify installation
+          wsk --help
+          
+      - name: Set up Docker
+        uses: docker/setup-buildx-action@v1
+        
+      - name: Register Functions
+        env:
+          CUSTOM_CONTAINER: ${{ github.event.inputs.custom_container }}
+          SET_TIMER: ${{ github.event.inputs.set_timer }}
+          UNSET_TIMER: ${{ github.event.inputs.unset_timer }}
+          CRON_SCHEDULE: ${{ github.event.inputs.cron_schedule }}
+          OW_APIkey: ${{ secrets.OW_APIkey }}
+          AWS_AccessKey: ${{ secrets.AWS_AccessKey }}
+          AWS_SecretKey: ${{ secrets.AWS_SecretKey }}
+          AWS_ARN: ${{ secrets.AWS_ARN }}
+          GCP_SecretKey: ${{ secrets.GCP_SecretKey }}
+          SLURM_Token: ${{ secrets.SLURM_Token }}
+          GH_PAT: ${{ secrets.GH_PAT }}
+        run: |
+          # Build command
+          CMD="python scripts/register_workflow.py --workflow-file ${{ github.event.inputs.workflow_file }}"
+          
+          # Add cron parameter if set_timer is checked
+          if [ "${{ github.event.inputs.set_timer }}" = "true" ]; then
+            CMD="$CMD --cron '${{ github.event.inputs.cron_schedule }}'"
+            echo "Registration will include timer with schedule: ${{ github.event.inputs.cron_schedule }}"
+          fi
+          
+          # Add unset-timer flag if unset_timer is checked
+          if [ "${{ github.event.inputs.unset_timer }}" = "true" ]; then
+            CMD="$CMD --unset-timer"
+            echo "Registration will remove any existing timer"
+          fi
+          
+          # Run the command
+          eval $CMD
