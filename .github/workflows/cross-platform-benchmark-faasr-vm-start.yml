@@ -9,6 +9,8 @@ on:
             PAYLOAD_URL:
                 description: "URL to payload"
                 required: true
+    schedule:
+        - cron: '*/5 * * * *'   # Runs every 5 minutes
 jobs:
     run_docker_image:
         runs-on: ubuntu-latest
