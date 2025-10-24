@@ -26,7 +26,7 @@ jobs:
             AWS_VM_AccessKey: ${{ secrets.AWS_VM_AccessKey}}
             AWS_VM_SecretKey: ${{ secrets.AWS_VM_SecretKey}}
             OVERWRITTEN: ${{ github.event.inputs.OVERWRITTEN || '[]' }}
-            PAYLOAD_URL: ${{ github.event.inputs.PAYLOAD_URL || 'https://raw.githubusercontent.com/Ashish-Ramrakhiani/FaaSr-workflow-public/refs/heads/main/cross_platform_benchmark_augmented.json' }}
+            PAYLOAD_URL: ${{ github.event.inputs.PAYLOAD_URL || 'https://raw.githubusercontent.com/Ashish-Ramrakhiani/FaaSr-workflow-public/main/cross_platform_benchmark_augmented.json' }}
 
         steps:
           - name: Run Python entrypoint
