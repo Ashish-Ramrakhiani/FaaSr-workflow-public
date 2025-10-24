@@ -109,8 +109,15 @@ def get_github_actions_config(workflow_data, entry_action):
             logger.error("Timer setting is only supported for GitHub Actions")
             sys.exit(1)
         
+        branch = server_config.get("Branch", "main")
+        
+        # Clean branch name - remove refs/heads/ if present
+        if branch.startswith("refs/heads/"):
+            branch = branch.replace("refs/heads/", "")
+            logger.info(f"Cleaned branch name: {branch}")
+        
         config = {
-            "branch": server_config.get("Branch", "main"),
+            "branch": branch,
             "repo": server_config.get("ActionRepoName", "")
         }
         
@@ -135,14 +142,7 @@ def check_workflow_registered(yaml_path):
         logger.error(f"Workflow YAML file not found: {yaml_path}")
         logger.error("")
         logger.error("This workflow has not been registered yet.")
-        logger.error("Please register the workflow first using the FAASR REGISTER action:")
-        logger.error("  1. Go to Actions tab")
-        logger.error("  2. Select (FAASR REGISTER) workflow")
-        logger.error("  3. Click Run workflow")
-        logger.error("  4. Enter your workflow file name")
-        logger.error("  5. Wait for registration to complete")
-        logger.error("  6. Then run this timer setup action again")
-        logger.error("")
+        logger.error("Please register the workflow first using the FAASR REGISTER action")
         sys.exit(1)
     
     return True
@@ -157,130 +157,139 @@ def read_workflow_yaml(yaml_path):
     except yaml.YAMLError as e:
         logger.error(f"Failed to parse workflow YAML: {e}")
         sys.exit(1)
+    except Exception as e:
+        logger.error(f"Failed to read workflow YAML: {e}")
+        sys.exit(1)
 
 
-def get_payload_url(workflow_file_path, repo, branch):
+def get_payload_url(workflow_file_path, github_repo, branch):
     """
-    Construct the GitHub raw URL for the workflow JSON file
-    This will be used as the default PAYLOAD_URL for scheduled runs
+    Construct the payload URL in the format that works with FaaSrPayload
+    Format: owner/repo/branch/path (WITHOUT https://raw.githubusercontent.com/ prefix)
+    The container's FaaSrPayload class adds the prefix internally
     """
     # Remove any leading './' or '/' from workflow file path
     clean_path = workflow_file_path.lstrip('./')
     
-    # Construct GitHub raw URL
-    # Format: https://raw.githubusercontent.com/owner/repo/branch/path/to/file.json
-    github_repo = os.getenv("GITHUB_REPOSITORY")
-    if not github_repo:
-        logger.error("GITHUB_REPOSITORY environment variable not set")
-        sys.exit(1)
+    # Construct the SHORT format that FaaSrPayload expects
+    # Format: owner/repo/branch/file.json
+    payload_url = f"{github_repo}/{branch}/{clean_path}"
     
-    payload_url = f"https://raw.githubusercontent.com/{github_repo}/{branch}/{clean_path}"
-    
-    logger.info(f"Default payload URL: {payload_url}")
+    logger.info(f"Payload URL: {payload_url}")
     return payload_url
 
 
 def set_timer_in_yaml(workflow_yaml, cron_schedule, payload_url):
     """
-    Add or update cron schedule in workflow YAML and set default values
-    for OVERWRITTEN and PAYLOAD_URL to support scheduled runs
+    Add or update cron schedule in workflow YAML
+    Match the exact structure of the working YAML
     """
     
-    # Step 1: Handle 'true:' vs 'on:' key and get trigger section
-    if 'true' in workflow_yaml:
-        logger.info("Fixing 'true:' key to 'on:'")
-        trigger_section = workflow_yaml.pop('true')
-    elif 'on' in workflow_yaml:
-        trigger_section = workflow_yaml.pop('on')  # Remove it temporarily
-    else:
-        trigger_section = {}
+    # Handle 'on' key (PyYAML sometimes parses it as True or 'true')
+    on_section = None
+    on_key = None
     
-    # Ensure trigger section is a dict
-    if not isinstance(trigger_section, dict):
-        logger.warning("Converting trigger section to dict")
-        trigger_section = {}
+    for key in ['on', True, 'true']:
+        if key in workflow_yaml:
+            on_section = workflow_yaml[key]
+            on_key = key
+            break
     
-    # Step 2: Build the correct 'on' section with schedule FIRST
-    new_on_section = {}
+    if on_section is None:
+        logger.error("Could not find 'on' section in workflow YAML")
+        sys.exit(1)
     
-    # Add schedule first
-    new_on_section['schedule'] = [{'cron': cron_schedule}]
-    had_schedule = 'schedule' in trigger_section
+    # Remove old key if it's not 'on'
+    if on_key != 'on':
+        del workflow_yaml[on_key]
     
-    # Add workflow_dispatch second
-    if 'workflow_dispatch' in trigger_section:
-        workflow_dispatch = trigger_section['workflow_dispatch']
-        
-        # Update inputs with defaults
-        if 'inputs' in workflow_dispatch:
-            inputs = workflow_dispatch['inputs']
+    # Ensure on_section is a dict
+    if not isinstance(on_section, dict):
+        on_section = {}
+    
+    # Update workflow_dispatch inputs to support scheduled runs
+    if 'workflow_dispatch' in on_section:
+        if 'inputs' in on_section['workflow_dispatch']:
+            inputs = on_section['workflow_dispatch']['inputs']
             
-            # Add defaults to OVERWRITTEN input
+            # CHANGE 1: Update OVERWRITTEN input
             if 'OVERWRITTEN' in inputs:
-                inputs['OVERWRITTEN']['required'] = False
-                inputs['OVERWRITTEN']['default'] = '{}'
-                logger.info("Added default value to OVERWRITTEN input")
+                inputs['OVERWRITTEN']['required'] = False  # ← Changed from true to false
+                inputs['OVERWRITTEN']['default'] = '{}'    # ← Added default
+                logger.info("✓ Updated OVERWRITTEN: required=false, default='{}'")
             
-            # Add defaults to PAYLOAD_URL input
+            # CHANGE 2: Update PAYLOAD_URL input  
             if 'PAYLOAD_URL' in inputs:
-                inputs['PAYLOAD_URL']['required'] = False
-                inputs['PAYLOAD_URL']['default'] = payload_url
-                logger.info("Added default payload URL to PAYLOAD_URL input")
-        
-        new_on_section['workflow_dispatch'] = workflow_dispatch
+                inputs['PAYLOAD_URL']['required'] = False   # ← Changed from true to false
+                inputs['PAYLOAD_URL']['default'] = payload_url  # ← Added default
+                logger.info(f"✓ Updated PAYLOAD_URL: required=false, default='{payload_url}'")
     
-    # Add any other triggers that might exist
-    for key, value in trigger_section.items():
-        if key not in ['schedule', 'workflow_dispatch']:
-            new_on_section[key] = value
+    # CHANGE 3: Add schedule section
+    had_schedule = 'schedule' in on_section
+    on_section['schedule'] = [{'cron': cron_schedule}]
     
-    # Step 3: Insert the new 'on' section at the correct position (after 'name')
-    # Rebuild workflow_yaml in correct order
-    new_workflow_yaml = {}
+    if had_schedule:
+        logger.info(f"✓ Updated schedule: {cron_schedule}")
+    else:
+        logger.info(f"✓ Added schedule: {cron_schedule}")
     
-    # Add name first
-    if 'name' in workflow_yaml:
-        new_workflow_yaml['name'] = workflow_yaml['name']
+    # Put the updated on_section back
+    workflow_yaml['on'] = on_section
     
-    # Add 'on' second
-    new_workflow_yaml['on'] = new_on_section
-    
-    # Add all other keys
-    for key, value in workflow_yaml.items():
-        if key not in ['name', 'on', 'true']:
-            new_workflow_yaml[key] = value
-    
-    # Step 4: Update environment variables to use defaults when inputs are empty
-    if 'jobs' in new_workflow_yaml:
-        for job_name, job_config in new_workflow_yaml['jobs'].items():
+    # CHANGE 4: Update env vars to use || operator for defaults
+    if 'jobs' in workflow_yaml:
+        for job_name, job_config in workflow_yaml['jobs'].items():
             if 'env' in job_config:
                 env_vars = job_config['env']
                 
-                # Update OVERWRITTEN to use default if empty
+                # Update OVERWRITTEN env var
                 if 'OVERWRITTEN' in env_vars:
-                    current_value = str(env_vars['OVERWRITTEN'])
-                    if '||' not in current_value:
+                    current = str(env_vars['OVERWRITTEN'])
+                    if '||' not in current:
                         env_vars['OVERWRITTEN'] = "${{ github.event.inputs.OVERWRITTEN || '{}' }}"
+                        logger.info("✓ Updated OVERWRITTEN env to use default fallback")
                 
-                # Update PAYLOAD_URL to use default if empty
+                # Update PAYLOAD_URL env var
                 if 'PAYLOAD_URL' in env_vars:
-                    current_value = str(env_vars['PAYLOAD_URL'])
-                    if '||' not in current_value:
+                    current = str(env_vars['PAYLOAD_URL'])
+                    if '||' not in current:
                         env_vars['PAYLOAD_URL'] = f"${{{{ github.event.inputs.PAYLOAD_URL || '{payload_url}' }}}}"
+                        logger.info("✓ Updated PAYLOAD_URL env to use default fallback")
     
-    if had_schedule:
-        logger.info(f"Updated cron schedule: {cron_schedule}")
-    else:
-        logger.info(f"Added cron schedule: {cron_schedule}")
-    
-    return new_workflow_yaml
+    return workflow_yaml
 
 
 def write_workflow_yaml(yaml_path, workflow_yaml):
     """Write updated workflow YAML back to file"""
     try:
+        # Custom representer to handle GitHub Actions expressions
+        def str_representer(dumper, data):
+            if '${{' in data and '}}' in data:
+                # Don't quote strings with GitHub Actions expressions
+                return dumper.represent_scalar('tag:yaml.org,2002:str', data, style='')
+            return dumper.represent_scalar('tag:yaml.org,2002:str', data)
+        
+        yaml.add_representer(str, str_representer)
+        
+        # Dump YAML
+        yaml_content = yaml.dump(
+            workflow_yaml,
+            default_flow_style=False,
+            sort_keys=False,
+            width=1000,
+            allow_unicode=True
+        )
+        
+        # Fix 'on:' being converted to something else
+        yaml_content = yaml_content.replace('true:', 'on:', 1)
+        yaml_content = yaml_content.replace('"on":', 'on:', 1)
+        yaml_content = yaml_content.replace("'on':", 'on:', 1)
+        
         with open(yaml_path, 'w') as f:
-            yaml.dump(workflow_yaml, f, default_flow_style=False, sort_keys=False)
+            f.write(yaml_content)
+        
+        logger.info(f"✓ Wrote updated YAML to: {yaml_path}")
+        
     except Exception as e:
         logger.error(f"Failed to write workflow YAML: {e}")
         sys.exit(1)
@@ -291,29 +300,36 @@ def commit_and_push_changes(yaml_path, workflow_file, cron_schedule, branch):
     import subprocess
     
     try:
-        result = subprocess.run(['git', 'diff', '--quiet', yaml_path], 
-                              capture_output=True)
+        result = subprocess.run(
+            ['git', 'diff', '--quiet', yaml_path],
+            capture_output=True
+        )
         
         if result.returncode == 0:
-            logger.info("No changes detected, timer may already be set to this schedule")
+            logger.info("No changes detected - timer already set")
             return
         
         subprocess.run(['git', 'add', yaml_path], check=True, capture_output=True)
         
-        commit_msg = f"FaaSr: Set workflow timer to '{cron_schedule}' for {workflow_file}"
+        commit_msg = f"FaaSr: Set timer '{cron_schedule}' for {workflow_file}"
+        subprocess.run(
+            ['git', 'commit', '-m', commit_msg],
+            check=True,
+            capture_output=True
+        )
         
-        subprocess.run(['git', 'commit', '-m', commit_msg], 
-                      check=True, capture_output=True)
+        subprocess.run(
+            ['git', 'push', 'origin', branch],
+            check=True,
+            capture_output=True
+        )
         
-        subprocess.run(['git', 'push', 'origin', branch], 
-                      check=True, capture_output=True)
-        
-        logger.info(f"Changes pushed to branch: {branch}")
+        logger.info(f"✓ Committed and pushed to branch: {branch}")
         
     except subprocess.CalledProcessError as e:
         logger.error("Git operation failed")
-        if e.output:
-            logger.error(f"Output: {e.output.decode()}")
+        if e.stdout:
+            logger.error(f"Output: {e.stdout.decode()}")
         if e.stderr:
             logger.error(f"Error: {e.stderr.decode()}")
         sys.exit(1)
@@ -334,7 +350,7 @@ def main():
     workflow_data = load_workflow_json(args.workflow_file)
     
     workflow_name = workflow_data.get("WorkflowName", "default")
-    logger.info(f"Workflow name: {workflow_name}")
+    logger.info(f"Workflow: {workflow_name}")
     
     entry_action = get_entry_action(workflow_data)
     
@@ -343,18 +359,29 @@ def main():
     yaml_path, workflow_file = get_workflow_yaml_path(workflow_name, entry_action)
     check_workflow_registered(yaml_path)
     
-    # Construct the payload URL for the workflow JSON file
-    payload_url = get_payload_url(args.workflow_file, gh_config['repo'], gh_config['branch'])
+    # Get GitHub repo from environment
+    github_repo = os.getenv("GITHUB_REPOSITORY")
+    if not github_repo:
+        logger.error("GITHUB_REPOSITORY environment variable not set")
+        sys.exit(1)
     
+    # Construct payload URL (SHORT format without https:// prefix)
+    payload_url = get_payload_url(args.workflow_file, github_repo, gh_config['branch'])
+    
+    # Read, update, and write YAML
     workflow_yaml = read_workflow_yaml(yaml_path)
     workflow_yaml = set_timer_in_yaml(workflow_yaml, args.cron, payload_url)
     write_workflow_yaml(yaml_path, workflow_yaml)
     
+    # Commit and push
     commit_and_push_changes(yaml_path, workflow_file, args.cron, gh_config['branch'])
     
     logger.info("")
-    logger.info("Timer configuration complete")
-    logger.info(f"Workflow {entry_action} will run on schedule: {args.cron}")
+    logger.info("=" * 60)
+    logger.info("Timer successfully configured!")
+    logger.info(f"  Schedule: {args.cron}")
+    logger.info(f"  Workflow: {entry_action}")
+    logger.info("=" * 60)
 
 
 if __name__ == "__main__":
