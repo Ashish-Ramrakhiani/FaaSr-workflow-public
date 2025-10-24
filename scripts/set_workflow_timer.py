@@ -260,7 +260,7 @@ def set_timer_in_yaml(workflow_yaml, cron_schedule, payload_url):
 
 
 def write_workflow_yaml(yaml_path, workflow_yaml):
-    """Write updated workflow YAML back to file"""
+    """Write updated workflow YAML back to file with proper key ordering"""
     try:
         # Custom representer to handle GitHub Actions expressions
         def str_representer(dumper, data):
@@ -271,9 +271,29 @@ def write_workflow_yaml(yaml_path, workflow_yaml):
         
         yaml.add_representer(str, str_representer)
         
-        # Dump YAML
+        # CRITICAL FIX: Rebuild workflow_yaml in the correct order
+        ordered_workflow = {}
+        
+        # Order 1: name (if exists)
+        if 'name' in workflow_yaml:
+            ordered_workflow['name'] = workflow_yaml['name']
+        
+        # Order 2: on
+        if 'on' in workflow_yaml:
+            ordered_workflow['on'] = workflow_yaml['on']
+        
+        # Order 3: jobs
+        if 'jobs' in workflow_yaml:
+            ordered_workflow['jobs'] = workflow_yaml['jobs']
+        
+        # Order 4: any other keys
+        for key in workflow_yaml:
+            if key not in ['name', 'on', 'jobs']:
+                ordered_workflow[key] = workflow_yaml[key]
+        
+        # Dump YAML with ordered structure
         yaml_content = yaml.dump(
-            workflow_yaml,
+            ordered_workflow,
             default_flow_style=False,
             sort_keys=False,
             width=1000,
