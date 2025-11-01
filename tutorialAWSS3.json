@@ -43,8 +43,8 @@
         }
   },
   "ActionContainers": {
-    "start": "ghcr.io/ashish-ramrakhiani/github-actions-r:2.0",
-    "sum": "ghcr.io/ashish-ramrakhiani/github-actions-r:2.0"
+    "start": "ghcr.io/faasr/github-actions-r:latest",
+    "sum": "ghcr.io/faasr/github-actions-r:latest"
   },
   "FunctionInvoke": "start",
   "DefaultDataStore": "My_S3_Bucket",
