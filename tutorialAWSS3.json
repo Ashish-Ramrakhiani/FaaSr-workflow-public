@@ -43,8 +43,8 @@
         }
   },
   "ActionContainers": {
-    "start": "ghcr.io/faasr/github-actions-r:latest",
-    "sum": "ghcr.io/faasr/github-actions-r:latest"
+    "start": "ghcr.io/ashish-ramrakhiani/github-actions-python:2.0",
+    "sum": "ghcr.io/ashish-ramrakhiani/github-actions-python:2.0t"
   },
   "FunctionInvoke": "start",
   "DefaultDataStore": "AWS",
