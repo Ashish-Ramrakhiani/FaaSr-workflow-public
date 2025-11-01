@@ -37,6 +37,7 @@
   },
   "DataStores": {
         "AWS": {
+            "Endpoint":"s3.us-east-1.amazonaws.com",
             "Bucket": "faasr-bucket-0001",
             "Region": "us-east-1",
             "Writable": "TRUE"
