@@ -37,7 +37,7 @@
   },
   "DataStores": {
         "My_S3_Bucket": {
-          "Endpoint":"s3.us-west-2.amazonaws.com",
+          "Endpoint":"https://s3.us-west-2.amazonaws.com",
             "Bucket": "faasr-bucket-0001",
             "Region": "us-west-2",
             "Writable": "true"
