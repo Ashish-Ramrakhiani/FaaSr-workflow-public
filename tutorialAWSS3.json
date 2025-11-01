@@ -1,0 +1,59 @@
+{
+  "ActionList": {
+    "start": {
+      "Arguments": {
+        "folder": "tutorialAWSS3",
+        "output1": "sample1.csv",
+        "output2": "sample2.csv"
+      },
+      "InvokeNext": [
+        "sum"
+      ],
+      "FaaSServer": "GH",
+      "Type": "R",
+      "FunctionName": "create_sample_data"
+    },
+    "sum": {
+      "FunctionName": "compute_sum_arrow",
+      "FaaSServer": "GH",
+      "Type": "R",
+      "Arguments": {
+        "folder": "tutorialAWSS3",
+        "input2": "sample2.csv",
+        "input1": "sample1.csv",
+        "output": "sum.csv"
+      },
+      "InvokeNext": []
+    }
+  },
+  "ComputeServers": {
+    "GH": {
+      "FaaSType": "GitHubActions",
+      "UserName": "Ashish-Ramrakhiani",
+      "UseSecretStore": true,
+      "ActionRepoName": "FaaSr-workflow-public",
+      "Branch": "main"
+    }
+  },
+  "DataStores": {
+        "AWS": {
+            "Bucket": "faasr-bucket-0001",
+            "Region": "us-east-1",
+            "Writable": "TRUE"
+        }
+  },
+  "ActionContainers": {
+    "start": "ghcr.io/faasr/github-actions-r:latest",
+    "sum": "ghcr.io/faasr/github-actions-r:latest"
+  },
+  "FunctionInvoke": "start",
+  "DefaultDataStore": "AWS",
+  "FunctionGitRepo": {
+    "create_sample_data": "FaaSr/FaaSr-tutorial",
+    "compute_sum_arrow": "FaaSr/FaaSr-tutorial"
+  },
+  "LoggingDataStore": "AWS",
+  "FaaSrLog": "FaaSrLog",
+  "InvocationID": "",
+  "WorkflowName": "tutorialAWSS3"
+}
