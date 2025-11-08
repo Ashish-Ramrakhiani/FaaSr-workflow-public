@@ -14,7 +14,6 @@
       "CPUsPerTask": 1,
       "Memory": 512,
       "TimeLimit": 900,
-      "UseSecretStore": true,
     },
     "OW": {
       "FaaSType": "OpenWhisk",
