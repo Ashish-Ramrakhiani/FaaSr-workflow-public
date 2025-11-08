@@ -1,174 +1,174 @@
 {
-  "ComputeServers": {
-    "GH": {
-      "FaaSType": "GitHubActions",
-      "UseSecretStore": true,
-      "UserName": "Ashish-Ramrakhiani",
-      "ActionRepoName": "FaaSr-workflow-public",
-      "Branch": "main"
+    "ComputeServers": {
+        "GH": {
+            "FaaSType": "GitHubActions",
+            "UseSecretStore": true,
+            "UserName": "Ashish-Ramrakhiani",
+            "ActionRepoName": "FaaSr-workflow-public",
+            "Branch": "main"
+        },
+        "AWS": {
+            "FaaSType": "Lambda",
+            "Region": "us-east-1",
+            "UseSecretStore": true,
+            "CPUsPerTask": 1,
+            "Memory": 512,
+            "TimeLimit": 900
+        },
+        "OW": {
+            "FaaSType": "OpenWhisk",
+            "Namespace": "guest",
+            "SSL": "False",
+            "Endpoint": "ow.faasr.io:31002",
+            "UseSecretStore": false
+        },
+        "GCP": {
+            "FaaSType": "GoogleCloud",
+            "Namespace": "nsf-20210119-renatof-420467",
+            "Region": "us-central1",
+            "Endpoint": "https://run.googleapis.com/v2/projects/",
+            "UseSecretStore": true,
+            "ClientEmail": "faasr-experiments@nsf-20210119-renatof-420467.iam.gserviceaccount.com",
+            "TokenUri": "https://oauth2.googleapis.com/token",
+            "CPUsPerTask": 1,
+            "Memory": 512,
+            "TimeLimit": 3600
+        },
+        "SLURM": {
+            "FaaSType": "SLURM",
+            "Endpoint": "http://slurm.faasr.io:6820",
+            "APIVersion": "v0.0.37",
+            "Partition": "faasr",
+            "Nodes": 2,
+            "Tasks": 2,
+            "CPUsPerTask": 4,
+            "UserName": "ubuntu",
+            "Memory": 2048,
+            "TimeLimit": 30,
+            "WorkingDirectory": "/tmp",
+            "UseSecretStore": false
+        }
     },
-    "AWS": {
-      "FaaSType": "Lambda",
-      "Region": "us-east-1",
-      "UseSecretStore": true,
-      "CPUsPerTask": 1,
-      "Memory": 512,
-      "TimeLimit": 900,
+    "DataStores": {
+        "My_S3_Bucket": {
+            "Endpoint": "https://s3.us-west-2.amazonaws.com",
+            "Bucket": "faasr-bucket-0001",
+            "Region": "us-west-2",
+            "Writable": "true"
+        }
     },
-    "OW": {
-      "FaaSType": "OpenWhisk",
-      "Namespace": "guest",
-      "SSL": "False",
-      "Endpoint": "ow.faasr.io:31002",
-      "UseSecretStore": false,
+    "ActionList": {
+        "split_fasta_ID000001": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "GH",
+            "Type": "Python",
+            "Arguments": {
+                "execution_time": 0.928728,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "medium.fasta",
+                    "split_fasta"
+                ],
+                "input_size_in_bytes": 60410,
+                "output_size_in_bytes": 60600,
+                "actionid": "split_fasta_ID000001"
+            },
+            "InvokeNext": [
+                "blastall_ID000002"
+            ]
+        },
+        "blastall_ID000002": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "AWS",
+            "Type": "Python",
+            "Arguments": {
+                "execution_time": 103.664087,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "blastall",
+                    "medium.fasta.0",
+                    "nt"
+                ],
+                "input_size_in_bytes": 5112968848,
+                "output_size_in_bytes": 617,
+                "actionid": "blastall_ID000002"
+            },
+            "InvokeNext": [
+                "blastall_ID000003"
+            ]
+        },
+        "blastall_ID000003": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "OW",
+            "Type": "Python",
+            "Arguments": {
+                "execution_time": 99.474188,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "blastall",
+                    "medium.fasta.1",
+                    "nt"
+                ],
+                "input_size_in_bytes": 5112968848,
+                "output_size_in_bytes": 583,
+                "actionid": "blastall_ID000003"
+            },
+            "InvokeNext": [
+                "blastall_ID000004"
+            ]
+        },
+        "blastall_ID000004": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "GCP",
+            "Type": "Python",
+            "Arguments": {
+                "execution_time": 97.790095,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "blastall",
+                    "medium.fasta.2",
+                    "nt"
+                ],
+                "input_size_in_bytes": 5112968848,
+                "output_size_in_bytes": 529,
+                "actionid": "blastall_ID000004"
+            },
+            "InvokeNext": [
+                "blastall_ID000005"
+            ]
+        },
+        "blastall_ID000005": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "SLURM",
+            "Type": "Python",
+            "Arguments": {
+                "execution_time": 99.797739,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "blastall",
+                    "medium.fasta.3",
+                    "nt"
+                ],
+                "input_size_in_bytes": 5112968848,
+                "output_size_in_bytes": 676,
+                "actionid": "blastall_ID000005"
+            },
+            "InvokeNext": []
+        }
     },
-    "GCP": {
-      "FaaSType": "GoogleCloud",
-      "Namespace": "nsf-20210119-renatof-420467",
-      "Region": "us-central1",
-      "Endpoint": "https://run.googleapis.com/v2/projects/",
-      "UseSecretStore": true,
-      "ClientEmail": "faasr-experiments@nsf-20210119-renatof-420467.iam.gserviceaccount.com",
-      "TokenUri": "https://oauth2.googleapis.com/token",
-      "CPUsPerTask": 1,
-      "Memory": 512,
-      "TimeLimit": 3600
+    "ActionContainers": {
+        "split_fasta_ID000001": "ghcr.io/ashish-ramrakhiani/github-actions-python:2.0",
+        "blastall_ID000002": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-python:2.0",
+        "blastall_ID000003": "ramrakha/ow-python:2.0",
+        "blastall_ID000004": "ramrakha/gcp-python:2.0",
+        "blastall_ID000005": "ramrakha/slurm-python:2.0"
     },
-    "SLURM": {
-      "FaaSType": "SLURM",
-      "Endpoint": "http://slurm.faasr.io:6820",
-      "APIVersion": "v0.0.37",
-      "Partition": "faasr",
-      "Nodes": 2,
-      "Tasks": 2,
-      "CPUsPerTask": 4,
-      "UserName": "ubuntu",
-      "Memory": 2048,
-      "TimeLimit": 30,
-      "WorkingDirectory": "/tmp",
-      "UseSecretStore": false,
-    }
-  },
-  "DataStores": {
-    "My_S3_Bucket": {
-      "Endpoint": "https://s3.us-west-2.amazonaws.com",
-      "Bucket": "faasr-bucket-0001",
-      "Region": "us-west-2",
-      "Writable": "true"
-    }
-  },
-  "ActionList": {
-    "split_fasta_ID000001": {
-      "FunctionName": "synthetic_faas_function",
-      "FaaSServer": "GH",
-      "Type": "Python",
-      "Arguments": {
-        "execution_time": 0.928728,
-        "folder": "synthetic_files",
-        "input_files": [
-          "medium.fasta",
-          "split_fasta"
-        ],
-        "input_size_in_bytes": 60410,
-        "output_size_in_bytes": 60600,
-        "actionid": "split_fasta_ID000001"
-      },
-      "InvokeNext": [
-        "blastall_ID000002"
-      ]
+    "FunctionGitRepo": {
+        "synthetic_faas_function": "nolcut/FaaSr-synthetic"
     },
-    "blastall_ID000002": {
-      "FunctionName": "synthetic_faas_function",
-      "FaaSServer": "AWS",
-      "Type": "Python",
-      "Arguments": {
-        "execution_time": 103.664087,
-        "folder": "synthetic_files",
-        "input_files": [
-          "blastall",
-          "medium.fasta.0",
-          "nt"
-        ],
-        "input_size_in_bytes": 5112968848,
-        "output_size_in_bytes": 617,
-        "actionid": "blastall_ID000002"
-      },
-      "InvokeNext": [
-        "blastall_ID000003"
-      ]
-    },
-    "blastall_ID000003": {
-      "FunctionName": "synthetic_faas_function",
-      "FaaSServer": "OW",
-      "Type": "Python",
-      "Arguments": {
-        "execution_time": 99.474188,
-        "folder": "synthetic_files",
-        "input_files": [
-          "blastall",
-          "medium.fasta.1",
-          "nt"
-        ],
-        "input_size_in_bytes": 5112968848,
-        "output_size_in_bytes": 583,
-        "actionid": "blastall_ID000003"
-      },
-      "InvokeNext": [
-        "blastall_ID000004"
-      ]
-    },
-    "blastall_ID000004": {
-      "FunctionName": "synthetic_faas_function",
-      "FaaSServer": "GCP",
-      "Type": "Python",
-      "Arguments": {
-        "execution_time": 97.790095,
-        "folder": "synthetic_files",
-        "input_files": [
-          "blastall",
-          "medium.fasta.2",
-          "nt"
-        ],
-        "input_size_in_bytes": 5112968848,
-        "output_size_in_bytes": 529,
-        "actionid": "blastall_ID000004"
-      },
-      "InvokeNext": [
-        "blastall_ID000005"
-      ]
-    },
-    "blastall_ID000005": {
-      "FunctionName": "synthetic_faas_function",
-      "FaaSServer": "SLURM",
-      "Type": "Python",
-      "Arguments": {
-        "execution_time": 99.797739,
-        "folder": "synthetic_files",
-        "input_files": [
-          "blastall",
-          "medium.fasta.3",
-          "nt"
-        ],
-        "input_size_in_bytes": 5112968848,
-        "output_size_in_bytes": 676,
-        "actionid": "blastall_ID000005"
-      },
-      "InvokeNext": []
-    }
-  },
-  "ActionContainers": {
-    "split_fasta_ID000001": "ghcr.io/ashish-ramrakhiani/github-actions-python:2.0",
-    "blastall_ID000002": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-python:2.0",
-    "blastall_ID000003": "ramrakha/ow-python:2.0",
-    "blastall_ID000004": "ramrakha/gcp-python:2.0",
-    "blastall_ID000005": "ramrakha/slurm-python:2.0"
-  },
-  "FunctionGitRepo": {
-    "synthetic_faas_function": "nolcut/FaaSr-synthetic"
-  },
-  "FunctionInvoke": "split_fasta_ID000001",
-  "FaaSrLog": "FaaSrLog",
-  "LoggingDataStore": "My_S3_Bucket",
-  "DefaultDataStore": "My_S3_Bucket",
-  "WorkflowName": "test-exp-5"
+    "FunctionInvoke": "split_fasta_ID000001",
+    "FaaSrLog": "FaaSrLog",
+    "LoggingDataStore": "My_S3_Bucket",
+    "DefaultDataStore": "My_S3_Bucket",
+    "WorkflowName": "test-exp-5"
 }
