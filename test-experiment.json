@@ -139,7 +139,7 @@
         },
         "blastall_ID000005": {
             "FunctionName": "synthetic_faas_function",
-            "FaaSServer": "SLURM",
+            "FaaSServer": "GH",
             "Type": "Python",
             "Arguments": {
                 "execution_time": 99.797739,
