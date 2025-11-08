@@ -19,6 +19,7 @@
             "FaaSType": "OpenWhisk",
             "Namespace": "guest",
             "Endpoint": "ow.faasr.io:31002",
+            "API.key":"X",
             "UseSecretStore": false
         },
         "GCP": {
