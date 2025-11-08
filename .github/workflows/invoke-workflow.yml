@@ -38,7 +38,7 @@ jobs:
 
       - name: Configure OpenWhisk CLI
         env:
-          OW_API_KEY: ${{ secrets.OW_API_KEY }}
+          OW_API_KEY: ${{ secrets.OW_APIKey }}
         run: |
           # Set environment variable to handle certificate issues
           echo "GODEBUG=x509ignoreCN=0" >> $GITHUB_ENV
