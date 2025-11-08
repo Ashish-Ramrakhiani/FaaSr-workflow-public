@@ -613,10 +613,10 @@ def deploy_to_ow(workflow_data):
 
                 if exists:
                     # Update existing action (add --insecure flag)
-                    cmd = f"wsk action update {prefixed_func_name} --docker {container_image} --insecure"  # noqa E501
+                    cmd = f"wsk action update {prefixed_func_name} --docker {container_image} --timeout 300000 --insecure"  # noqa E501
                 else:
                     # Create new action (add --insecure flag)
-                    cmd = f"wsk action create {prefixed_func_name} --docker {container_image} --insecure"  # noqa E501
+                    cmd = f"wsk action create {prefixed_func_name} --docker {container_image} --timeout 300000 --insecure"  # noqa E501
 
                 result = subprocess.run(
                     cmd, shell=True, capture_output=True, text=True, env=env
