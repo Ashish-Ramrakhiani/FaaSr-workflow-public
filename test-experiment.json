@@ -160,7 +160,7 @@
         "split-fasta-ID000001": "ghcr.io/ashish-ramrakhiani/github-actions-python:2.0",
         "blastall-ID000002": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-python:2.0",
         "blastall-ID000003": "ramrakha/ow-python:2.0",
-        "blastall-ID000004": "ramrakha/gcp-python:2.0",
+        "blastall-id000004": "ramrakha/gcp-python:2.0",
         "blastall-ID000005": "ramrakha/slurm-python:2.0"
     },
     "FunctionGitRepo": {
