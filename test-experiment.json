@@ -18,7 +18,6 @@
         "OW": {
             "FaaSType": "OpenWhisk",
             "Namespace": "guest",
-            "SSL": "False",
             "Endpoint": "ow.faasr.io:31002",
             "UseSecretStore": false
         },
