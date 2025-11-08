@@ -158,11 +158,11 @@
     }
   },
   "ActionContainers": {
-    "split_fasta_ID000001": "ghcr.io/faasr/github-actions-tidyverse:latest",
-    "blastall_ID000002": "ghcr.io/faasr/github-actions-tidyverse:latest",
-    "blastall_ID000003": "ghcr.io/faasr/github-actions-tidyverse:latest",
-    "blastall_ID000004": "ghcr.io/faasr/github-actions-tidyverse:latest",
-    "blastall_ID000005": "ghcr.io/faasr/github-actions-tidyverse:latest"
+    "split_fasta_ID000001": "ghcr.io/ashish-ramrakhiani/github-actions-python:2.0",
+    "blastall_ID000002": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-python:2.0",
+    "blastall_ID000003": "ramrakha/ow-python:2.0",
+    "blastall_ID000004": "ramrakha/gcp-python:2.0",
+    "blastall_ID000005": "ramrakha/slurm-python:2.0"
   },
   "FunctionGitRepo": {
     "synthetic_faas_function": "nolcut/FaaSr-synthetic"
