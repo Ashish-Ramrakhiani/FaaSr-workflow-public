@@ -114,10 +114,10 @@
                 "actionid": "blastall_ID000003"
             },
             "InvokeNext": [
-                "blastall-ID000004"
+                "blastall-id000004"
             ]
         },
-        "blastall-ID000004": {
+        "blastall-id000004": {
             "FunctionName": "synthetic_faas_function",
             "FaaSServer": "GCP",
             "Type": "Python",
