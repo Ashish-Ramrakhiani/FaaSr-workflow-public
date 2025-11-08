@@ -58,7 +58,7 @@
         }
     },
     "ActionList": {
-        "split_fasta_ID000001": {
+        "split-fasta-ID000001": {
             "FunctionName": "synthetic_faas_function",
             "FaaSServer": "GH",
             "Type": "Python",
@@ -74,10 +74,10 @@
                 "actionid": "split_fasta_ID000001"
             },
             "InvokeNext": [
-                "blastall_ID000002"
+                "blastall-ID000002"
             ]
         },
-        "blastall_ID000002": {
+        "blastall-ID000002": {
             "FunctionName": "synthetic_faas_function",
             "FaaSServer": "AWS",
             "Type": "Python",
@@ -94,10 +94,10 @@
                 "actionid": "blastall_ID000002"
             },
             "InvokeNext": [
-                "blastall_ID000003"
+                "blastall-ID000003"
             ]
         },
-        "blastall_ID000003": {
+        "blastall-ID000003": {
             "FunctionName": "synthetic_faas_function",
             "FaaSServer": "OW",
             "Type": "Python",
@@ -114,10 +114,10 @@
                 "actionid": "blastall_ID000003"
             },
             "InvokeNext": [
-                "blastall_ID000004"
+                "blastall-ID000004"
             ]
         },
-        "blastall_ID000004": {
+        "blastall-ID000004": {
             "FunctionName": "synthetic_faas_function",
             "FaaSServer": "GCP",
             "Type": "Python",
@@ -134,10 +134,10 @@
                 "actionid": "blastall_ID000004"
             },
             "InvokeNext": [
-                "blastall_ID000005"
+                "blastall-ID000005"
             ]
         },
-        "blastall_ID000005": {
+        "blastall-ID000005": {
             "FunctionName": "synthetic_faas_function",
             "FaaSServer": "GH",
             "Type": "Python",
@@ -157,16 +157,16 @@
         }
     },
     "ActionContainers": {
-        "split_fasta_ID000001": "ghcr.io/ashish-ramrakhiani/github-actions-python:2.0",
-        "blastall_ID000002": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-python:2.0",
-        "blastall_ID000003": "ramrakha/ow-python:2.0",
-        "blastall_ID000004": "ramrakha/gcp-python:2.0",
-        "blastall_ID000005": "ramrakha/slurm-python:2.0"
+        "split-fasta-ID000001": "ghcr.io/ashish-ramrakhiani/github-actions-python:2.0",
+        "blastall-ID000002": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-python:2.0",
+        "blastall-ID000003": "ramrakha/ow-python:2.0",
+        "blastall-ID000004": "ramrakha/gcp-python:2.0",
+        "blastall-ID000005": "ramrakha/slurm-python:2.0"
     },
     "FunctionGitRepo": {
         "synthetic_faas_function": "nolcut/FaaSr-synthetic"
     },
-    "FunctionInvoke": "split_fasta_ID000001",
+    "FunctionInvoke": "split-fasta-ID000001",
     "FaaSrLog": "FaaSrLog",
     "LoggingDataStore": "My_S3_Bucket",
     "DefaultDataStore": "My_S3_Bucket",
