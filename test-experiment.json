@@ -89,7 +89,7 @@
                     "medium.fasta.0",
                     "nt"
                 ],
-                "input_size_in_bytes": 5112968848,
+                "input_size_in_bytes": 512,
                 "output_size_in_bytes": 617,
                 "actionid": "blastall_ID000002"
             },
@@ -109,7 +109,7 @@
                     "medium.fasta.1",
                     "nt"
                 ],
-                "input_size_in_bytes": 5112968848,
+                "input_size_in_bytes": 512,
                 "output_size_in_bytes": 583,
                 "actionid": "blastall_ID000003"
             },
@@ -129,7 +129,7 @@
                     "medium.fasta.2",
                     "nt"
                 ],
-                "input_size_in_bytes": 5112968848,
+                "input_size_in_bytes": 512,
                 "output_size_in_bytes": 529,
                 "actionid": "blastall_ID000004"
             },
@@ -149,7 +149,7 @@
                     "medium.fasta.3",
                     "nt"
                 ],
-                "input_size_in_bytes": 5112968848,
+                "input_size_in_bytes": 512,
                 "output_size_in_bytes": 676,
                 "actionid": "blastall_ID000005"
             },
