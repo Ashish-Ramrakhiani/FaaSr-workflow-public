@@ -77,7 +77,7 @@
         },
         "bwa-id000003": {
             "FunctionName": "synthetic_faas_function",
-            "FaaSServer": "AWS",
+            "FaaSServer": "OW",
             "Type": "Python",
             "Arguments": {
                 "execution_time": 0.194159,
