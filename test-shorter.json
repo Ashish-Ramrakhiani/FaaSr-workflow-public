@@ -102,7 +102,7 @@
     },
     "ActionContainers": {
         "fastq-reduce-id000001": "ghcr.io/ashish-ramrakhiani/github-actions-python:3.0",
-        "bwa-id000003": "ramrakha/ow-r:3.0"
+        "bwa-id000003": "ramrakha/ow-python:3.0"
     },
     "FunctionGitRepo": {
         "synthetic_faas_function": "nolcut/FaaSr-synthetic"
