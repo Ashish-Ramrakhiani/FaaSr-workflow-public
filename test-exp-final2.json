@@ -18,8 +18,8 @@
         "OW": {
             "FaaSType": "OpenWhisk",
             "Namespace": "guest",
-            "SSL": "False",
-            "Endpoint": "ow.faasr.io:31002"
+            "Endpoint": "ow.faasr.io:31002",
+            "API.key":"X"
         },
         "GCP": {
             "FaaSType": "GoogleCloud",
@@ -3252,6 +3252,7 @@
         "synthetic_faas_function": "nolcut/FaaSr-synthetic"
     },
     "FunctionInvoke": "start3781215560",
+    "WorkflowName":"test-exp-final2",
     "InvocationID": "",
     "FaaSrLog": "FaaSrLog",
     "LoggingDataStore": "My_S3_Bucket",
