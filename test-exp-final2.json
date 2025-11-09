@@ -1,0 +1,3265 @@
+{
+    "ComputeServers": {
+        "GH": {
+            "FaaSType": "GitHubActions",
+            "UseSecretStore": true,
+            "UserName": "Ashish-Ramrakhiani",
+            "ActionRepoName": "FaaSr-workflow-public",
+            "Branch": "main"
+        },
+        "AWS": {
+            "FaaSType": "Lambda",
+            "Region": "us-east-1",
+            "UseSecretStore": true,
+            "CPUsPerTask": 1,
+            "Memory": 512,
+            "TimeLimit": 900
+        },
+        "OW": {
+            "FaaSType": "OpenWhisk",
+            "Namespace": "guest",
+            "SSL": "False",
+            "Endpoint": "ow.faasr.io:31002"
+        },
+        "GCP": {
+            "FaaSType": "GoogleCloud",
+            "Namespace": "nsf-20210119-renatof-420467",
+            "Region": "us-central1",
+            "Endpoint": "https://run.googleapis.com/v2/projects/",
+            "UseSecretStore": true,
+            "ClientEmail": "faasr-experiments@nsf-20210119-renatof-420467.iam.gserviceaccount.com",
+            "TokenUri": "https://oauth2.googleapis.com/token",
+            "CPUsPerTask": 1,
+            "Memory": 512,
+            "TimeLimit": 3600
+        },
+        "SLURM": {
+            "FaaSType": "SLURM",
+            "Endpoint": "http://slurm.faasr.io:6820",
+            "APIVersion": "v0.0.37",
+            "Partition": "faasr",
+            "Nodes": 1,
+            "Tasks": 1,
+            "CPUsPerTask": 1,
+            "UserName": "ubuntu",
+            "Memory": 2048,
+            "TimeLimit": 30,
+            "WorkingDirectory": "/tmp"
+        }
+    },
+    "DataStores": {
+        "My_S3_Bucket": {
+            "Endpoint": "https://s3.us-west-2.amazonaws.com",
+            "Bucket": "faasr-bucket-0001",
+            "Region": "us-west-2",
+            "Writable": "true"
+        }
+    },
+    "ActionList": {
+        "fastq-reduce-id000001": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "GH",
+            "Type": "R",
+            "Arguments": {
+                "execution_time": 0.052486,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "fastq_reduce",
+                    "query.fastq"
+                ],
+                "input_size_in_bytes": 2440,
+                "output_size_in_bytes": 2499,
+                "actionid": "fastq-reduce-id000001"
+            },
+            "InvokeNext": [
+                "bwa-id000003",
+                "bwa-id000004",
+                "bwa-id000005",
+                "bwa-id000006",
+                "bwa-id000007",
+                "bwa-id000008",
+                "bwa-id000009",
+                "bwa-id000010",
+                "bwa-id000011",
+                "bwa-id000012",
+                "bwa-id000013",
+                "bwa-id000014",
+                "bwa-id000015",
+                "bwa-id000016",
+                "bwa-id000017",
+                "bwa-id000018",
+                "bwa-id000019",
+                "bwa-id000020",
+                "bwa-id000021",
+                "bwa-id000022",
+                "bwa-id000023",
+                "bwa-id000024",
+                "bwa-id000025",
+                "bwa-id000026",
+                "bwa-id000027",
+                "bwa-id000028",
+                "bwa-id000029",
+                "bwa-id000030",
+                "bwa-id000031",
+                "bwa-id000032",
+                "bwa-id000033",
+                "bwa-id000034",
+                "bwa-id000035",
+                "bwa-id000036",
+                "bwa-id000037",
+                "bwa-id000038",
+                "bwa-id000039",
+                "bwa-id000040",
+                "bwa-id000041",
+                "bwa-id000042",
+                "bwa-id000043",
+                "bwa-id000044",
+                "bwa-id000045",
+                "bwa-id000046",
+                "bwa-id000047",
+                "bwa-id000048",
+                "bwa-id000049",
+                "bwa-id000050",
+                "bwa-id000051",
+                "bwa-id000052",
+                "bwa-id000053",
+                "bwa-id000054",
+                "bwa-id000055",
+                "bwa-id000056",
+                "bwa-id000057",
+                "bwa-id000058",
+                "bwa-id000059",
+                "bwa-id000060",
+                "bwa-id000061",
+                "bwa-id000062",
+                "bwa-id000063",
+                "bwa-id000064",
+                "bwa-id000065",
+                "bwa-id000066",
+                "bwa-id000067",
+                "bwa-id000068",
+                "bwa-id000069",
+                "bwa-id000070",
+                "bwa-id000071",
+                "bwa-id000072",
+                "bwa-id000073",
+                "bwa-id000074",
+                "bwa-id000075",
+                "bwa-id000076",
+                "bwa-id000077",
+                "bwa-id000078",
+                "bwa-id000079",
+                "bwa-id000080",
+                "bwa-id000081",
+                "bwa-id000082",
+                "bwa-id000083",
+                "bwa-id000084",
+                "bwa-id000085",
+                "bwa-id000086",
+                "bwa-id000087",
+                "bwa-id000088",
+                "bwa-id000089",
+                "bwa-id000090",
+                "bwa-id000091",
+                "bwa-id000092",
+                "bwa-id000093",
+                "bwa-id000094",
+                "bwa-id000095",
+                "bwa-id000096",
+                "bwa-id000097",
+                "bwa-id000098",
+                "bwa-id000099",
+                "bwa-id000100",
+                "bwa-id000101",
+                "bwa-id000102"
+            ]
+        },
+        "bwa-index-id000002": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "AWS",
+            "Type": "Python",
+            "Arguments": {
+                "execution_time": 82.90146,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq"
+                ],
+                "input_size_in_bytes": 201883,
+                "output_size_in_bytes": 175581,
+                "actionid": "bwa-index-id000002"
+            },
+            "InvokeNext": [
+                "bwa-id000003",
+                "bwa-id000004",
+                "bwa-id000005",
+                "bwa-id000006",
+                "bwa-id000007",
+                "bwa-id000008",
+                "bwa-id000009",
+                "bwa-id000010",
+                "bwa-id000011",
+                "bwa-id000012",
+                "bwa-id000013",
+                "bwa-id000014",
+                "bwa-id000015",
+                "bwa-id000016",
+                "bwa-id000017",
+                "bwa-id000018",
+                "bwa-id000019",
+                "bwa-id000020",
+                "bwa-id000021",
+                "bwa-id000022",
+                "bwa-id000023",
+                "bwa-id000024",
+                "bwa-id000025",
+                "bwa-id000026",
+                "bwa-id000027",
+                "bwa-id000028",
+                "bwa-id000029",
+                "bwa-id000030",
+                "bwa-id000031",
+                "bwa-id000032",
+                "bwa-id000033",
+                "bwa-id000034",
+                "bwa-id000035",
+                "bwa-id000036",
+                "bwa-id000037",
+                "bwa-id000038",
+                "bwa-id000039",
+                "bwa-id000040",
+                "bwa-id000041",
+                "bwa-id000042",
+                "bwa-id000043",
+                "bwa-id000044",
+                "bwa-id000045",
+                "bwa-id000046",
+                "bwa-id000047",
+                "bwa-id000048",
+                "bwa-id000049",
+                "bwa-id000050",
+                "bwa-id000051",
+                "bwa-id000052",
+                "bwa-id000053",
+                "bwa-id000054",
+                "bwa-id000055",
+                "bwa-id000056",
+                "bwa-id000057",
+                "bwa-id000058",
+                "bwa-id000059",
+                "bwa-id000060",
+                "bwa-id000061",
+                "bwa-id000062",
+                "bwa-id000063",
+                "bwa-id000064",
+                "bwa-id000065",
+                "bwa-id000066",
+                "bwa-id000067",
+                "bwa-id000068",
+                "bwa-id000069",
+                "bwa-id000070",
+                "bwa-id000071",
+                "bwa-id000072",
+                "bwa-id000073",
+                "bwa-id000074",
+                "bwa-id000075",
+                "bwa-id000076",
+                "bwa-id000077",
+                "bwa-id000078",
+                "bwa-id000079",
+                "bwa-id000080",
+                "bwa-id000081",
+                "bwa-id000082",
+                "bwa-id000083",
+                "bwa-id000084",
+                "bwa-id000085",
+                "bwa-id000086",
+                "bwa-id000087",
+                "bwa-id000088",
+                "bwa-id000089",
+                "bwa-id000090",
+                "bwa-id000091",
+                "bwa-id000092",
+                "bwa-id000093",
+                "bwa-id000094",
+                "bwa-id000095",
+                "bwa-id000096",
+                "bwa-id000097",
+                "bwa-id000098",
+                "bwa-id000099",
+                "bwa-id000100",
+                "bwa-id000101",
+                "bwa-id000102"
+            ]
+        },
+        "bwa-id000003": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "OW",
+            "Type": "Python",
+            "Arguments": {
+                "execution_time": 0.194159,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.0"
+                ],
+                "input_size_in_bytes": 377488,
+                "output_size_in_bytes": 517,
+                "actionid": "bwa-id000003"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000004": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "GCP",
+            "Type": "Python",
+            "Arguments": {
+                "execution_time": 0.203163,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.1"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 518,
+                "actionid": "bwa-id000004"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000005": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "SLURM",
+            "Type": "R",
+            "Arguments": {
+                "execution_time": 0.201204,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.2"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 517,
+                "actionid": "bwa-id000005"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000006": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "GH",
+            "Type": "Python",
+            "Arguments": {
+                "execution_time": 0.433339,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.3"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 519,
+                "actionid": "bwa-id000006"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000007": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "AWS",
+            "Type": "Python",
+            "Arguments": {
+                "execution_time": 0.982906,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.4"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 520,
+                "actionid": "bwa-id000007"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000008": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "OW",
+            "Type": "R",
+            "Arguments": {
+                "execution_time": 1.326365,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.5"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 517,
+                "actionid": "bwa-id000008"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000009": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "GCP",
+            "Type": "Python",
+            "Arguments": {
+                "execution_time": 1.817241,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.6"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 518,
+                "actionid": "bwa-id000009"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000010": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "SLURM",
+            "Type": "R",
+            "Arguments": {
+                "execution_time": 1.626538,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.7"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 519,
+                "actionid": "bwa-id000010"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000011": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "GH",
+            "Type": "R",
+            "Arguments": {
+                "execution_time": 3.629394,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.8"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 518,
+                "actionid": "bwa-id000011"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000012": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "AWS",
+            "Type": "Python",
+            "Arguments": {
+                "execution_time": 2.267505,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.9"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 518,
+                "actionid": "bwa-id000012"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000013": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "OW",
+            "Type": "Python",
+            "Arguments": {
+                "execution_time": 2.529347,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.10"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 518,
+                "actionid": "bwa-id000013"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000014": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "GCP",
+            "Type": "Python",
+            "Arguments": {
+                "execution_time": 2.862457,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.11"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 519,
+                "actionid": "bwa-id000014"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000015": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "SLURM",
+            "Type": "Python",
+            "Arguments": {
+                "execution_time": 2.365438,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.12"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 519,
+                "actionid": "bwa-id000015"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000016": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "GH",
+            "Type": "R",
+            "Arguments": {
+                "execution_time": 2.841767,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.13"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 518,
+                "actionid": "bwa-id000016"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000017": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "AWS",
+            "Type": "Python",
+            "Arguments": {
+                "execution_time": 5.256217,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.14"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 520,
+                "actionid": "bwa-id000017"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000018": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "OW",
+            "Type": "Python",
+            "Arguments": {
+                "execution_time": 5.550877,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.15"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 519,
+                "actionid": "bwa-id000018"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000019": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "GCP",
+            "Type": "Python",
+            "Arguments": {
+                "execution_time": 4.076651,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.16"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 519,
+                "actionid": "bwa-id000019"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000020": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "SLURM",
+            "Type": "Python",
+            "Arguments": {
+                "execution_time": 4.157149,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.17"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 519,
+                "actionid": "bwa-id000020"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000021": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "GH",
+            "Type": "R",
+            "Arguments": {
+                "execution_time": 3.713777,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.18"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 519,
+                "actionid": "bwa-id000021"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000022": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "AWS",
+            "Type": "R",
+            "Arguments": {
+                "execution_time": 3.877808,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.19"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 519,
+                "actionid": "bwa-id000022"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000023": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "OW",
+            "Type": "Python",
+            "Arguments": {
+                "execution_time": 4.874043,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.20"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 520,
+                "actionid": "bwa-id000023"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000024": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "GCP",
+            "Type": "Python",
+            "Arguments": {
+                "execution_time": 1.408259,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.21"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 519,
+                "actionid": "bwa-id000024"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000025": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "SLURM",
+            "Type": "Python",
+            "Arguments": {
+                "execution_time": 1.582142,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.22"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 520,
+                "actionid": "bwa-id000025"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000026": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "GH",
+            "Type": "Python",
+            "Arguments": {
+                "execution_time": 2.407776,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.23"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 520,
+                "actionid": "bwa-id000026"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000027": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "AWS",
+            "Type": "Python",
+            "Arguments": {
+                "execution_time": 2.747385,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.24"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 518,
+                "actionid": "bwa-id000027"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000028": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "OW",
+            "Type": "Python",
+            "Arguments": {
+                "execution_time": 3.098045,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.25"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 519,
+                "actionid": "bwa-id000028"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000029": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "GCP",
+            "Type": "R",
+            "Arguments": {
+                "execution_time": 4.683366,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.26"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 519,
+                "actionid": "bwa-id000029"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000030": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "SLURM",
+            "Type": "R",
+            "Arguments": {
+                "execution_time": 4.654057,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.27"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 518,
+                "actionid": "bwa-id000030"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000031": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "GH",
+            "Type": "Python",
+            "Arguments": {
+                "execution_time": 3.809476,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.28"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 519,
+                "actionid": "bwa-id000031"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000032": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "AWS",
+            "Type": "Python",
+            "Arguments": {
+                "execution_time": 6.352596,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.29"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 518,
+                "actionid": "bwa-id000032"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000033": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "OW",
+            "Type": "Python",
+            "Arguments": {
+                "execution_time": 5.433284,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.30"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 519,
+                "actionid": "bwa-id000033"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000034": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "GCP",
+            "Type": "R",
+            "Arguments": {
+                "execution_time": 2.26463,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.31"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 518,
+                "actionid": "bwa-id000034"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000035": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "SLURM",
+            "Type": "Python",
+            "Arguments": {
+                "execution_time": 1.479148,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.32"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 520,
+                "actionid": "bwa-id000035"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000036": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "GH",
+            "Type": "Python",
+            "Arguments": {
+                "execution_time": 5.286055,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.33"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 520,
+                "actionid": "bwa-id000036"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000037": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "AWS",
+            "Type": "Python",
+            "Arguments": {
+                "execution_time": 3.898382,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.34"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 519,
+                "actionid": "bwa-id000037"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000038": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "OW",
+            "Type": "R",
+            "Arguments": {
+                "execution_time": 4.308968,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.35"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 519,
+                "actionid": "bwa-id000038"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000039": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "GCP",
+            "Type": "Python",
+            "Arguments": {
+                "execution_time": 4.928685,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.36"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 518,
+                "actionid": "bwa-id000039"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000040": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "SLURM",
+            "Type": "R",
+            "Arguments": {
+                "execution_time": 6.469629,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.37"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 520,
+                "actionid": "bwa-id000040"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000041": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "GH",
+            "Type": "R",
+            "Arguments": {
+                "execution_time": 4.23136,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.38"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 519,
+                "actionid": "bwa-id000041"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000042": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "AWS",
+            "Type": "R",
+            "Arguments": {
+                "execution_time": 2.84407,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.39"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 518,
+                "actionid": "bwa-id000042"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000043": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "OW",
+            "Type": "R",
+            "Arguments": {
+                "execution_time": 2.101237,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.40"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 520,
+                "actionid": "bwa-id000043"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000044": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "GCP",
+            "Type": "R",
+            "Arguments": {
+                "execution_time": 1.989764,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.41"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 519,
+                "actionid": "bwa-id000044"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000045": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "SLURM",
+            "Type": "Python",
+            "Arguments": {
+                "execution_time": 5.179571,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.42"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 519,
+                "actionid": "bwa-id000045"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000046": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "GH",
+            "Type": "R",
+            "Arguments": {
+                "execution_time": 8.437057,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.43"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 519,
+                "actionid": "bwa-id000046"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000047": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "AWS",
+            "Type": "R",
+            "Arguments": {
+                "execution_time": 2.058136,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.44"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 520,
+                "actionid": "bwa-id000047"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000048": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "OW",
+            "Type": "R",
+            "Arguments": {
+                "execution_time": 5.026945,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.45"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 520,
+                "actionid": "bwa-id000048"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000049": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "GCP",
+            "Type": "R",
+            "Arguments": {
+                "execution_time": 2.030818,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.46"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 520,
+                "actionid": "bwa-id000049"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000050": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "SLURM",
+            "Type": "R",
+            "Arguments": {
+                "execution_time": 1.245433,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.47"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 518,
+                "actionid": "bwa-id000050"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000051": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "GH",
+            "Type": "Python",
+            "Arguments": {
+                "execution_time": 0.202551,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.48"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 519,
+                "actionid": "bwa-id000051"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000052": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "AWS",
+            "Type": "Python",
+            "Arguments": {
+                "execution_time": 0.905188,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.49"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 519,
+                "actionid": "bwa-id000052"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000053": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "OW",
+            "Type": "Python",
+            "Arguments": {
+                "execution_time": 1.421457,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.50"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 518,
+                "actionid": "bwa-id000053"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000054": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "GCP",
+            "Type": "Python",
+            "Arguments": {
+                "execution_time": 2.614412,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.51"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 518,
+                "actionid": "bwa-id000054"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000055": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "SLURM",
+            "Type": "R",
+            "Arguments": {
+                "execution_time": 0.211822,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.52"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 520,
+                "actionid": "bwa-id000055"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000056": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "GH",
+            "Type": "R",
+            "Arguments": {
+                "execution_time": 0.696855,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.53"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 519,
+                "actionid": "bwa-id000056"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000057": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "AWS",
+            "Type": "R",
+            "Arguments": {
+                "execution_time": 0.762207,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.54"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 519,
+                "actionid": "bwa-id000057"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000058": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "OW",
+            "Type": "R",
+            "Arguments": {
+                "execution_time": 1.142843,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.55"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 520,
+                "actionid": "bwa-id000058"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000059": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "GCP",
+            "Type": "R",
+            "Arguments": {
+                "execution_time": 2.866492,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.56"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 519,
+                "actionid": "bwa-id000059"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000060": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "SLURM",
+            "Type": "Python",
+            "Arguments": {
+                "execution_time": 2.655158,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.57"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 520,
+                "actionid": "bwa-id000060"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000061": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "GH",
+            "Type": "R",
+            "Arguments": {
+                "execution_time": 2.336772,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.58"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 520,
+                "actionid": "bwa-id000061"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000062": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "AWS",
+            "Type": "Python",
+            "Arguments": {
+                "execution_time": 1.498021,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.59"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 519,
+                "actionid": "bwa-id000062"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000063": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "OW",
+            "Type": "Python",
+            "Arguments": {
+                "execution_time": 2.072258,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.60"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 519,
+                "actionid": "bwa-id000063"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000064": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "GCP",
+            "Type": "Python",
+            "Arguments": {
+                "execution_time": 2.098472,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.61"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 519,
+                "actionid": "bwa-id000064"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000065": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "SLURM",
+            "Type": "R",
+            "Arguments": {
+                "execution_time": 2.367868,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.62"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 519,
+                "actionid": "bwa-id000065"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000066": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "GH",
+            "Type": "R",
+            "Arguments": {
+                "execution_time": 2.658633,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.63"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 518,
+                "actionid": "bwa-id000066"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000067": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "AWS",
+            "Type": "Python",
+            "Arguments": {
+                "execution_time": 1.253152,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.64"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 518,
+                "actionid": "bwa-id000067"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000068": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "OW",
+            "Type": "Python",
+            "Arguments": {
+                "execution_time": 2.287788,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.65"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 519,
+                "actionid": "bwa-id000068"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000069": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "GCP",
+            "Type": "R",
+            "Arguments": {
+                "execution_time": 2.016591,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.66"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 520,
+                "actionid": "bwa-id000069"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000070": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "SLURM",
+            "Type": "Python",
+            "Arguments": {
+                "execution_time": 2.080611,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.67"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 519,
+                "actionid": "bwa-id000070"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000071": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "GH",
+            "Type": "R",
+            "Arguments": {
+                "execution_time": 3.475245,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.68"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 520,
+                "actionid": "bwa-id000071"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000072": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "AWS",
+            "Type": "R",
+            "Arguments": {
+                "execution_time": 6.414302,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.69"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 519,
+                "actionid": "bwa-id000072"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000073": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "OW",
+            "Type": "Python",
+            "Arguments": {
+                "execution_time": 1.683716,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.70"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 520,
+                "actionid": "bwa-id000073"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000074": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "GCP",
+            "Type": "R",
+            "Arguments": {
+                "execution_time": 2.067585,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.71"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 520,
+                "actionid": "bwa-id000074"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000075": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "SLURM",
+            "Type": "R",
+            "Arguments": {
+                "execution_time": 2.754806,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.72"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 519,
+                "actionid": "bwa-id000075"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000076": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "GH",
+            "Type": "R",
+            "Arguments": {
+                "execution_time": 2.592141,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.73"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 519,
+                "actionid": "bwa-id000076"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000077": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "AWS",
+            "Type": "R",
+            "Arguments": {
+                "execution_time": 3.101858,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.74"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 519,
+                "actionid": "bwa-id000077"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000078": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "OW",
+            "Type": "R",
+            "Arguments": {
+                "execution_time": 5.526213,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.75"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 519,
+                "actionid": "bwa-id000078"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000079": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "GCP",
+            "Type": "R",
+            "Arguments": {
+                "execution_time": 1.31607,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.76"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 519,
+                "actionid": "bwa-id000079"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000080": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "SLURM",
+            "Type": "R",
+            "Arguments": {
+                "execution_time": 1.1652,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.77"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 519,
+                "actionid": "bwa-id000080"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000081": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "GH",
+            "Type": "R",
+            "Arguments": {
+                "execution_time": 1.637954,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.78"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 520,
+                "actionid": "bwa-id000081"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000082": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "AWS",
+            "Type": "Python",
+            "Arguments": {
+                "execution_time": 1.345471,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.79"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 519,
+                "actionid": "bwa-id000082"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000083": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "OW",
+            "Type": "R",
+            "Arguments": {
+                "execution_time": 1.991828,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.80"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 519,
+                "actionid": "bwa-id000083"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000084": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "GCP",
+            "Type": "R",
+            "Arguments": {
+                "execution_time": 2.403995,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.81"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 518,
+                "actionid": "bwa-id000084"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000085": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "SLURM",
+            "Type": "Python",
+            "Arguments": {
+                "execution_time": 2.170282,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.82"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 519,
+                "actionid": "bwa-id000085"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000086": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "GH",
+            "Type": "Python",
+            "Arguments": {
+                "execution_time": 2.561284,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.83"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 518,
+                "actionid": "bwa-id000086"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000087": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "AWS",
+            "Type": "Python",
+            "Arguments": {
+                "execution_time": 2.419941,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.84"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 519,
+                "actionid": "bwa-id000087"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000088": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "OW",
+            "Type": "R",
+            "Arguments": {
+                "execution_time": 1.016698,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.85"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 519,
+                "actionid": "bwa-id000088"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000089": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "GCP",
+            "Type": "R",
+            "Arguments": {
+                "execution_time": 2.400836,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.86"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 520,
+                "actionid": "bwa-id000089"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000090": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "SLURM",
+            "Type": "R",
+            "Arguments": {
+                "execution_time": 2.506207,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.87"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 518,
+                "actionid": "bwa-id000090"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000091": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "GH",
+            "Type": "R",
+            "Arguments": {
+                "execution_time": 4.002427,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.88"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 518,
+                "actionid": "bwa-id000091"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000092": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "AWS",
+            "Type": "R",
+            "Arguments": {
+                "execution_time": 3.946839,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.89"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 519,
+                "actionid": "bwa-id000092"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000093": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "OW",
+            "Type": "R",
+            "Arguments": {
+                "execution_time": 3.977206,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.90"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 518,
+                "actionid": "bwa-id000093"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000094": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "GCP",
+            "Type": "R",
+            "Arguments": {
+                "execution_time": 2.607059,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.91"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 520,
+                "actionid": "bwa-id000094"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000095": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "SLURM",
+            "Type": "R",
+            "Arguments": {
+                "execution_time": 4.335754,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.92"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 520,
+                "actionid": "bwa-id000095"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000096": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "GH",
+            "Type": "R",
+            "Arguments": {
+                "execution_time": 5.864619,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.93"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 520,
+                "actionid": "bwa-id000096"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000097": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "AWS",
+            "Type": "Python",
+            "Arguments": {
+                "execution_time": 5.144761,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.94"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 518,
+                "actionid": "bwa-id000097"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000098": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "OW",
+            "Type": "Python",
+            "Arguments": {
+                "execution_time": 5.269372,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.95"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 518,
+                "actionid": "bwa-id000098"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000099": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "GCP",
+            "Type": "Python",
+            "Arguments": {
+                "execution_time": 1.520036,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.96"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 519,
+                "actionid": "bwa-id000099"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000100": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "SLURM",
+            "Type": "R",
+            "Arguments": {
+                "execution_time": 0.203927,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.97"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 519,
+                "actionid": "bwa-id000100"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000101": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "GH",
+            "Type": "R",
+            "Arguments": {
+                "execution_time": 0.200069,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.98"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 519,
+                "actionid": "bwa-id000101"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "bwa-id000102": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "AWS",
+            "Type": "Python",
+            "Arguments": {
+                "execution_time": 0.203828,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.99"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 520,
+                "actionid": "bwa-id000102"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103",
+                "cat-id000104"
+            ]
+        },
+        "cat-bwa-id000103": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "OW",
+            "Type": "Python",
+            "Arguments": {
+                "execution_time": 0.551166,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "cat_bwa",
+                    "query.fastq.0.sam",
+                    "query.fastq.1.sam",
+                    "query.fastq.2.sam",
+                    "query.fastq.3.sam",
+                    "query.fastq.4.sam",
+                    "query.fastq.5.sam",
+                    "query.fastq.6.sam",
+                    "query.fastq.7.sam",
+                    "query.fastq.8.sam",
+                    "query.fastq.9.sam",
+                    "query.fastq.10.sam",
+                    "query.fastq.11.sam",
+                    "query.fastq.12.sam",
+                    "query.fastq.13.sam",
+                    "query.fastq.14.sam",
+                    "query.fastq.15.sam",
+                    "query.fastq.16.sam",
+                    "query.fastq.17.sam",
+                    "query.fastq.18.sam",
+                    "query.fastq.19.sam",
+                    "query.fastq.20.sam",
+                    "query.fastq.21.sam",
+                    "query.fastq.22.sam",
+                    "query.fastq.23.sam",
+                    "query.fastq.24.sam",
+                    "query.fastq.25.sam",
+                    "query.fastq.26.sam",
+                    "query.fastq.27.sam",
+                    "query.fastq.28.sam",
+                    "query.fastq.29.sam",
+                    "query.fastq.30.sam",
+                    "query.fastq.31.sam",
+                    "query.fastq.32.sam",
+                    "query.fastq.33.sam",
+                    "query.fastq.34.sam",
+                    "query.fastq.35.sam",
+                    "query.fastq.36.sam",
+                    "query.fastq.37.sam",
+                    "query.fastq.38.sam",
+                    "query.fastq.39.sam",
+                    "query.fastq.40.sam",
+                    "query.fastq.41.sam",
+                    "query.fastq.42.sam",
+                    "query.fastq.43.sam",
+                    "query.fastq.44.sam",
+                    "query.fastq.45.sam",
+                    "query.fastq.46.sam",
+                    "query.fastq.47.sam",
+                    "query.fastq.48.sam",
+                    "query.fastq.49.sam",
+                    "query.fastq.50.sam",
+                    "query.fastq.51.sam",
+                    "query.fastq.52.sam",
+                    "query.fastq.53.sam",
+                    "query.fastq.54.sam",
+                    "query.fastq.55.sam",
+                    "query.fastq.56.sam",
+                    "query.fastq.57.sam",
+                    "query.fastq.58.sam",
+                    "query.fastq.59.sam",
+                    "query.fastq.60.sam",
+                    "query.fastq.61.sam",
+                    "query.fastq.62.sam",
+                    "query.fastq.63.sam",
+                    "query.fastq.64.sam",
+                    "query.fastq.65.sam",
+                    "query.fastq.66.sam",
+                    "query.fastq.67.sam",
+                    "query.fastq.68.sam",
+                    "query.fastq.69.sam",
+                    "query.fastq.70.sam",
+                    "query.fastq.71.sam",
+                    "query.fastq.72.sam",
+                    "query.fastq.73.sam",
+                    "query.fastq.74.sam",
+                    "query.fastq.75.sam",
+                    "query.fastq.76.sam",
+                    "query.fastq.77.sam",
+                    "query.fastq.78.sam",
+                    "query.fastq.79.sam",
+                    "query.fastq.80.sam",
+                    "query.fastq.81.sam",
+                    "query.fastq.82.sam",
+                    "query.fastq.83.sam",
+                    "query.fastq.84.sam",
+                    "query.fastq.85.sam",
+                    "query.fastq.86.sam",
+                    "query.fastq.87.sam",
+                    "query.fastq.88.sam",
+                    "query.fastq.89.sam",
+                    "query.fastq.90.sam",
+                    "query.fastq.91.sam",
+                    "query.fastq.92.sam",
+                    "query.fastq.93.sam",
+                    "query.fastq.94.sam",
+                    "query.fastq.95.sam",
+                    "query.fastq.96.sam",
+                    "query.fastq.97.sam",
+                    "query.fastq.98.sam",
+                    "query.fastq.99.sam"
+                ],
+                "input_size_in_bytes": 51798,
+                "output_size_in_bytes": 3446,
+                "actionid": "cat-bwa-id000103"
+            },
+            "InvokeNext": []
+        },
+        "cat-id000104": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "GCP",
+            "Type": "R",
+            "Arguments": {
+                "execution_time": 0.015586,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "query.fastq.0.err",
+                    "query.fastq.1.err",
+                    "query.fastq.2.err",
+                    "query.fastq.3.err",
+                    "query.fastq.4.err",
+                    "query.fastq.5.err",
+                    "query.fastq.6.err",
+                    "query.fastq.7.err",
+                    "query.fastq.8.err",
+                    "query.fastq.9.err",
+                    "query.fastq.10.err",
+                    "query.fastq.11.err",
+                    "query.fastq.12.err",
+                    "query.fastq.13.err",
+                    "query.fastq.14.err",
+                    "query.fastq.15.err",
+                    "query.fastq.16.err",
+                    "query.fastq.17.err",
+                    "query.fastq.18.err",
+                    "query.fastq.19.err",
+                    "query.fastq.20.err",
+                    "query.fastq.21.err",
+                    "query.fastq.22.err",
+                    "query.fastq.23.err",
+                    "query.fastq.24.err",
+                    "query.fastq.25.err",
+                    "query.fastq.26.err",
+                    "query.fastq.27.err",
+                    "query.fastq.28.err",
+                    "query.fastq.29.err",
+                    "query.fastq.30.err",
+                    "query.fastq.31.err",
+                    "query.fastq.32.err",
+                    "query.fastq.33.err",
+                    "query.fastq.34.err",
+                    "query.fastq.35.err",
+                    "query.fastq.36.err",
+                    "query.fastq.37.err",
+                    "query.fastq.38.err",
+                    "query.fastq.39.err",
+                    "query.fastq.40.err",
+                    "query.fastq.41.err",
+                    "query.fastq.42.err",
+                    "query.fastq.43.err",
+                    "query.fastq.44.err",
+                    "query.fastq.45.err",
+                    "query.fastq.46.err",
+                    "query.fastq.47.err",
+                    "query.fastq.48.err",
+                    "query.fastq.49.err",
+                    "query.fastq.50.err",
+                    "query.fastq.51.err",
+                    "query.fastq.52.err",
+                    "query.fastq.53.err",
+                    "query.fastq.54.err",
+                    "query.fastq.55.err",
+                    "query.fastq.56.err",
+                    "query.fastq.57.err",
+                    "query.fastq.58.err",
+                    "query.fastq.59.err",
+                    "query.fastq.60.err",
+                    "query.fastq.61.err",
+                    "query.fastq.62.err",
+                    "query.fastq.63.err",
+                    "query.fastq.64.err",
+                    "query.fastq.65.err",
+                    "query.fastq.66.err",
+                    "query.fastq.67.err",
+                    "query.fastq.68.err",
+                    "query.fastq.69.err",
+                    "query.fastq.70.err",
+                    "query.fastq.71.err",
+                    "query.fastq.72.err",
+                    "query.fastq.73.err",
+                    "query.fastq.74.err",
+                    "query.fastq.75.err",
+                    "query.fastq.76.err",
+                    "query.fastq.77.err",
+                    "query.fastq.78.err",
+                    "query.fastq.79.err",
+                    "query.fastq.80.err",
+                    "query.fastq.81.err",
+                    "query.fastq.82.err",
+                    "query.fastq.83.err",
+                    "query.fastq.84.err",
+                    "query.fastq.85.err",
+                    "query.fastq.86.err",
+                    "query.fastq.87.err",
+                    "query.fastq.88.err",
+                    "query.fastq.89.err",
+                    "query.fastq.90.err",
+                    "query.fastq.91.err",
+                    "query.fastq.92.err",
+                    "query.fastq.93.err",
+                    "query.fastq.94.err",
+                    "query.fastq.95.err",
+                    "query.fastq.96.err",
+                    "query.fastq.97.err",
+                    "query.fastq.98.err",
+                    "query.fastq.99.err"
+                ],
+                "input_size_in_bytes": 100,
+                "output_size_in_bytes": 14,
+                "actionid": "cat-id000104"
+            },
+            "InvokeNext": []
+        },
+        "start3781215560": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "GH",
+            "Type": "Python",
+            "Arguments": {
+                "execution_time": 0,
+                "folder": "synthetic_files",
+                "input_files": [],
+                "input_size_in_bytes": 0,
+                "output_size_in_bytes": 0,
+                "actionid": "start3781215560"
+            },
+            "InvokeNext": [
+                "fastq-reduce-id000001",
+                "bwa-index-id000002"
+            ]
+        }
+    },
+    "ActionContainers": {
+        "fastq-reduce-id000001": "ghcr.io/ashish-ramrakhiani/github-actions-r:2.0",
+        "bwa-index-id000002": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-python:2.0",
+        "bwa-id000003": "ramrakha/ow-python:2.0",
+        "bwa-id000004": "ramrakha/gcp-python:2.0",
+        "bwa-id000005": "ramrakha/slurm-r:2.0",
+        "bwa-id000006": "ghcr.io/ashish-ramrakhiani/github-actions-python:2.0",
+        "bwa-id000007": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-python:2.0",
+        "bwa-id000008": "ramrakha/ow-r:2.0",
+        "bwa-id000009": "ramrakha/gcp-python:2.0",
+        "bwa-id000010": "ramrakha/slurm-r:2.0",
+        "bwa-id000011": "ghcr.io/ashish-ramrakhiani/github-actions-r:2.0",
+        "bwa-id000012": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-python:2.0",
+        "bwa-id000013": "ramrakha/ow-python:2.0",
+        "bwa-id000014": "ramrakha/gcp-python:2.0",
+        "bwa-id000015": "ramrakha/slurm-python:2.0",
+        "bwa-id000016": "ghcr.io/ashish-ramrakhiani/github-actions-r:2.0",
+        "bwa-id000017": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-python:2.0",
+        "bwa-id000018": "ramrakha/ow-python:2.0",
+        "bwa-id000019": "ramrakha/gcp-python:2.0",
+        "bwa-id000020": "ramrakha/slurm-python:2.0",
+        "bwa-id000021": "ghcr.io/ashish-ramrakhiani/github-actions-r:2.0",
+        "bwa-id000022": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-r:2.0",
+        "bwa-id000023": "ramrakha/ow-python:2.0",
+        "bwa-id000024": "ramrakha/gcp-python:2.0",
+        "bwa-id000025": "ramrakha/slurm-python:2.0",
+        "bwa-id000026": "ghcr.io/ashish-ramrakhiani/github-actions-python:2.0",
+        "bwa-id000027": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-python:2.0",
+        "bwa-id000028": "ramrakha/ow-python:2.0",
+        "bwa-id000029": "ramrakha/gcp-r:2.0",
+        "bwa-id000030": "ramrakha/slurm-r:2.0",
+        "bwa-id000031": "ghcr.io/ashish-ramrakhiani/github-actions-python:2.0",
+        "bwa-id000032": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-python:2.0",
+        "bwa-id000033": "ramrakha/ow-python:2.0",
+        "bwa-id000034": "ramrakha/gcp-r:2.0",
+        "bwa-id000035": "ramrakha/slurm-python:2.0",
+        "bwa-id000036": "ghcr.io/ashish-ramrakhiani/github-actions-python:2.0",
+        "bwa-id000037": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-python:2.0",
+        "bwa-id000038": "ramrakha/ow-r:2.0",
+        "bwa-id000039": "ramrakha/gcp-python:2.0",
+        "bwa-id000040": "ramrakha/slurm-r:2.0",
+        "bwa-id000041": "ghcr.io/ashish-ramrakhiani/github-actions-r:2.0",
+        "bwa-id000042": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-r:2.0",
+        "bwa-id000043": "ramrakha/ow-r:2.0",
+        "bwa-id000044": "ramrakha/gcp-r:2.0",
+        "bwa-id000045": "ramrakha/slurm-python:2.0",
+        "bwa-id000046": "ghcr.io/ashish-ramrakhiani/github-actions-r:2.0",
+        "bwa-id000047": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-r:2.0",
+        "bwa-id000048": "ramrakha/ow-r:2.0",
+        "bwa-id000049": "ramrakha/gcp-r:2.0",
+        "bwa-id000050": "ramrakha/slurm-r:2.0",
+        "bwa-id000051": "ghcr.io/ashish-ramrakhiani/github-actions-python:2.0",
+        "bwa-id000052": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-python:2.0",
+        "bwa-id000053": "ramrakha/ow-python:2.0",
+        "bwa-id000054": "ramrakha/gcp-python:2.0",
+        "bwa-id000055": "ramrakha/slurm-r:2.0",
+        "bwa-id000056": "ghcr.io/ashish-ramrakhiani/github-actions-r:2.0",
+        "bwa-id000057": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-r:2.0",
+        "bwa-id000058": "ramrakha/ow-r:2.0",
+        "bwa-id000059": "ramrakha/gcp-r:2.0",
+        "bwa-id000060": "ramrakha/slurm-python:2.0",
+        "bwa-id000061": "ghcr.io/ashish-ramrakhiani/github-actions-r:2.0",
+        "bwa-id000062": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-python:2.0",
+        "bwa-id000063": "ramrakha/ow-python:2.0",
+        "bwa-id000064": "ramrakha/gcp-python:2.0",
+        "bwa-id000065": "ramrakha/slurm-r:2.0",
+        "bwa-id000066": "ghcr.io/ashish-ramrakhiani/github-actions-r:2.0",
+        "bwa-id000067": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-python:2.0",
+        "bwa-id000068": "ramrakha/ow-python:2.0",
+        "bwa-id000069": "ramrakha/gcp-r:2.0",
+        "bwa-id000070": "ramrakha/slurm-python:2.0",
+        "bwa-id000071": "ghcr.io/ashish-ramrakhiani/github-actions-r:2.0",
+        "bwa-id000072": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-r:2.0",
+        "bwa-id000073": "ramrakha/ow-python:2.0",
+        "bwa-id000074": "ramrakha/gcp-r:2.0",
+        "bwa-id000075": "ramrakha/slurm-r:2.0",
+        "bwa-id000076": "ghcr.io/ashish-ramrakhiani/github-actions-r:2.0",
+        "bwa-id000077": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-r:2.0",
+        "bwa-id000078": "ramrakha/ow-r:2.0",
+        "bwa-id000079": "ramrakha/gcp-r:2.0",
+        "bwa-id000080": "ramrakha/slurm-r:2.0",
+        "bwa-id000081": "ghcr.io/ashish-ramrakhiani/github-actions-r:2.0",
+        "bwa-id000082": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-python:2.0",
+        "bwa-id000083": "ramrakha/ow-r:2.0",
+        "bwa-id000084": "ramrakha/gcp-r:2.0",
+        "bwa-id000085": "ramrakha/slurm-python:2.0",
+        "bwa-id000086": "ghcr.io/ashish-ramrakhiani/github-actions-python:2.0",
+        "bwa-id000087": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-python:2.0",
+        "bwa-id000088": "ramrakha/ow-r:2.0",
+        "bwa-id000089": "ramrakha/gcp-r:2.0",
+        "bwa-id000090": "ramrakha/slurm-r:2.0",
+        "bwa-id000091": "ghcr.io/ashish-ramrakhiani/github-actions-r:2.0",
+        "bwa-id000092": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-r:2.0",
+        "bwa-id000093": "ramrakha/ow-r:2.0",
+        "bwa-id000094": "ramrakha/gcp-r:2.0",
+        "bwa-id000095": "ramrakha/slurm-r:2.0",
+        "bwa-id000096": "ghcr.io/ashish-ramrakhiani/github-actions-r:2.0",
+        "bwa-id000097": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-python:2.0",
+        "bwa-id000098": "ramrakha/ow-python:2.0",
+        "bwa-id000099": "ramrakha/gcp-python:2.0",
+        "bwa-id000100": "ramrakha/slurm-r:2.0",
+        "bwa-id000101": "ghcr.io/ashish-ramrakhiani/github-actions-r:2.0",
+        "bwa-id000102": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-python:2.0",
+        "cat-bwa-id000103": "ramrakha/ow-python:2.0",
+        "cat-id000104": "ramrakha/gcp-r:2.0",
+        "start3781215560": "ghcr.io/ashish-ramrakhiani/github-actions-python:2.0"
+    },
+    "FunctionGitRepo": {
+        "synthetic_faas_function": "nolcut/FaaSr-synthetic"
+    },
+    "FunctionInvoke": "start3781215560",
+    "InvocationID": "",
+    "FaaSrLog": "FaaSrLog",
+    "LoggingDataStore": "My_S3_Bucket",
+    "DefaultDataStore": "My_S3_Bucket",
+    "FunctionCRANPackage": {
+        "synthetic_faas_function": []
+    },
+    "FunctionGitHubPackage": {
+        "synthetic_faas_function": []
+    }
+}
