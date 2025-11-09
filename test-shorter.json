@@ -107,7 +107,7 @@
     "FunctionGitRepo": {
         "synthetic_faas_function": "nolcut/FaaSr-synthetic"
     },
-    "FunctionInvoke": "start1782574105",
+    "FunctionInvoke": "fastq-reduce-id000001",
   "WorkflowName":"test-shorter",
     "InvocationID": "",
     "FaaSrLog": "FaaSrLog",
