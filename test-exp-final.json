@@ -18,7 +18,8 @@
         "OW": {
             "FaaSType": "OpenWhisk",
             "Namespace": "guest",
-            "Endpoint": "ow.faasr.io:31002"
+            "Endpoint": "ow.faasr.io:31002",
+            "API.key":"X"
         },
         "GCP": {
             "FaaSType": "GoogleCloud",
