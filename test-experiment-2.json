@@ -78,7 +78,7 @@
         },
         "blastall-id000002": {
             "FunctionName": "synthetic_faas_function",
-            "FaaSServer": "SLURM",
+            "FaaSServer": "AWS",
             "Type": "Python",
             "Arguments": {
                 "execution_time": 103.664087,
@@ -149,7 +149,7 @@
     },
     "ActionContainers": {
         "split-fasta-id000001": "ghcr.io/ashish-ramrakhiani/github-actions-python:2.0",
-        "blastall-id000002": "ramrakha/slurm-python:2.0",
+        "blastall-id000002": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-python:2.0",
         "cat-blast-id000302": "ramrakha/ow-python:2.0",
         "blastall-id000003": "ramrakha/gcp-python:2.0",
         "blastall-id000004": "ramrakha/slurm-python:2.0"
