@@ -1,0 +1,306 @@
+{
+    "ComputeServers": {
+        "GH": {
+            "FaaSType": "GitHubActions",
+            "UseSecretStore": true,
+            "UserName": "Ashish-Ramrakhiani",
+            "ActionRepoName": "FaaSr-workflow-public",
+            "Branch": "main"
+        },
+        "AWS": {
+            "FaaSType": "Lambda",
+            "Region": "us-east-1",
+            "UseSecretStore": true,
+            "CPUsPerTask": 1,
+            "Memory": 512,
+            "TimeLimit": 900
+        },
+        "OW": {
+            "FaaSType": "OpenWhisk",
+            "Namespace": "guest",
+            "API.key":"X",
+            "Endpoint": "ow.faasr.io:31002"
+        },
+        "GCP": {
+            "FaaSType": "GoogleCloud",
+            "Namespace": "nsf-20210119-renatof-420467",
+            "Region": "us-central1",
+            "Endpoint": "https://run.googleapis.com/v2/projects/",
+            "UseSecretStore": true,
+            "ClientEmail": "faasr-experiments@nsf-20210119-renatof-420467.iam.gserviceaccount.com",
+            "TokenUri": "https://oauth2.googleapis.com/token",
+            "CPUsPerTask": 1,
+            "Memory": 512,
+            "TimeLimit": 3600
+        },
+        "SLURM": {
+            "FaaSType": "SLURM",
+            "Endpoint": "http://slurm.faasr.io:6820",
+            "APIVersion": "v0.0.37",
+            "Partition": "faasr",
+            "Nodes": 1,
+            "Tasks": 1,
+            "CPUsPerTask": 1,
+            "UserName": "ubuntu",
+            "Memory": 2048,
+            "TimeLimit": 30,
+            "WorkingDirectory": "/tmp"
+        }
+    },
+    "DataStores": {
+        "My_S3_Bucket": {
+            "Endpoint": "https://s3.us-west-2.amazonaws.com",
+            "Bucket": "faasr-bucket-0001",
+            "Region": "us-west-2",
+            "Writable": "true"
+        }
+    },
+    "ActionList": {
+        "fastq-reduce-id000001": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "GH",
+            "Type": "Python",
+            "Arguments": {
+                "execution_time": 0.052486,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "fastq_reduce",
+                    "query.fastq"
+                ],
+                "input_size_in_bytes": 2440,
+                "output_size_in_bytes": 2499,
+                "actionid": "fastq-reduce-id000001"
+            },
+            "InvokeNext": [
+                "bwa-id000003",
+                "bwa-id000004"
+            ]
+        },
+        "bwa-id000003": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "AWS",
+            "Type": "Python",
+            "Arguments": {
+                "execution_time": 0.194159,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.0"
+                ],
+                "input_size_in_bytes": 377488,
+                "output_size_in_bytes": 517,
+                "actionid": "bwa-id000003"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103"
+            ]
+        },
+        "cat-bwa-id000103": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "OW",
+            "Type": "R",
+            "Arguments": {
+                "execution_time": 0.551166,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "cat_bwa",
+                    "query.fastq.0.sam",
+                    "query.fastq.1.sam",
+                    "query.fastq.2.sam",
+                    "query.fastq.3.sam",
+                    "query.fastq.4.sam",
+                    "query.fastq.5.sam",
+                    "query.fastq.6.sam",
+                    "query.fastq.7.sam",
+                    "query.fastq.8.sam",
+                    "query.fastq.9.sam",
+                    "query.fastq.10.sam",
+                    "query.fastq.11.sam",
+                    "query.fastq.12.sam",
+                    "query.fastq.13.sam",
+                    "query.fastq.14.sam",
+                    "query.fastq.15.sam",
+                    "query.fastq.16.sam",
+                    "query.fastq.17.sam",
+                    "query.fastq.18.sam",
+                    "query.fastq.19.sam",
+                    "query.fastq.20.sam",
+                    "query.fastq.21.sam",
+                    "query.fastq.22.sam",
+                    "query.fastq.23.sam",
+                    "query.fastq.24.sam",
+                    "query.fastq.25.sam",
+                    "query.fastq.26.sam",
+                    "query.fastq.27.sam",
+                    "query.fastq.28.sam",
+                    "query.fastq.29.sam",
+                    "query.fastq.30.sam",
+                    "query.fastq.31.sam",
+                    "query.fastq.32.sam",
+                    "query.fastq.33.sam",
+                    "query.fastq.34.sam",
+                    "query.fastq.35.sam",
+                    "query.fastq.36.sam",
+                    "query.fastq.37.sam",
+                    "query.fastq.38.sam",
+                    "query.fastq.39.sam",
+                    "query.fastq.40.sam",
+                    "query.fastq.41.sam",
+                    "query.fastq.42.sam",
+                    "query.fastq.43.sam",
+                    "query.fastq.44.sam",
+                    "query.fastq.45.sam",
+                    "query.fastq.46.sam",
+                    "query.fastq.47.sam",
+                    "query.fastq.48.sam",
+                    "query.fastq.49.sam",
+                    "query.fastq.50.sam",
+                    "query.fastq.51.sam",
+                    "query.fastq.52.sam",
+                    "query.fastq.53.sam",
+                    "query.fastq.54.sam",
+                    "query.fastq.55.sam",
+                    "query.fastq.56.sam",
+                    "query.fastq.57.sam",
+                    "query.fastq.58.sam",
+                    "query.fastq.59.sam",
+                    "query.fastq.60.sam",
+                    "query.fastq.61.sam",
+                    "query.fastq.62.sam",
+                    "query.fastq.63.sam",
+                    "query.fastq.64.sam",
+                    "query.fastq.65.sam",
+                    "query.fastq.66.sam",
+                    "query.fastq.67.sam",
+                    "query.fastq.68.sam",
+                    "query.fastq.69.sam",
+                    "query.fastq.70.sam",
+                    "query.fastq.71.sam",
+                    "query.fastq.72.sam",
+                    "query.fastq.73.sam",
+                    "query.fastq.74.sam",
+                    "query.fastq.75.sam",
+                    "query.fastq.76.sam",
+                    "query.fastq.77.sam",
+                    "query.fastq.78.sam",
+                    "query.fastq.79.sam",
+                    "query.fastq.80.sam",
+                    "query.fastq.81.sam",
+                    "query.fastq.82.sam",
+                    "query.fastq.83.sam",
+                    "query.fastq.84.sam",
+                    "query.fastq.85.sam",
+                    "query.fastq.86.sam",
+                    "query.fastq.87.sam",
+                    "query.fastq.88.sam",
+                    "query.fastq.89.sam",
+                    "query.fastq.90.sam",
+                    "query.fastq.91.sam",
+                    "query.fastq.92.sam",
+                    "query.fastq.93.sam",
+                    "query.fastq.94.sam",
+                    "query.fastq.95.sam",
+                    "query.fastq.96.sam",
+                    "query.fastq.97.sam",
+                    "query.fastq.98.sam",
+                    "query.fastq.99.sam"
+                ],
+                "input_size_in_bytes": 51798,
+                "output_size_in_bytes": 3446,
+                "actionid": "cat-bwa-id000103"
+            },
+            "InvokeNext": []
+        },
+        "bwa-index-id000002": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "GCP",
+            "Type": "Python",
+            "Arguments": {
+                "execution_time": 82.90146,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq"
+                ],
+                "input_size_in_bytes": 201883,
+                "output_size_in_bytes": 175581,
+                "actionid": "bwa-index-id000002"
+            },
+            "InvokeNext": [
+                "bwa-id000003",
+                "bwa-id000004"
+            ]
+        },
+        "bwa-id000004": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "SLURM",
+            "Type": "Python",
+            "Arguments": {
+                "execution_time": 0.203163,
+                "folder": "synthetic_files",
+                "input_files": [
+                    "bwa",
+                    "ref.fastq",
+                    "ref.fastq.bwt",
+                    "ref.fastq.pac",
+                    "ref.fastq.amb",
+                    "ref.fastq.ann",
+                    "ref.fastq.sa",
+                    "query.fastq.1"
+                ],
+                "input_size_in_bytes": 377489,
+                "output_size_in_bytes": 518,
+                "actionid": "bwa-id000004"
+            },
+            "InvokeNext": [
+                "cat-bwa-id000103"
+            ]
+        },
+        "start1782574105": {
+            "FunctionName": "synthetic_faas_function",
+            "FaaSServer": "GH",
+            "Type": "R",
+            "Arguments": {
+                "execution_time": 0,
+                "folder": "synthetic_files",
+                "input_files": [],
+                "input_size_in_bytes": 0,
+                "output_size_in_bytes": 0,
+                "actionid": "start1782574105"
+            },
+            "InvokeNext": [
+                "fastq-reduce-id000001",
+                "bwa-index-id000002"
+            ]
+        }
+    },
+    "ActionContainers": {
+        "fastq-reduce-id000001": "ghcr.io/ashish-ramrakhiani/github-actions-python:3.0",
+        "bwa-id000003": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-python:3.0",
+        "cat-bwa-id000103": "ramrakha/ow-r:3.0",
+        "bwa-index-id000002": "ramrakha/gcp-python:3.0",
+        "bwa-id000004": "ramrakha/slurm-python:3.0",
+        "start1782574105": "ghcr.io/ashish-ramrakhiani/github-actions-r:3.0"
+    },
+    "FunctionGitRepo": {
+        "synthetic_faas_function": "nolcut/FaaSr-synthetic"
+    },
+    "FunctionInvoke": "start1782574105",
+  "WorkflowName":"test-exp-final3-test",
+    "InvocationID": "",
+    "FaaSrLog": "FaaSrLog",
+    "LoggingDataStore": "My_S3_Bucket",
+    "DefaultDataStore": "My_S3_Bucket",
+    "FunctionCRANPackage": {
+        "synthetic_faas_function": []
+    },
+    "FunctionGitHubPackage": {
+        "synthetic_faas_function": []
+    }
+}
