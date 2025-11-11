@@ -584,7 +584,7 @@
         "synthetic_faas_function": "nolcut/FaaSr-synthetic"
     },
     "FunctionInvoke": "start2291855055",
-    "Workflowname":"test-exp-sra",
+    "WorkflowName":"test-exp-sra",
     "InvocationID": "",
     "FaaSrLog": "FaaSrLog",
     "LoggingDataStore": "My_S3_Bucket",
