@@ -79,7 +79,7 @@
                 "bowtie2-id0000013",
                 "bowtie2-id0000015",
                 "bowtie2-id0000017",
-                "bowtie2-id0000019",
+                "bowtie2-id00000",
                 "bowtie2-id0000021"
             ]
         },
@@ -429,7 +429,7 @@
         },
         "bowtie2-id0000019": {
             "FunctionName": "synthetic_faas_function",
-            "FaaSServer": "SLURM",
+            "FaaSServer": "AWS",
             "Type": "Python",
             "Arguments": {
                 "execution_time": 67.856,
