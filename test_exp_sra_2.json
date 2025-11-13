@@ -12,7 +12,7 @@
             "Region": "us-east-1",
             "UseSecretStore": true,
             "CPUsPerTask": 1,
-            "Memory": 512,
+            "Memory": 2048,
             "TimeLimit": 900
         },
         "OW": {
@@ -584,7 +584,7 @@
         "synthetic_faas_function": "nolcut/FaaSr-synthetic"
     },
     "FunctionInvoke": "bowtie2-id0000017",
-  "WorkflowName":"test-exp-sra-2",
+  "WorkflowName":"start202854885",
     "InvocationID": "",
     "FaaSrLog": "FaaSrLog",
     "LoggingDataStore": "My_S3_Bucket",
