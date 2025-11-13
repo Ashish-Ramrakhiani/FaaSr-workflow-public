@@ -574,7 +574,7 @@
         "fasterq-dump-id0000016": "ghcr.io/ashish-ramrakhiani/github-actions-r:4.0",
         "bowtie2-id0000017": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-python:4.0",
         "fasterq-dump-id0000018": "ramrakha/gcp-r:4.0",
-        "bowtie2-id0000019": "ramrakha/slurm-python:4.0",
+        "bowtie2-id0000019": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-python:4.0",
         "fasterq-dump-id0000020": "ghcr.io/ashish-ramrakhiani/github-actions-r:4.0",
         "bowtie2-id0000021": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-python:4.0",
         "merge-id0000022": "ramrakha/ow-python:4.0",
