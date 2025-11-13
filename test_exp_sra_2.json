@@ -583,7 +583,7 @@
     "FunctionGitRepo": {
         "synthetic_faas_function": "nolcut/FaaSr-synthetic"
     },
-    "FunctionInvoke": "start202854885",
+    "FunctionInvoke": "bowtie2-id0000017",
   "WorkflowName":"test-exp-sra-2",
     "InvocationID": "",
     "FaaSrLog": "FaaSrLog",
