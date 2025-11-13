@@ -583,8 +583,8 @@
     "FunctionGitRepo": {
         "synthetic_faas_function": "nolcut/FaaSr-synthetic"
     },
-    "FunctionInvoke": "bowtie2-id0000017",
-  "WorkflowName":"start202854885",
+    "FunctionInvoke": "start202854885",
+  "WorkflowName":"test-exp-sra-2",
     "InvocationID": "",
     "FaaSrLog": "FaaSrLog",
     "LoggingDataStore": "My_S3_Bucket",
