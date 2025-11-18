@@ -1,4 +1,4 @@
-name: FaaSr VM Injection Tool
+name: (( FaaSr VM Injection Tool ))
 
 on:
   workflow_dispatch:
