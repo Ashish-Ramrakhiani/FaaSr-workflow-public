@@ -1,10 +1,18 @@
 {
-    "WorkflowName": "fcre-flare",
-    "FunctionInvoke": "check-weather",
+    "WorkflowName": "fcre-flare-vm",
+    "FunctionInvoke": "faasr-vm-start",
     "InvocationID": "123456",
     "DefaultDataStore": "My_S3_Bucket",
     "LoggingDataStore": "My_S3_Bucket",
-    "FaaSrLog": "FaaSrLog_flare",
+    "FaaSrLog": "FaaSrLog_flare_exp",
+    "VMConfig": {
+        "Name": "AWS_VM",
+        "Provider": "AWS",
+        "Strategy": "simple_start_end",
+        "InstanceId": "i-09405009da063a647",
+        "Region": "us-west-2",
+        "RunnerName": "ip-172-31-39-220"
+    },
     "ComputeServers": {
         "GH": {
             "FaaSType": "GitHubActions",
@@ -103,13 +111,14 @@
                 "config_set_name": "glm_aed_flare_v3_faasr_HOx_off"
             },
             "InvokeNext": [
-                "forecast-HOx-off"
+                "faasr-vm-poll-forecast-HOx-off"
             ]
         },
         "forecast-HOx-off": {
             "FunctionName": "forecast_HOx_off",
             "FaaSServer": "GH",
             "Type": "R",
+            "RequiresVM": true,
             "Arguments": {
                 "configure_run_file": "configure_run.yml",
                 "config_set_name": "glm_aed_flare_v3_faasr_HOx_off"
@@ -129,7 +138,7 @@
             "InvokeNext": [
                 {
                     "True": [
-                        "forecast-HOx-on"
+                        "faasr-vm-poll-forecast-HOx-on"
                     ],
                     "False": [
                         "viz-HOx-off"
@@ -141,6 +150,7 @@
             "FunctionName": "forecast_HOx_on",
             "FaaSServer": "GH",
             "Type": "R",
+            "RequiresVM": true,
             "Arguments": {
                 "configure_run_file": "configure_run.yml",
                 "config_set_name": "glm_aed_flare_v3_faasr_HOx_on"
@@ -158,7 +168,9 @@
                 "configure_run_file": "configure_run.yml",
                 "config_set_name": "glm_aed_flare_v3_faasr_HOx_off"
             },
-            "InvokeNext": []
+            "InvokeNext": [
+                "faasr-vm-stop"
+            ]
         },
         "viz-HOx-on": {
             "FunctionName": "viz_HOx_on",
@@ -178,7 +190,47 @@
             "FaaSServer": "GH",
             "Type": "R",
             "Arguments": {},
-            "InvokeNext": []
+            "InvokeNext": [
+                "faasr-vm-stop"
+            ]
+        },
+        "faasr-vm-start": {
+            "FunctionName": "vm_start",
+            "FaaSServer": "GH",
+            "Type": "Python",
+            "RequiresVM": false,
+            "InvokeNext": [
+                "check-weather"
+            ],
+            "_faasr_builtin": true
+        },
+        "faasr-vm-stop": {
+            "FunctionName": "vm_stop",
+            "FaaSServer": "GH",
+            "Type": "Python",
+            "RequiresVM": false,
+            "InvokeNext": [],
+            "_faasr_builtin": true
+        },
+        "faasr-vm-poll-forecast-HOx-off": {
+            "FunctionName": "vm_poll",
+            "FaaSServer": "GH",
+            "Type": "Python",
+            "RequiresVM": false,
+            "InvokeNext": [
+                "forecast-HOx-off"
+            ],
+            "_faasr_builtin": true
+        },
+        "faasr-vm-poll-forecast-HOx-on": {
+            "FunctionName": "vm_poll",
+            "FaaSServer": "GH",
+            "Type": "Python",
+            "RequiresVM": false,
+            "InvokeNext": [
+                "forecast-HOx-on"
+            ],
+            "_faasr_builtin": true
         }
     },
     "ActionContainers": {
@@ -189,7 +241,11 @@
         "forecast-HOx-on": "ghcr.io/ashish-ramrakhiani/github-actions-flare:latest",
         "viz-HOx-off": "ghcr.io/ashish-ramrakhiani/github-actions-flare:latest",
         "viz-HOx-on": "ghcr.io/ashish-ramrakhiani/github-actions-flare:latest",
-        "check-notify": "ghcr.io/ashish-ramrakhiani/github-actions-flare:latest"
+        "check-notify": "ghcr.io/ashish-ramrakhiani/github-actions-flare:latest",
+        "faasr-vm-poll-forecast-HOx-off": "ghcr.io/ashish-ramrakhiani/github-actions-flare:latest",
+        "faasr-vm-poll-forecast-HOx-on": "ghcr.io/ashish-ramrakhiani/github-actions-flare:latest",
+        "faasr-vm-start": "ghcr.io/ashish-ramrakhiani/github-actions-flare:latest",
+        "faasr-vm-stop": "ghcr.io/ashish-ramrakhiani/github-actions-flare:latest"
     },
     "FunctionGitRepo": {
         "check_weather": [
