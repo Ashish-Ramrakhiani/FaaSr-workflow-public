@@ -109,6 +109,7 @@
       "FunctionName": "forecast_HOx_off",
       "FaaSServer": "GH",
       "Type": "R",
+      "RequiresVM":true,
       "Arguments": {
         "configure_run_file": "configure_run.yml",
         "config_set_name": "glm_aed_flare_v3_faasr_HOx_off"
@@ -134,6 +135,7 @@
       "FunctionName": "forecast_HOx_on",
       "FaaSServer": "GH",
       "Type": "R",
+      "RequiresVM":true,
       "Arguments": {
         "configure_run_file": "configure_run.yml",
         "config_set_name": "glm_aed_flare_v3_faasr_HOx_on"
