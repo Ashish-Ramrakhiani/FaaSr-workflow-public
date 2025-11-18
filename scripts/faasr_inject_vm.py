@@ -105,8 +105,20 @@ class VMInjectionTool:
             # Handle different InvokeNext formats
             if isinstance(invoke_next, str):
                 invoke_next = [invoke_next]
+            elif isinstance(invoke_next, list) and len(invoke_next) > 0:
+                # Check if list contains conditional dicts
+                if isinstance(invoke_next[0], dict):
+                    # Extract all actions from conditional branches
+                    next_actions = []
+                    for conditional_dict in invoke_next:
+                        for condition, actions in conditional_dict.items():
+                            if isinstance(actions, list):
+                                next_actions.extend(actions)
+                            else:
+                                next_actions.append(actions)
+                    invoke_next = next_actions
             elif isinstance(invoke_next, dict):
-                # Conditional invocation - collect all possible next actions
+                # Direct dict (not in a list)
                 next_actions = []
                 for condition, actions in invoke_next.items():
                     if isinstance(actions, list):
@@ -360,14 +372,67 @@ class VMInjectionTool:
                     continue
                 
                 invoke_next = action_config.get("InvokeNext", [])
+                
+                # Normalize invoke_next to a list for processing
                 if isinstance(invoke_next, str):
                     invoke_next = [invoke_next]
                 
-                if vm_action_name in invoke_next:
-                    # Replace vm_action with poll_action
-                    new_invoke_next = [poll_action_name if x == vm_action_name else x for x in invoke_next]
-                    action_config["InvokeNext"] = new_invoke_next
-                    logger.info(f"Redirected '{action_name}' to invoke poll before '{vm_action_name}'")
+                # Handle conditional InvokeNext (list containing dicts)
+                if isinstance(invoke_next, list) and len(invoke_next) > 0:
+                    modified = False
+                    new_invoke_next = []
+                    
+                    for item in invoke_next:
+                        if isinstance(item, dict):
+                            # This is a conditional dict like {"True": [...], "False": [...]}
+                            new_conditional = {}
+                            for condition, actions in item.items():
+                                if isinstance(actions, list):
+                                    # Replace vm_action with poll_action in the list
+                                    new_actions = [poll_action_name if x == vm_action_name else x for x in actions]
+                                    new_conditional[condition] = new_actions
+                                    if new_actions != actions:
+                                        modified = True
+                                else:
+                                    # Single action
+                                    new_action = poll_action_name if actions == vm_action_name else actions
+                                    new_conditional[condition] = new_action
+                                    if new_action != actions:
+                                        modified = True
+                            new_invoke_next.append(new_conditional)
+                        elif isinstance(item, str):
+                            # Simple string action
+                            if item == vm_action_name:
+                                new_invoke_next.append(poll_action_name)
+                                modified = True
+                            else:
+                                new_invoke_next.append(item)
+                        else:
+                            new_invoke_next.append(item)
+                    
+                    if modified:
+                        action_config["InvokeNext"] = new_invoke_next
+                        logger.info(f"Redirected '{action_name}' to invoke poll before '{vm_action_name}'")
+                
+                elif isinstance(invoke_next, dict):
+                    # Direct dict (not in a list) - rare case
+                    modified = False
+                    new_conditional = {}
+                    for condition, actions in invoke_next.items():
+                        if isinstance(actions, list):
+                            new_actions = [poll_action_name if x == vm_action_name else x for x in actions]
+                            new_conditional[condition] = new_actions
+                            if new_actions != actions:
+                                modified = True
+                        else:
+                            new_action = poll_action_name if actions == vm_action_name else actions
+                            new_conditional[condition] = new_action
+                            if new_action != actions:
+                                modified = True
+                    
+                    if modified:
+                        action_config["InvokeNext"] = new_conditional
+                        logger.info(f"Redirected '{action_name}' to invoke poll before '{vm_action_name}'")
         
         # Modify leaf actions to point to stop
         for leaf_name in leaf_actions:
