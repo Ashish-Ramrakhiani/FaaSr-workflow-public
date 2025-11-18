@@ -1,11 +1,18 @@
 {
-  "WorkflowName": "fcre-flare",
+  "WorkflowName": "fcre-flare-vm",
   "FunctionInvoke": "check-weather",
   "InvocationID": "123456",
   "DefaultDataStore": "My_S3_Bucket",
   "LoggingDataStore": "My_S3_Bucket",
-  "FaaSrLog": "FaaSrLog_flare",
-  
+  "FaaSrLog": "FaaSrLog_flare_exp",
+   "VMConfig": {
+        "Name": "AWS_VM",
+        "Provider": "AWS",
+        "Strategy": "simple_start_end",
+        "InstanceId": "i-09405009da063a647",
+        "Region": "us-west-2",
+        "RunnerName":"ip-172-31-39-220"
+    },
   "ComputeServers": {
     "GH": {
       "FaaSType": "GitHubActions",
@@ -15,14 +22,6 @@
       "UseSecretStore": true
     }
   },
-   "VMConfig": {
-        "Name": "AWS_VM",
-        "Provider": "AWS",
-        "InstanceId": "i-09405009da063a647",
-        "Region": "us-west-2",
-        "RunnerName": "ip-172-31-39-220"
-    },
-  
   "DataStores": {
     "My_S3_Bucket": {
       "Endpoint": "https://s3.us-west-2.amazonaws.com",
