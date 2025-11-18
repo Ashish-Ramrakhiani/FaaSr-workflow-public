@@ -15,6 +15,13 @@
       "UseSecretStore": true
     }
   },
+   "VMConfig": {
+        "Name": "AWS_VM",
+        "Provider": "AWS",
+        "InstanceId": "i-09405009da063a647",
+        "Region": "us-west-2",
+        "RunnerName": "ip-172-31-39-220"
+    },
   
   "DataStores": {
     "My_S3_Bucket": {
