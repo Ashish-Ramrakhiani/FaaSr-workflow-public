@@ -1,7 +1,7 @@
 {
   "WorkflowName": "fcre-flare-lambda",
   "FunctionInvoke": "check-weather",
-  "InvocationID": "123456",
+  "InvocationID": "lambda-id",
   "DefaultDataStore": "My_S3_Bucket",
   "LoggingDataStore": "My_S3_Bucket",
   "FaaSrLog": "FaaSrLog_flare_exp",
