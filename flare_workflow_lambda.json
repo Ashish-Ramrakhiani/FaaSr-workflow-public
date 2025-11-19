@@ -14,13 +14,6 @@
         "RunnerName":"ip-172-31-39-220"
     },
   "ComputeServers": {
-    "GH": {
-      "FaaSType": "GitHubActions",
-      "UserName": "Ashish-Ramrakhiani",
-      "ActionRepoName": "FaaSr-workflow-public",
-      "Branch": "main",
-      "UseSecretStore": true
-    },
     "AWS": {
             "FaaSType": "Lambda",
             "Region": "us-east-1",
