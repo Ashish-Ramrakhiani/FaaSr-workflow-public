@@ -180,14 +180,14 @@
   },
   
   "ActionContainers": {
-    "check-weather": "ghcr.io/ashish-ramrakhiani/github-actions-flare:latest",
-    "run-weir-inflow": "ghcr.io/ashish-ramrakhiani/github-actions-flare:latest",
-    "forecast-HOx-off": "ghcr.io/ashish-ramrakhiani/github-actions-flare:latest",
-    "check-anoxia": "ghcr.io/ashish-ramrakhiani/github-actions-flare:latest",
-    "forecast-HOx-on": "ghcr.io/ashish-ramrakhiani/github-actions-flare:latest",
-    "viz-HOx-off": "ghcr.io/ashish-ramrakhiani/github-actions-flare:latest",
-    "viz-HOx-on": "ghcr.io/ashish-ramrakhiani/github-actions-flare:latest",
-    "check-notify": "ghcr.io/ashish-ramrakhiani/github-actions-flare:latest"
+    "check-weather": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-flare:4.0",
+    "run-weir-inflow": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-flare:4.0",
+    "forecast-HOx-off": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-flare:4.0",
+    "check-anoxia": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-flare:4.0",
+    "forecast-HOx-on": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-flare:4.0",
+    "viz-HOx-off": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-flare:4.0",
+    "viz-HOx-on": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-flare:4.0",
+    "check-notify": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-flare:4.0"
   },
   
   "FunctionGitRepo": {
