@@ -1,0 +1,218 @@
+{
+  "WorkflowName": "flare-exp3-lambda",
+  "FunctionInvoke": "check-weather",
+  "InvocationID": "lambda-id",
+  "DefaultDataStore": "My_S3_Bucket",
+  "LoggingDataStore": "My_S3_Bucket",
+  "FaaSrLog": "FaaSrLog_flare_exp",
+  "ComputeServers": {
+    "AWS": {
+            "FaaSType": "Lambda",
+            "Region": "us-east-1",
+            "UseSecretStore": true,
+            "CPUsPerTask": 1,
+            "Memory": 10240,
+            "TimeLimit": 900
+        }
+  },
+  "DataStores": {
+    "My_S3_Bucket": {
+      "Endpoint": "https://s3.us-west-2.amazonaws.com",
+      "Bucket": "faasr-bucket-0001",
+      "Region": "us-west-2",
+      "Writable": "TRUE"
+    },
+    "drivers": {
+      "Endpoint": "https://s3.us-west-2.amazonaws.com",
+      "Bucket": "faasr-bucket-0001",
+      "Region": "us-west-2",
+      "Writable": "TRUE"
+    },
+    "restart": {
+      "Endpoint": "https://s3.us-west-2.amazonaws.com",
+      "Bucket": "faasr-bucket-0001",
+      "Region": "us-west-2",
+      "Writable": "TRUE"
+    },
+    "inflow_drivers": {
+      "Endpoint": "https://s3.us-west-2.amazonaws.com",
+      "Bucket": "faasr-bucket-0001",
+      "Region": "us-west-2",
+      "Writable": "TRUE"
+    },
+    "outflow_drivers": {
+      "Endpoint": "https://s3.us-west-2.amazonaws.com",
+      "Bucket": "faasr-bucket-0001",
+      "Region": "us-west-2",
+      "Writable": "TRUE"
+    },
+    "forecasts": {
+      "Endpoint": "https://s3.us-west-2.amazonaws.com",
+      "Bucket": "faasr-bucket-0001",
+      "Region": "us-west-2",
+      "Writable": "TRUE"
+    },
+    "forecasts_parquet": {
+      "Endpoint": "https://s3.us-west-2.amazonaws.com",
+      "Bucket": "faasr-bucket-0001",
+      "Region": "us-west-2",
+      "Writable": "TRUE"
+    },
+    "scores": {
+      "Endpoint": "https://s3.us-west-2.amazonaws.com",
+      "Bucket": "faasr-bucket-0001",
+      "Region": "us-west-2",
+      "Writable": "TRUE"
+    },
+    "output_plots": {
+      "Endpoint": "https://s3.us-west-2.amazonaws.com",
+      "Bucket": "faasr-bucket-0001",
+      "Region": "us-west-2",
+      "Writable": "TRUE"
+    },
+    "vera_forecasts": {
+      "Endpoint": "https://amnh1.osn.mghpcc.org",
+      "Bucket": "bio230121-bucket01",
+      "Region": "us-east-1"
+    },
+    "targets": {
+      "Endpoint": "https://amnh1.osn.mghpcc.org",
+      "Bucket": "bio230121-bucket01",
+      "Region": "us-east-1"
+    }
+  },
+  
+  "ActionList": {
+    "check-weather": {
+      "FunctionName": "check_weather",
+      "FaaSServer": "AWS",
+      "Type": "R",
+      "Arguments": {
+        "lake_directory": "./",
+        "configure_run_file": "configure_run.yml",
+        "config_set_name": "glm_aed_flare_v3_faasr_HOx_off"
+      },
+      "InvokeNext": ["run-weir-inflow"]
+    },
+    "run-weir-inflow": {
+      "FunctionName": "run_weir_inflow",
+      "FaaSServer": "AWS",
+      "Type": "R",
+      "Arguments": {
+        "configure_run_file": "configure_run.yml",
+        "config_set_name": "glm_aed_flare_v3_faasr_HOx_off"
+      },
+      "InvokeNext": ["forecast-HOx-off"]
+    },
+    "forecast-HOx-off": {
+      "FunctionName": "forecast_HOx_off",
+      "FaaSServer": "AWS",
+      "Type": "R",
+      "RequiresVM":true,
+      "Arguments": {
+        "configure_run_file": "configure_run.yml",
+        "config_set_name": "glm_aed_flare_v3_faasr_HOx_off"
+      },
+      "InvokeNext": ["check-anoxia"]
+    },
+    "check-anoxia": {
+      "FunctionName": "check_anoxia",
+      "FaaSServer": "AWS",
+      "Type": "R",
+      "Arguments": {
+        "configure_run_file": "configure_run.yml",
+        "config_set_name": "glm_aed_flare_v3_faasr_HOx_off"
+      },
+      "InvokeNext": [
+        {
+          "True": ["forecast-HOx-on"],
+          "False": ["viz-HOx-off"]
+        }
+      ]
+    },
+    "forecast-HOx-on": {
+      "FunctionName": "forecast_HOx_on",
+      "FaaSServer": "AWS",
+      "Type": "R",
+      "RequiresVM":true,
+      "Arguments": {
+        "configure_run_file": "configure_run.yml",
+        "config_set_name": "glm_aed_flare_v3_faasr_HOx_on"
+      },
+      "InvokeNext": ["viz-HOx-on"]
+    },
+    "viz-HOx-off": {
+      "FunctionName": "viz_HOx_off",
+      "FaaSServer": "AWS",
+      "Type": "R",
+      "Arguments": {
+        "plots_directory": "./plots/glm_aed_flare_v3_faasr_HOx_off",
+        "configure_run_file": "configure_run.yml",
+        "config_set_name": "glm_aed_flare_v3_faasr_HOx_off"
+      },
+      "InvokeNext": []
+    },
+    "viz-HOx-on": {
+      "FunctionName": "viz_HOx_on",
+      "FaaSServer": "AWS",
+      "Type": "R",
+      "Arguments": {
+        "plots_directory": "./plots/glm_aed_flare_v3_faasr_HOx_on",
+        "configure_run_file": "configure_run.yml",
+        "config_set_name": "glm_aed_flare_v3_faasr_HOx_on"
+      },
+      "InvokeNext": ["check-notify"]
+    },
+    "check-notify": {
+      "FunctionName": "check_notify",
+      "FaaSServer": "AWS",
+      "Type": "R",
+      "Arguments": {},
+      "InvokeNext": []
+    }
+  },
+  
+  "ActionContainers": {
+    "check-weather": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-flare:4.0",
+    "run-weir-inflow": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-flare:4.0",
+    "forecast-HOx-off": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-flare:4.0",
+    "check-anoxia": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-flare:4.0",
+    "forecast-HOx-on": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-flare:4.0",
+    "viz-HOx-off": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-flare:4.0",
+    "viz-HOx-on": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-flare:4.0",
+    "check-notify": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-flare:4.0"
+  },
+  
+  "FunctionGitRepo": {
+    "check_weather": ["Ashish-Ramrakhiani/FCRE-forecast-code-FaaSr"],
+    "run_weir_inflow": ["Ashish-Ramrakhiani/FCRE-forecast-code-FaaSr"],
+    "forecast_HOx_off": ["Ashish-Ramrakhiani/FCRE-forecast-code-FaaSr"],
+    "check_anoxia": ["Ashish-Ramrakhiani/FCRE-forecast-code-FaaSr"],
+    "forecast_HOx_on": ["Ashish-Ramrakhiani/FCRE-forecast-code-FaaSr"],
+    "viz_HOx_off": ["Ashish-Ramrakhiani/FCRE-forecast-code-FaaSr"],
+    "viz_HOx_on": ["Ashish-Ramrakhiani/FCRE-forecast-code-FaaSr"],
+    "check_notify": ["Ashish-Ramrakhiani/FCRE-forecast-code-FaaSr"]
+  },
+
+  "FunctionCRANPackage": {
+    "check-weather": [],
+    "run-weir-inflow": [],
+    "forecast-HOx-off": [],
+    "check-anoxia": [],
+    "forecast-HOx-on": [],
+    "viz-HOx-off": [],
+    "viz-HOx-on": [],
+    "check-notify": []
+  },
+  
+  "FunctionGitHubPackage": {
+    "check-weather": [],
+    "run-weir-inflow": [],
+    "forecast-HOx-off": [],
+    "check-anoxia": [],
+    "forecast-HOx-on": [],
+    "viz-HOx-off": [],
+    "viz-HOx-on": [],
+    "check-notify": []
+  }
+}
