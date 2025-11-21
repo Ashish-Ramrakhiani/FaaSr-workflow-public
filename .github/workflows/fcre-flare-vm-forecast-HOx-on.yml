@@ -17,6 +17,8 @@ jobs:
 
         env:
             GH_PAT: ${{ secrets.GH_PAT}}
+            AWS_AccessKey: ${{ secrets.AWS_AccessKey}}
+            AWS_SecretKey: ${{ secrets.AWS_SecretKey}}
             My_S3_Bucket_AccessKey: ${{ secrets.My_S3_Bucket_AccessKey}}
             My_S3_Bucket_SecretKey: ${{ secrets.My_S3_Bucket_SecretKey}}
             drivers_AccessKey: ${{ secrets.drivers_AccessKey}}
