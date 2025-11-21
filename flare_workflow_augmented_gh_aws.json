@@ -204,7 +204,7 @@
         },
         "faasr-vm-start": {
             "FunctionName": "vm_start",
-            "FaaSServer": "AWS",
+            "FaaSServer": "GH",
             "Type": "Python",
             "RequiresVM": false,
             "InvokeNext": [
@@ -214,7 +214,7 @@
         },
         "faasr-vm-stop": {
             "FunctionName": "vm_stop",
-            "FaaSServer": "AWS",
+            "FaaSServer": "GH",
             "Type": "Python",
             "RequiresVM": false,
             "InvokeNext": [],
@@ -222,7 +222,7 @@
         },
         "faasr-vm-poll-forecast-HOx-off": {
             "FunctionName": "vm_poll",
-            "FaaSServer": "AWS",
+            "FaaSServer": "GH",
             "Type": "Python",
             "RequiresVM": false,
             "InvokeNext": [
@@ -232,7 +232,7 @@
         },
         "faasr-vm-poll-forecast-HOx-on": {
             "FunctionName": "vm_poll",
-            "FaaSServer": "AWS",
+            "FaaSServer": "GH",
             "Type": "Python",
             "RequiresVM": false,
             "InvokeNext": [
@@ -250,10 +250,10 @@
         "viz-HOx-off": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-flare:4.0",
         "viz-HOx-on": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-flare:4.0",
         "check-notify": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-flare:4.0",
-        "faasr-vm-poll-forecast-HOx-off": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-flare:4.0",
-        "faasr-vm-poll-forecast-HOx-on": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-flare:4.0",
-        "faasr-vm-start": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-flare:4.0",
-        "faasr-vm-stop": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-flare:4.0"
+        "faasr-vm-poll-forecast-HOx-off": "ghcr.io/ashish-ramrakhiani/github-actions-flare:4.0",
+        "faasr-vm-poll-forecast-HOx-on": "ghcr.io/ashish-ramrakhiani/github-actions-flare:4.0",
+        "faasr-vm-start": "ghcr.io/ashish-ramrakhiani/github-actions-flare:4.0",
+        "faasr-vm-stop": "ghcr.io/ashish-ramrakhiani/github-actions-flare:4.0"
     },
     "FunctionGitRepo": {
         "check_weather": [
