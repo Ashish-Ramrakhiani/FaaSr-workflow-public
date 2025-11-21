@@ -20,6 +20,14 @@
             "ActionRepoName": "FaaSr-workflow-public",
             "Branch": "main",
             "UseSecretStore": true
+        },
+        "AWS": {
+            "FaaSType": "Lambda",
+            "Region": "us-east-1",
+            "UseSecretStore": true,
+            "CPUsPerTask": 1,
+            "Memory": 512,
+            "TimeLimit": 900
         }
     },
     "DataStores": {
@@ -91,7 +99,7 @@
     "ActionList": {
         "check-weather": {
             "FunctionName": "check_weather",
-            "FaaSServer": "GH",
+            "FaaSServer": "AWS",
             "Type": "R",
             "Arguments": {
                 "lake_directory": "./",
@@ -104,7 +112,7 @@
         },
         "run-weir-inflow": {
             "FunctionName": "run_weir_inflow",
-            "FaaSServer": "GH",
+            "FaaSServer": "AWS",
             "Type": "R",
             "Arguments": {
                 "configure_run_file": "configure_run.yml",
@@ -129,7 +137,7 @@
         },
         "check-anoxia": {
             "FunctionName": "check_anoxia",
-            "FaaSServer": "GH",
+            "FaaSServer": "AWS",
             "Type": "R",
             "Arguments": {
                 "configure_run_file": "configure_run.yml",
@@ -161,7 +169,7 @@
         },
         "viz-HOx-off": {
             "FunctionName": "viz_HOx_off",
-            "FaaSServer": "GH",
+            "FaaSServer": "AWS",
             "Type": "R",
             "Arguments": {
                 "plots_directory": "./plots/glm_aed_flare_v3_faasr_HOx_off",
@@ -174,7 +182,7 @@
         },
         "viz-HOx-on": {
             "FunctionName": "viz_HOx_on",
-            "FaaSServer": "GH",
+            "FaaSServer": "AWS",
             "Type": "R",
             "Arguments": {
                 "plots_directory": "./plots/glm_aed_flare_v3_faasr_HOx_on",
@@ -187,7 +195,7 @@
         },
         "check-notify": {
             "FunctionName": "check_notify",
-            "FaaSServer": "GH",
+            "FaaSServer": "AWS",
             "Type": "R",
             "Arguments": {},
             "InvokeNext": [
@@ -196,7 +204,7 @@
         },
         "faasr-vm-start": {
             "FunctionName": "vm_start",
-            "FaaSServer": "GH",
+            "FaaSServer": "AWS",
             "Type": "Python",
             "RequiresVM": false,
             "InvokeNext": [
@@ -206,7 +214,7 @@
         },
         "faasr-vm-stop": {
             "FunctionName": "vm_stop",
-            "FaaSServer": "GH",
+            "FaaSServer": "AWS",
             "Type": "Python",
             "RequiresVM": false,
             "InvokeNext": [],
@@ -214,7 +222,7 @@
         },
         "faasr-vm-poll-forecast-HOx-off": {
             "FunctionName": "vm_poll",
-            "FaaSServer": "GH",
+            "FaaSServer": "AWS",
             "Type": "Python",
             "RequiresVM": false,
             "InvokeNext": [
@@ -224,7 +232,7 @@
         },
         "faasr-vm-poll-forecast-HOx-on": {
             "FunctionName": "vm_poll",
-            "FaaSServer": "GH",
+            "FaaSServer": "AWS",
             "Type": "Python",
             "RequiresVM": false,
             "InvokeNext": [
@@ -234,18 +242,18 @@
         }
     },
     "ActionContainers": {
-        "check-weather": "ghcr.io/ashish-ramrakhiani/github-actions-flare:4.0",
-        "run-weir-inflow": "ghcr.io/ashish-ramrakhiani/github-actions-flare:4.0",
+        "check-weather": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-flare:4.0",
+        "run-weir-inflow": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-flare:4.0",
         "forecast-HOx-off": "ghcr.io/ashish-ramrakhiani/github-actions-flare:4.0",
-        "check-anoxia": "ghcr.io/ashish-ramrakhiani/github-actions-flare:4.0",
+        "check-anoxia": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-flare:4.0",
         "forecast-HOx-on": "ghcr.io/ashish-ramrakhiani/github-actions-flare:4.0",
-        "viz-HOx-off": "ghcr.io/ashish-ramrakhiani/github-actions-flare:4.0",
-        "viz-HOx-on": "ghcr.io/ashish-ramrakhiani/github-actions-flare:4.0",
-        "check-notify": "ghcr.io/ashish-ramrakhiani/github-actions-flare:4.0",
-        "faasr-vm-poll-forecast-HOx-off": "ghcr.io/ashish-ramrakhiani/github-actions-flare:4.0",
-        "faasr-vm-poll-forecast-HOx-on": "ghcr.io/ashish-ramrakhiani/github-actions-flare:4.0",
-        "faasr-vm-start": "ghcr.io/ashish-ramrakhiani/github-actions-flare:4.0",
-        "faasr-vm-stop": "ghcr.io/ashish-ramrakhiani/github-actions-flare:4.0"
+        "viz-HOx-off": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-flare:4.0",
+        "viz-HOx-on": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-flare:4.0",
+        "check-notify": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-flare:4.0",
+        "faasr-vm-poll-forecast-HOx-off": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-flare:4.0",
+        "faasr-vm-poll-forecast-HOx-on": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-flare:4.0",
+        "faasr-vm-start": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-flare:4.0",
+        "faasr-vm-stop": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-flare:4.0"
     },
     "FunctionGitRepo": {
         "check_weather": [
