@@ -202,7 +202,7 @@
                 "faasr-vm-stop"
             ]
         },
-        "faasr-vm-start": {
+        "vm-start": {
             "FunctionName": "vm_start",
             "FaaSServer": "GH",
             "Type": "Python",
@@ -212,7 +212,7 @@
             ],
             "_faasr_builtin": true
         },
-        "faasr-vm-stop": {
+        "vm-stop": {
             "FunctionName": "vm_stop",
             "FaaSServer": "GH",
             "Type": "Python",
@@ -220,7 +220,7 @@
             "InvokeNext": [],
             "_faasr_builtin": true
         },
-        "faasr-vm-poll-forecast-HOx-off": {
+        "vm-poll-forecast-HOx-off": {
             "FunctionName": "vm_poll",
             "FaaSServer": "GH",
             "Type": "Python",
@@ -230,7 +230,7 @@
             ],
             "_faasr_builtin": true
         },
-        "faasr-vm-poll-forecast-HOx-on": {
+        "vm-poll-forecast-HOx-on": {
             "FunctionName": "vm_poll",
             "FaaSServer": "GH",
             "Type": "Python",
