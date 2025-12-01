@@ -1,6 +1,6 @@
 {
     "WorkflowName": "fcre-flare-vm",
-    "FunctionInvoke": "faasr-vm-start",
+    "FunctionInvoke": "vm-start",
     "InvocationID": "123456",
     "DefaultDataStore": "My_S3_Bucket",
     "LoggingDataStore": "My_S3_Bucket",
@@ -119,7 +119,7 @@
                 "config_set_name": "glm_aed_flare_v3_faasr_HOx_off"
             },
             "InvokeNext": [
-                "faasr-vm-poll-forecast-HOx-off"
+                "vm-poll-forecast-HOx-off"
             ]
         },
         "forecast-HOx-off": {
@@ -146,7 +146,7 @@
             "InvokeNext": [
                 {
                     "True": [
-                        "faasr-vm-poll-forecast-HOx-on"
+                        "vm-poll-forecast-HOx-on"
                     ],
                     "False": [
                         "viz-HOx-off"
@@ -177,7 +177,7 @@
                 "config_set_name": "glm_aed_flare_v3_faasr_HOx_off"
             },
             "InvokeNext": [
-                "faasr-vm-stop"
+                "vm-stop"
             ]
         },
         "viz-HOx-on": {
@@ -199,7 +199,7 @@
             "Type": "R",
             "Arguments": {},
             "InvokeNext": [
-                "faasr-vm-stop"
+                "vm-stop"
             ]
         },
         "vm-start": {
@@ -250,10 +250,10 @@
         "viz-HOx-off": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-flare:4.0",
         "viz-HOx-on": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-flare:4.0",
         "check-notify": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-flare:4.0",
-        "faasr-vm-poll-forecast-HOx-off": "ghcr.io/ashish-ramrakhiani/github-actions-flare:4.0",
-        "faasr-vm-poll-forecast-HOx-on": "ghcr.io/ashish-ramrakhiani/github-actions-flare:4.0",
-        "faasr-vm-start": "ghcr.io/ashish-ramrakhiani/github-actions-flare:4.0",
-        "faasr-vm-stop": "ghcr.io/ashish-ramrakhiani/github-actions-flare:4.0"
+        "vm-poll-forecast-HOx-off": "ghcr.io/ashish-ramrakhiani/github-actions-flare:4.0",
+        "vm-poll-forecast-HOx-on": "ghcr.io/ashish-ramrakhiani/github-actions-flare:4.0",
+        "vm-start": "ghcr.io/ashish-ramrakhiani/github-actions-flare:4.0",
+        "vm-stop": "ghcr.io/ashish-ramrakhiani/github-actions-flare:4.0"
     },
     "FunctionGitRepo": {
         "check_weather": [
