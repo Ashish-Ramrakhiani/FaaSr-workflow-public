@@ -1,0 +1,65 @@
+{
+  "ActionList": {
+    "solve": {
+      "FunctionName": "solveSIRModel",
+      "FaaSServer": "GH",
+      "InvokeNext": [
+        "processData"
+      ],
+      "Type": "Julia"
+    },
+    "getData": {
+      "FunctionName": "getSIRData",
+      "FaaSServer": "GH",
+      "InvokeNext": [
+        "solve"
+      ],
+      "Type": "Python"
+    },
+    "processData": {
+      "FunctionName": "processSIRData",
+      "FaaSServer": "GH",
+      "InvokeNext": [],
+      "Type": "R"
+    }
+  },
+  "ComputeServers": {
+    "GH": {
+      "FaaSType": "GitHubActions",
+      "UseSecretStore": true,
+      "ActionRepoName": "FaaSr-workflow-public",
+      "Branch": "main",
+      "UserName": "Ashish-Ramrakhiani"
+    }
+  },
+  "DataStores": {
+    "S3": {
+      "Writable": "TRUE",
+      "Endpoint": "https://play.min.io",
+      "Bucket": "faasr-sirmodel",
+      "Region": "none"
+    }
+  },
+  "ActionContainers": {
+    "solve": "izzylerman/faasr-githubactions-julia-sir",
+    "getData": "izzylerman/faasr-github-actions-python:latest",
+    "processData": "izzylerman/faasr-github-actions-r:latest"
+  },
+  "FunctionInvoke": "getData",
+  "DefaultDataStore": "S3",
+  "FunctionGitRepo": {
+    "solveSIRModel": "IzzyLerman/SIRWorkflow",
+    "getSIRData": "IzzyLerman/SIRWorkflow",
+    "processSIRData": "IzzyLerman/SIRWorkflow"
+  },
+  "FaaSrLog": "FaaSrLog",
+  "LoggingDataStore": "S3",
+  "WorkflowName": "SIRModelWorkflow",
+  "PyPIPackageDownloads": {
+    "getSIRData": [
+      "numpy",
+      "pandas",
+      "math"
+    ]
+  }
+}
