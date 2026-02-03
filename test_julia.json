@@ -33,7 +33,7 @@
     }
   },
   "DataStores": {
-    "S3_MINIO": {
+    "MY_MINIO_BUCKET": {
       "Writable": "TRUE",
       "Endpoint": "https://play.min.io",
       "Bucket": "faasr-sirmodel",
@@ -46,14 +46,14 @@
     "processData": "izzylerman/faasr-github-actions-r:latest"
   },
   "FunctionInvoke": "getData",
-  "DefaultDataStore": "S3_MINIO",
+  "DefaultDataStore": "MY_MINIO_BUCKET",
   "FunctionGitRepo": {
     "solveSIRModel": "IzzyLerman/SIRWorkflow",
     "getSIRData": "IzzyLerman/SIRWorkflow",
     "processSIRData": "IzzyLerman/SIRWorkflow"
   },
   "FaaSrLog": "FaaSrLog",
-  "LoggingDataStore": "S3_MINIO",
+  "LoggingDataStore": "MY_MINIO_BUCKET",
   "WorkflowName": "SIRModelWorkflow",
   "PyPIPackageDownloads": {
     "getSIRData": [
