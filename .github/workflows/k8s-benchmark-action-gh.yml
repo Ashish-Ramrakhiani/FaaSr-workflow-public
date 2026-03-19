@@ -13,11 +13,11 @@ on:
 jobs:
     run_docker_image:
         runs-on: ubuntu-latest
-        container: ghcr.io/ashish-ramrakhiani/ga-py:k8s-fixed
+        container: ghcr.io/ashish-ramrakhiani/ga-py:k8s-v2
 
         env:
             GH_PAT: ${{ secrets.GH_PAT}}
-            K8s_Token: ${{ secrets.MyK8sCluster_Token}}
+            MyK8sCluster_Token: ${{ secrets.MyK8sCluster_Token}}
             My_S3_Bucket_AccessKey: ${{ secrets.My_S3_Bucket_AccessKey}}
             My_S3_Bucket_SecretKey: ${{ secrets.My_S3_Bucket_SecretKey}}
             OVERWRITTEN: ${{ github.event.inputs.OVERWRITTEN }}
