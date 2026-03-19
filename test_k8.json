@@ -65,10 +65,10 @@
         }
     },
     "ActionContainers": {
-        "start": "ghcr.io/faasr/github-actions-python:2.0.2",
+        "start": "faasr/kubernetes-python:latest",
         "action-k8s-1": "faasr/kubernetes-python:latest",
         "action-k8s-2": "faasr/kubernetes-python:latest",
-        "action-gh": "ghcr.io/faasr/github-actions-python:2.0.2"
+        "action-gh": "faasr/kubernetes-python:latest"
     },
     "FunctionGitRepo": {
         "timestamp_logger": "Ashish-Ramrakhiani/FaaSr-workflow-public"
