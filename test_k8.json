@@ -61,10 +61,10 @@
         }
     },
     "ActionContainers": {
-        "start": "ghcr.io/ashish-ramrakhiani/ga-py:k8s",
+        "start": "ghcr.io/ashish-ramrakhiani/ga-py:k8s-fixed",
         "action-k8s-1": "ramrakha/kubernetes-r:test",
         "action-k8s-2": "ramrakha/kubernetes-r:test",
-        "action-gh": "ghcr.io/ashish-ramrakhiani/ga-py:k8s"
+        "action-gh": "ghcr.io/ashish-ramrakhiani/ga-py:k8s-fixed"
     },
     "FunctionGitRepo": {
         "r_log": "Ashish-Ramrakhiani/test-py"
