@@ -24,54 +24,50 @@
     },
     "ActionList": {
         "start": {
-            "FunctionName": "timestamp_logger",
+            "FunctionName": "r_log",
             "FaaSServer": "GH",
-            "Type": "Python",
+            "Type": "R",
             "Arguments": {
-                "folder": "runtime_test",
-                "tag": "start"
+                "message": "Starting from GH"
             },
             "InvokeNext": ["action-k8s-1", "action-k8s-2", "action-gh"]
         },
         "action-k8s-1": {
-            "FunctionName": "timestamp_logger",
+            "FunctionName": "r_log",
             "FaaSServer": "MyK8sCluster",
-            "Type": "Python",
+            "Type": "R",
             "Arguments": {
-                "folder": "runtime_test",
-                "tag": "k8s-1"
+                "message": "Hello from Kubernetes job 1"
             },
             "InvokeNext": []
         },
         "action-k8s-2": {
-            "FunctionName": "timestamp_logger",
+            "FunctionName": "r_log",
             "FaaSServer": "MyK8sCluster",
-            "Type": "Python",
+            "Type": "R",
             "Arguments": {
-                "folder": "runtime_test",
-                "tag": "k8s-2"
+                "message": "Hello from Kubernetes job 2"
             },
             "InvokeNext": []
         },
         "action-gh": {
-            "FunctionName": "timestamp_logger",
+            "FunctionName": "r_log",
             "FaaSServer": "GH",
-            "Type": "Python",
+            "Type": "R",
             "Arguments": {
-                "folder": "runtime_test",
-                "tag": "gh"
+                "message": "Hello from GitHub Actions"
             },
             "InvokeNext": []
         }
     },
     "ActionContainers": {
-        "start": "faasr/kubernetes-python:latest",
-        "action-k8s-1": "faasr/kubernetes-python:latest",
-        "action-k8s-2": "faasr/kubernetes-python:latest",
-        "action-gh": "faasr/kubernetes-python:latest"
+        "start": "ghcr.io/ashish-ramrakhiani/github-actions-r:2.0",
+        "action-k8s-1": "ramrakha/kubernetes-r:test",
+        "action-k8s-2": "ramrakha/kubernetes-r:test",
+        "action-gh": "ghcr.io/ashish-ramrakhiani/github-actions-r:2.0"
     },
     "FunctionGitRepo": {
-        "timestamp_logger": "Ashish-Ramrakhiani/FaaSr-workflow-public"
+        "r_log": "Ashish-Ramrakhiani/test-py"
     },
     "FunctionInvoke": "start",
     "FaaSrLog": "FaaSrLog",
