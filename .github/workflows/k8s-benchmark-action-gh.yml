@@ -1,0 +1,30 @@
+name: k8s-benchmark-action-gh
+
+on:
+    workflow_dispatch:
+        inputs:
+            OVERWRITTEN:
+                description: "Overwritten fields"
+                required: true
+            PAYLOAD_URL:
+                description: "URL to payload"
+                required: true
+
+jobs:
+    run_docker_image:
+        runs-on: ubuntu-latest
+        container: ghcr.io/faasr/github-actions-python:2.0.2
+
+        env:
+            GH_PAT: ${{ secrets.GH_PAT}}
+            K8s_Token: ${{ secrets.K8s_Token}}
+            My_S3_Bucket_AccessKey: ${{ secrets.My_S3_Bucket_AccessKey}}
+            My_S3_Bucket_SecretKey: ${{ secrets.My_S3_Bucket_SecretKey}}
+            OVERWRITTEN: ${{ github.event.inputs.OVERWRITTEN }}
+            PAYLOAD_URL: ${{ github.event.inputs.PAYLOAD_URL }}
+
+        steps:
+          - name: Run Python entrypoint
+            run: |
+                cd /action
+                python3 faasr_entry.py
