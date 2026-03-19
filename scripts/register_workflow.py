@@ -99,7 +99,7 @@ def generate_github_secret_imports(faasr_payload):
                 token = f"{faas_name}_Token"
                 import_statements.append(f"{token}: ${{{{ secrets.{token}}}}}")
             case "Kubernetes":
-                token = f"K8s_Token"
+                token = f"{faas_name}_Token"
                 import_statements.append(f"{token}: ${{{{ secrets.{token}}}}}")
             case _:
                 logger.error(
