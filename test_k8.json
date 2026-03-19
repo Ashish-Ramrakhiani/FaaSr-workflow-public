@@ -69,6 +69,9 @@
     "FunctionGitRepo": {
         "r_log": "Ashish-Ramrakhiani/test-py"
     },
+    "FunctionCRANPackage": {
+    "r_log": ["gapminder"]
+    },
     "FunctionInvoke": "start",
     "FaaSrLog": "FaaSrLog",
     "LoggingDataStore": "My_S3_Bucket",
