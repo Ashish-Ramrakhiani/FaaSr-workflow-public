@@ -2,7 +2,7 @@
   "ActionList": {
     "solve": {
       "FunctionName": "solveSIRModel",
-      "FaaSServer": "GH",
+      "FaaSServer": "GCP",
       "InvokeNext": [
         "processData"
       ],
@@ -18,7 +18,7 @@
     },
     "processData": {
       "FunctionName": "processSIRData",
-      "FaaSServer": "GH",
+      "FaaSServer": "AWS",
       "InvokeNext": [],
       "Type": "R"
     }
@@ -30,7 +30,27 @@
       "ActionRepoName": "FaaSr-workflow-public",
       "Branch": "main",
       "UserName": "Ashish-Ramrakhiani"
-    }
+    },
+    "GCP": {
+            "FaaSType": "GoogleCloud",
+            "Namespace": "nsf-20210119-renatof-420467",
+            "Region": "us-central1",
+            "Endpoint": "https://run.googleapis.com/v2/projects/",
+            "UseSecretStore": true,
+            "ClientEmail": "faasr-experiments@nsf-20210119-renatof-420467.iam.gserviceaccount.com",
+            "TokenUri": "https://oauth2.googleapis.com/token",
+            "CPUsPerTask": 1,
+            "Memory": 512,
+            "TimeLimit": 3600
+        },
+        "AWS": {
+            "FaaSType": "Lambda",
+            "Region": "us-east-1",
+            "UseSecretStore": true,
+            "CPUsPerTask": 1,
+            "Memory": 512,
+            "TimeLimit": 900
+        }
   },
   "DataStores": {
     "My_S3_Bucket": {
