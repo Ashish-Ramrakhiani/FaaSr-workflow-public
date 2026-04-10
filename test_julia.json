@@ -33,12 +33,6 @@
     }
   },
   "DataStores": {
-    "MY_MINIO_BUCKET": {
-      "Writable": "TRUE",
-      "Endpoint": "https://play.min.io",
-      "Bucket": "faasr-sirmodel",
-      "Region": "none"
-    },
     "My_S3_Bucket": {
             "Endpoint": "https://s3.us-west-2.amazonaws.com",
             "Bucket": "faasr-bucket-0001",
