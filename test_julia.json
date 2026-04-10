@@ -46,14 +46,14 @@
     "processData": "izzylerman/faasr-github-actions-r:latest"
   },
   "FunctionInvoke": "getData",
-  "DefaultDataStore": "MY_S3_BUCKET",
+  "DefaultDataStore": "MY_S3_Bucket",
   "FunctionGitRepo": {
     "solveSIRModel": "IzzyLerman/SIRWorkflow",
     "getSIRData": "IzzyLerman/SIRWorkflow",
     "processSIRData": "IzzyLerman/SIRWorkflow"
   },
   "FaaSrLog": "FaaSrLog",
-  "LoggingDataStore": "MY_S3_BUCKET",
+  "LoggingDataStore": "MY_S3_Bucket",
   "WorkflowName": "SIRModelWorkflow",
   "PyPIPackageDownloads": {
     "getSIRData": [
