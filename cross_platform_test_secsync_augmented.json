@@ -133,7 +133,7 @@
     "ActionContainers": {
         "start": "ghcr.io/faasr/github-actions-python:latest",
         "action-gcp": "faasr/gcp-python:latest",
-        "action-lambda": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-python:latest",
+        "action-lambda": "145342739029.dkr.ecr.us-east-1.amazonaws.com/aws-lambda-python:2.0.5",
         "action-gh": "ghcr.io/faasr/github-actions-python:latest",
         "action-vm": "ghcr.io/faasr/github-actions-python:latest",
         "faasr-vm-poll-action-vm": "ghcr.io/faasr/github-actions-python:latest",
