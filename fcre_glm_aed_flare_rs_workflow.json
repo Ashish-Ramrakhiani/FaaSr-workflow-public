@@ -1,0 +1,93 @@
+{
+  "WorkflowName": "fcre-glm-aed-flare-rs",
+  "FunctionInvoke": "run-fcre-aed-forecast",
+  "DefaultDataStore": "restart",
+  "LoggingDataStore": "restart",
+  "FaaSrLog": "FaaSrLog_fcre_glm_aed_flare_rs",
+
+  "ComputeServers": {
+    "GH": {
+      "FaaSType": "GitHubActions",
+      "UserName": "Ashish-Ramrakhiani",
+      "ActionRepoName": "FaaSr-workflow-public",
+      "Branch": "main",
+      "UseSecretStore": true
+    }
+  },
+
+  "DataStores": {
+    "drivers": {
+      "Endpoint": "https://amnh1.osn.mghpcc.org",
+      "Bucket": "bio230121-bucket01/flare/drivers/met",
+      "Region": "amnh1",
+      "Writable": "TRUE"
+    },
+    "inflow_drivers": {
+      "Endpoint": "https://amnh1.osn.mghpcc.org",
+      "Bucket": "bio230121-bucket01/flare/drivers/inflow/fcre/lm_ar",
+      "Region": "amnh1",
+      "Writable": "TRUE"
+    },
+    "targets": {
+      "Endpoint": "https://amnh1.osn.mghpcc.org",
+      "Bucket": "bio230121-bucket01/flare/targets",
+      "Region": "amnh1",
+      "Writable": "TRUE"
+    },
+    "forecasts_parquet": {
+      "Endpoint": "https://amnh1.osn.mghpcc.org",
+      "Bucket": "bio230121-bucket01/flare/forecasts/parquet",
+      "Region": "amnh1",
+      "Writable": "TRUE"
+    },
+    "restart": {
+      "Endpoint": "https://amnh1.osn.mghpcc.org",
+      "Bucket": "bio230121-bucket01/flare/restart",
+      "Region": "amnh1",
+      "Writable": "TRUE"
+    },
+    "scores": {
+      "Endpoint": "https://amnh1.osn.mghpcc.org",
+      "Bucket": "bio230121-bucket01/flare/scores/parquet",
+      "Region": "amnh1",
+      "Writable": "TRUE"
+    },
+    "vera4cast_targets": {
+      "Endpoint": "https://amnh1.osn.mghpcc.org",
+      "Bucket": "bio230121-bucket01/vera4cast/targets",
+      "Region": "amnh1",
+      "Anonymous": "TRUE"
+    },
+    "vera4cast_forecasts": {
+      "Endpoint": "https://amnh1.osn.mghpcc.org",
+      "Bucket": "bio230121-bucket01/vera4cast/forecasts/archive-parquet",
+      "Region": "amnh1",
+      "Anonymous": "TRUE"
+    }
+  },
+
+  "ActionList": {
+    "run-fcre-aed-forecast": {
+      "FunctionName": "run_fcre_aed_forecast",
+      "FaaSServer": "GH",
+      "Type": "R",
+      "Arguments": {
+        "config_set_name": "glm_aed_flare_rs",
+        "configure_run_file": "configure_run.yml"
+      },
+      "InvokeNext": []
+    }
+  },
+
+  "ActionContainers": {
+    "run-fcre-aed-forecast": "ghcr.io/ashish-ramrakhiani/github-actions-glm-aed-flare-rs:latest"
+  },
+
+  "FunctionGitRepo": {
+    "run_fcre_aed_forecast": ["Ashish-Ramrakhiani/FCRE-forecast-code"]
+  },
+
+  "FunctionGitRepoBranch": {
+    "run_fcre_aed_forecast": "flare_faasr_int"
+  }
+}
