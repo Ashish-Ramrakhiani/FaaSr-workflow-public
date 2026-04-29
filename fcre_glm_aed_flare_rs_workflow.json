@@ -17,39 +17,39 @@
 
   "DataStores": {
     "drivers": {
-      "Endpoint": "https://amnh1.osn.mghpcc.org",
-      "Bucket": "bio230121-bucket01",
-      "Region": "amnh1",
+      "Endpoint": "https://s3.us-west-2.amazonaws.com",
+      "Bucket": "faasr-bucket-0001",
+      "Region": "us-west-2",
       "Writable": "TRUE"
     },
     "inflow_drivers": {
-      "Endpoint": "https://amnh1.osn.mghpcc.org",
-      "Bucket": "bio230121-bucket01",
-      "Region": "amnh1",
+      "Endpoint": "https://s3.us-west-2.amazonaws.com",
+      "Bucket": "faasr-bucket-0001",
+      "Region": "us-west-2",
       "Writable": "TRUE"
     },
     "targets": {
-      "Endpoint": "https://amnh1.osn.mghpcc.org",
-      "Bucket": "bio230121-bucket01",
-      "Region": "amnh1",
+      "Endpoint": "https://s3.us-west-2.amazonaws.com",
+      "Bucket": "faasr-bucket-0001",
+      "Region": "us-west-2",
       "Writable": "TRUE"
     },
     "forecasts_parquet": {
-      "Endpoint": "https://amnh1.osn.mghpcc.org",
-      "Bucket": "bio230121-bucket01",
-      "Region": "amnh1",
+      "Endpoint": "https://s3.us-west-2.amazonaws.com",
+      "Bucket": "faasr-bucket-0001",
+      "Region": "us-west-2",
       "Writable": "TRUE"
     },
     "restart": {
-      "Endpoint": "https://amnh1.osn.mghpcc.org",
-      "Bucket": "bio230121-bucket01",
-      "Region": "amnh1",
+      "Endpoint": "https://s3.us-west-2.amazonaws.com",
+      "Bucket": "faasr-bucket-0001",
+      "Region": "us-west-2",
       "Writable": "TRUE"
     },
     "scores": {
-      "Endpoint": "https://amnh1.osn.mghpcc.org",
-      "Bucket": "bio230121-bucket01",
-      "Region": "amnh1",
+      "Endpoint": "https://s3.us-west-2.amazonaws.com",
+      "Bucket": "faasr-bucket-0001",
+      "Region": "us-west-2",
       "Writable": "TRUE"
     },
     "vera4cast_targets": {
