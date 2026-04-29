@@ -18,49 +18,49 @@
   "DataStores": {
     "drivers": {
       "Endpoint": "https://amnh1.osn.mghpcc.org",
-      "Bucket": "bio230121-bucket01/flare/drivers/met",
+      "Bucket": "bio230121-bucket01",
       "Region": "amnh1",
       "Writable": "TRUE"
     },
     "inflow_drivers": {
       "Endpoint": "https://amnh1.osn.mghpcc.org",
-      "Bucket": "bio230121-bucket01/flare/drivers/inflow/fcre/lm_ar",
+      "Bucket": "bio230121-bucket01",
       "Region": "amnh1",
       "Writable": "TRUE"
     },
     "targets": {
       "Endpoint": "https://amnh1.osn.mghpcc.org",
-      "Bucket": "bio230121-bucket01/flare/targets",
+      "Bucket": "bio230121-bucket01",
       "Region": "amnh1",
       "Writable": "TRUE"
     },
     "forecasts_parquet": {
       "Endpoint": "https://amnh1.osn.mghpcc.org",
-      "Bucket": "bio230121-bucket01/flare/forecasts/parquet",
+      "Bucket": "bio230121-bucket01",
       "Region": "amnh1",
       "Writable": "TRUE"
     },
     "restart": {
       "Endpoint": "https://amnh1.osn.mghpcc.org",
-      "Bucket": "bio230121-bucket01/flare/restart",
+      "Bucket": "bio230121-bucket01",
       "Region": "amnh1",
       "Writable": "TRUE"
     },
     "scores": {
       "Endpoint": "https://amnh1.osn.mghpcc.org",
-      "Bucket": "bio230121-bucket01/flare/scores/parquet",
+      "Bucket": "bio230121-bucket01",
       "Region": "amnh1",
       "Writable": "TRUE"
     },
     "vera4cast_targets": {
       "Endpoint": "https://amnh1.osn.mghpcc.org",
-      "Bucket": "bio230121-bucket01/vera4cast/targets",
+      "Bucket": "bio230121-bucket01",
       "Region": "amnh1",
       "Anonymous": "TRUE"
     },
     "vera4cast_forecasts": {
       "Endpoint": "https://amnh1.osn.mghpcc.org",
-      "Bucket": "bio230121-bucket01/vera4cast/forecasts/archive-parquet",
+      "Bucket": "bio230121-bucket01",
       "Region": "amnh1",
       "Anonymous": "TRUE"
     }
