@@ -17,51 +17,51 @@
 
   "DataStores": {
     "drivers": {
-      "Endpoint": "https://s3.us-west-2.amazonaws.com",
-      "Bucket": "faasr-bucket-0001",
-      "Region": "us-west-2",
+      "Endpoint": "https://amnh1.osn.mghpcc.org",
+      "Bucket": "bio230121-bucket01",
+      "Region": "us-east-1",
       "Writable": "TRUE"
     },
     "inflow_drivers": {
-      "Endpoint": "https://s3.us-west-2.amazonaws.com",
-      "Bucket": "faasr-bucket-0001",
-      "Region": "us-west-2",
+      "Endpoint": "https://amnh1.osn.mghpcc.org",
+      "Bucket": "bio230121-bucket01",
+      "Region": "us-east-1",
       "Writable": "TRUE"
     },
     "targets": {
-      "Endpoint": "https://s3.us-west-2.amazonaws.com",
-      "Bucket": "faasr-bucket-0001",
-      "Region": "us-west-2",
+      "Endpoint": "https://amnh1.osn.mghpcc.org",
+      "Bucket": "bio230121-bucket01",
+      "Region": "us-east-1",
       "Writable": "TRUE"
     },
     "forecasts_parquet": {
-      "Endpoint": "https://s3.us-west-2.amazonaws.com",
-      "Bucket": "faasr-bucket-0001",
-      "Region": "us-west-2",
+      "Endpoint": "https://amnh1.osn.mghpcc.org",
+      "Bucket": "bio230121-bucket01",
+      "Region": "us-east-1",
       "Writable": "TRUE"
     },
     "restart": {
-      "Endpoint": "https://s3.us-west-2.amazonaws.com",
-      "Bucket": "faasr-bucket-0001",
-      "Region": "us-west-2",
+      "Endpoint": "https://amnh1.osn.mghpcc.org",
+      "Bucket": "bio230121-bucket01",
+      "Region": "us-east-1",
       "Writable": "TRUE"
     },
     "scores": {
-      "Endpoint": "https://s3.us-west-2.amazonaws.com",
-      "Bucket": "faasr-bucket-0001",
-      "Region": "us-west-2",
+      "Endpoint": "https://amnh1.osn.mghpcc.org",
+      "Bucket": "bio230121-bucket01",
+      "Region": "us-east-1",
       "Writable": "TRUE"
     },
     "vera4cast_targets": {
       "Endpoint": "https://amnh1.osn.mghpcc.org",
       "Bucket": "bio230121-bucket01",
-      "Region": "amnh1",
+      "Region": "us-east-1",
       "Anonymous": "TRUE"
     },
     "vera4cast_forecasts": {
       "Endpoint": "https://amnh1.osn.mghpcc.org",
       "Bucket": "bio230121-bucket01",
-      "Region": "amnh1",
+      "Region": "us-east-1",
       "Anonymous": "TRUE"
     }
   },
