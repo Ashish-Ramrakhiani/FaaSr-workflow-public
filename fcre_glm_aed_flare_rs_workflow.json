@@ -22,13 +22,13 @@
       "Region": "us-west-2",
       "Writable": "TRUE"
     },
-    "drivers": {
+    "inflow_drivers": {
       "Endpoint": "https://amnh1.osn.mghpcc.org",
       "Bucket": "bio230121-bucket01",
       "Region": "us-east-1",
       "Writable": "TRUE"
     },
-    "inflow_drivers": {
+    "drivers": {
       "Endpoint": "https://amnh1.osn.mghpcc.org",
       "Bucket": "bio230121-bucket01",
       "Region": "us-east-1",
