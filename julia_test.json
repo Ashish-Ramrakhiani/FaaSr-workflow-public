@@ -52,7 +52,7 @@
     "getSIRData": "IzzyLerman/SIRWorkflow",
     "processSIRData": "IzzyLerman/SIRWorkflow"
   },
-  "FaaSrLog": "FaaSrLog",
+  "FaaSrLog": "FaaSrLog_Juliatest",
   "LoggingDataStore": "My_S3_Bucket",
   "WorkflowName": "SIRModelWorkflow",
   "PyPIPackageDownloads": {
