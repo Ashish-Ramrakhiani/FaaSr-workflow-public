@@ -27,17 +27,18 @@
     "GH": {
       "FaaSType": "GitHubActions",
       "UseSecretStore": true,
-      "ActionRepoName": "FaaSr-workflow",
+      "ActionRepoName": "FaaSr-workflow-public",
       "Branch": "main",
-      "UserName": "IzzyLerman"
+      "UserName": "Ashish-Ramrakhiani"
     }
   },
   "DataStores": {
-    "S3": {
-      "Bucket": "gh-sirmodel",
-      "Region": "us-east-1",
-      "Endpoint": "http://s3.us-east-1.amazonaws.com"
-    }
+    "My_S3_Bucket": {
+            "Endpoint": "https://s3.us-west-2.amazonaws.com",
+            "Bucket": "faasr-bucket-0001",
+            "Region": "us-west-2",
+            "Writable": "TRUE"
+        }
   },
   "ActionContainers": {
     "solve": "izzylerman/faasr-githubactions-julia-sir:1.1",
@@ -45,14 +46,14 @@
     "processData": "izzylerman/faasr-github-actions-r:latest"
   },
   "FunctionInvoke": "getData",
-  "DefaultDataStore": "S3",
+  "DefaultDataStore": "My_S3_Bucket",
   "FunctionGitRepo": {
     "solveSIRModel": "IzzyLerman/SIRWorkflow",
     "getSIRData": "IzzyLerman/SIRWorkflow",
     "processSIRData": "IzzyLerman/SIRWorkflow"
   },
   "FaaSrLog": "FaaSrLog",
-  "LoggingDataStore": "S3",
+  "LoggingDataStore": "My_S3_Bucket",
   "WorkflowName": "SIRModelWorkflow",
   "PyPIPackageDownloads": {
     "getSIRData": [
