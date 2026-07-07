@@ -41,7 +41,7 @@
         }
   },
   "ActionContainers": {
-    "solve": "izzylerman/faasr-githubactions-julia-sir:1.1",
+    "solve": "ghcr.io/ashish-ramrakhiani/github-actions-julia:2.1.0",
     "getData": "izzylerman/faasr-github-actions-python:latest",
     "processData": "izzylerman/faasr-github-actions-r:latest"
   },
