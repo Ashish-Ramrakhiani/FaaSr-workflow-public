@@ -54,7 +54,7 @@
   },
   "FaaSrLog": "FaaSrLog_Juliatest",
   "LoggingDataStore": "My_S3_Bucket",
-  "WorkflowName": "SIRModelWorkflow",
+  "WorkflowName": "sirmodelworkflow",
   "PyPIPackageDownloads": {
     "getSIRData": [
       "numpy",
