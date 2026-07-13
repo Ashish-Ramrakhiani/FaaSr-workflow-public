@@ -3,17 +3,13 @@
     "solve": {
       "FunctionName": "solveSIRModel",
       "FaaSServer": "GH",
-      "InvokeNext": [
-        "processData"
-      ],
+      "InvokeNext": ["processData"],
       "Type": "Julia"
     },
     "getData": {
       "FunctionName": "getSIRData",
       "FaaSServer": "GH",
-      "InvokeNext": [
-        "solve"
-      ],
+      "InvokeNext": ["solve"],
       "Type": "Python"
     },
     "processData": {
@@ -34,11 +30,11 @@
   },
   "DataStores": {
     "My_S3_Bucket": {
-            "Endpoint": "https://s3.us-west-2.amazonaws.com",
-            "Bucket": "faasr-bucket-0001",
-            "Region": "us-west-2",
-            "Writable": "TRUE"
-        }
+      "Endpoint": "https://s3.us-west-2.amazonaws.com",
+      "Bucket": "faasr-bucket-0001",
+      "Region": "us-west-2",
+      "Writable": "TRUE"
+    }
   },
   "ActionContainers": {
     "solve": "ghcr.io/ashish-ramrakhiani/github-actions-julia:2.1.0",
@@ -48,18 +44,14 @@
   "FunctionInvoke": "getData",
   "DefaultDataStore": "My_S3_Bucket",
   "FunctionGitRepo": {
-    "solveSIRModel": "IzzyLerman/SIRWorkflow",
+    "solveSIRModel": "Ashish-Ramrakhiani/FaaSr-Functions/julia_sir_diffeq",
     "getSIRData": "IzzyLerman/SIRWorkflow",
     "processSIRData": "IzzyLerman/SIRWorkflow"
   },
-  "FaaSrLog": "FaaSrLog_Juliatest",
+  "FaaSrLog": "FaaSrLog_JuliaDiffEq",
   "LoggingDataStore": "My_S3_Bucket",
-  "WorkflowName": "sirmodelworkflow",
+  "WorkflowName": "sirmodeldiffeq",
   "PyPIPackageDownloads": {
-    "getSIRData": [
-      "numpy",
-      "pandas",
-      "math"
-    ]
+    "getSIRData": ["numpy", "pandas", "math"]
   }
 }
