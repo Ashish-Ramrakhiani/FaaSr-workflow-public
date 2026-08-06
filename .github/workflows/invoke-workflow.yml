@@ -24,7 +24,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install boto3 requests jsonschema cryptography
-          pip install git+https://github.com/IzzyLerman/FaaSr-Backend-julia.git@main
+          pip install FaaSr_py
 
       - name: Install OpenWhisk CLI
         run: |
@@ -38,7 +38,7 @@ jobs:
 
       - name: Configure OpenWhisk CLI
         env:
-          OW_API_KEY: ${{ secrets.OW_APIKey }}
+          OW_API_KEY: ${{ secrets.OW_API_KEY }}
         run: |
           # Set environment variable to handle certificate issues
           echo "GODEBUG=x509ignoreCN=0" >> $GITHUB_ENV
@@ -52,5 +52,6 @@ jobs:
           GCP_SecretKey: ${{ secrets.GCP_SecretKey }}	
           SLURM_Token: ${{ secrets.SLURM_Token }}
           GH_PAT: ${{ secrets.GH_PAT }}
+          K8s_Token: ${{ secrets.K8s_Token }}
         run: |
           python scripts/invoke_workflow.py --workflow-file ${{ github.event.inputs.workflow_file }} 

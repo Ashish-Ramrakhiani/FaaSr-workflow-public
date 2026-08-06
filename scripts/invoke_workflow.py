@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
 import argparse
+import logging
 import os
 import sys
-import logging
 from pathlib import Path
 
-from FaaSr_py import FaaSrPayload
-from FaaSr_py import Scheduler
+from FaaSr_py import FaaSrPayload, Scheduler
 
 logging.basicConfig(
     level=logging.INFO,
@@ -35,9 +34,9 @@ def get_workflow_file():
     return workflow_path
 
 
-def add_secrets_to_server(server, faas_type):
+def add_secrets_to_server_attributes(server, faas_type):
     """Adds secrets to compute server based on FaaS type"""
-    
+
     match faas_type:
         case "GitHubActions":
             token = os.getenv("GH_PAT")
@@ -54,7 +53,7 @@ def add_secrets_to_server(server, faas_type):
 
             if not aws_access_key or not aws_secret_key:
                 logger.error(
-                    "AWS_AccessKey and AWS_SecretKey environment variables must be set for Lambda invocation"
+                    "AWS_AccessKey and AWS_SecretKey environment variables must be set for Lambda invocation"  # noqa E501
                 )
                 sys.exit(1)
 
@@ -74,7 +73,7 @@ def add_secrets_to_server(server, faas_type):
             gcp_secret_key = os.getenv("GCP_SecretKey")
             if not gcp_secret_key:
                 logger.error(
-                    "GCP_SecretKey environment variable must be set for Google Cloud Functions invocation"
+                    "GCP_SecretKey environment variable must be set for Google Cloud Functions invocation"  # noqa E501
                 )
                 sys.exit(1)
             server["SecretKey"] = gcp_secret_key
@@ -96,10 +95,19 @@ def add_secrets_to_server(server, faas_type):
                 sys.exit(1)
             server["SLURM_Token"] = slurm_token
 
+        case "Kubernetes":            
+            kubernetes_token = os.getenv("K8s_Token")
 
-def main():
+            if not kubernetes_token:
+                logger.error("K8s_Token environment variable must be set, or specified in the server configuration")
+                sys.exit(1)
+
+            server["Token"] = kubernetes_token
+
+
+def main(testing: bool = False) -> FaaSrPayload:
     """Function invocation script"""
-    
+
     workflow_path = get_workflow_file()
 
     github_repo = os.getenv("GITHUB_REPOSITORY")
@@ -119,25 +127,30 @@ def main():
         logger.error(f"Exception raised while while initializing FaaSr payload: {e}")
         sys.exit(1)
 
+    # If we are testing, we need to generate the invocation timestamp and id
+    if testing:
+        workflow._generate_invocation_timestamp()
+        workflow._generate_invocation_id()
+
     workflow_name = workflow.get("WorkflowName")
-    
+
     if not workflow_name:
         logger.error("WorkflowName not found in payload")
         sys.exit(1)
 
     entry_action_name = workflow.get("FunctionInvoke")
-    
+
     if not entry_action_name:
         logger.error("FunctionInvoke not found in payload")
         sys.exit(1)
 
     try:
         server_name = workflow["ActionList"][entry_action_name]["FaaSServer"]
-        
+
         server = workflow["ComputeServers"][server_name]
-        
+
         faas_type = server["FaaSType"]
-        
+
         use_secret_store = server.get("UseSecretStore", False)
     except KeyError as e:
         sys.exit(1)
@@ -146,7 +159,9 @@ def main():
         logger.error("UseSecretStore must be true for initial action")
         sys.exit(1)
 
-    add_secrets_to_server(server, faas_type)
+    # Add secret to entry action so that Scheduler can invoke it
+    faas_type = server["FaaSType"]
+    add_secrets_to_server_attributes(server, faas_type)
 
     try:
         faasr_scheduler = Scheduler(workflow)
@@ -156,6 +171,9 @@ def main():
     except Exception as e:
         logger.error(f"Trigger failed: {e}")
         sys.exit(1)
-        
+
+    return workflow
+
+
 if __name__ == "__main__":
     main()
