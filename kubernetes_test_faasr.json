@@ -45,7 +45,7 @@
       "TimeLimit": 300,
       "AdditionalTimeToLive": 60,
       "NumberOfRetries": 10,
-      "UseSecretStore": true
+      "UseSecretStore": false
     }
   },
   "DataStores": {
