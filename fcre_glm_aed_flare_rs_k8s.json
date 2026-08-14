@@ -1,0 +1,108 @@
+{
+  "WorkflowName": "fcre-glm-aed-flare-rs",
+  "FunctionInvoke": "run-fcre-aed-forecast",
+  "DefaultDataStore": "My_S3_Bucket",
+  "LoggingDataStore": "My_S3_Bucket",
+  "FaaSrLog": "FaaSrLog_fcre_glm_aed_flare_rs",
+  "ComputeServers": {
+    "GH": {
+      "FaaSType": "GitHubActions",
+      "UserName": "Ashish-Ramrakhiani",
+      "ActionRepoName": "FaaSr-workflow-public",
+      "Branch": "main",
+      "UseSecretStore": true
+    },
+    "K8s": {
+      "FaaSType": "Kubernetes",
+      "Endpoint": "https://67.58.53.148:443",
+      "Namespace": "faasr",
+      "UseSecretStore": false,
+      "AllowSelfSignedCertificate": true,
+      "SSLCertificate": "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUN5RENDQWJDZ0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFRc0ZBREFWTVJNd0VRWURWUVFERXdwcmRXSmwKY201bGRHVnpNQjRYRFRFNE1ESXhOVEExTWpNek9Wb1hEVEk0TURJeE16QTFNak16T1Zvd0ZURVRNQkVHQTFVRQpBeE1LYTNWaVpYSnVaWFJsY3pDQ0FTSXdEUVlKS29aSWh2Y05BUUVCQlFBRGdnRVBBRENDQVFvQ2dnRUJBTTZxCm5tNUVSb3FGVHNzWWtJNUExNmZCVTJNbDN6SUpWZnN1dXY3aEpzNk1VMUlCdURuQTJQM0xkaGlpdXFpb0NNamQKRGdwcG92WTVnUVFOZXp1UVo0OGJiQmhac2dWZ1gwK3BUWUlPVjV6ZUo1bGdaclpzWHJsSWZJTHREc3BpcEo0YQpadTRiNnVuVmptSk1LeU4vTHdaRWlvU2d3MXdLRkhlcmF2czA4NHZzQ1F3R2NZNGh4bnhSNzJjdkpjdFFHeHVyCmRnUVNBd2V3U2oycXZWaGJHRzhWU3M3Mms1OU00QlIvMDhrMUxnVmF0alZtYUcvcG9VSnBETTkycVYzTnRwNjcKQUdaRnBNNjhYNHpwSU15NDlDMTNpY0hsZzRGVlNLblNiMUFvWlB0UWUrdGpNMWxTT2FPOWk3U2NxczFzWEdxYwpDazJLUFo3OEUzQUxzMVlpK0swQ0F3RUFBYU1qTUNFd0RnWURWUjBQQVFIL0JBUURBZ0trTUE4R0ExVWRFd0VCCi93UUZNQU1CQWY4d0RRWUpLb1pJaHZjTkFRRUxCUUFEZ2dFQkFIZ3hmRmwzVkk3eW9Sbzc3M25OOGpEMDhhT1cKQmwxZldORktZQTJhY3ZTZXFsTnk4WGdkaDNMQ3JGVUI0N24vTFlaUVhEeklEVnU5M0RZQ21EbzM1dFZiMXRDMwpUL1BNd202RnpkTW1NY2M3a210dkR2YXhXNDBWbFU5WGptZ214QnhieXd3VTZLUGtCUzVZTjRGZUpEakUvSTVWCll3Ui9HeXJrS2JiL0NYbURrUDNON2orQWEvS1FXcDVPMnA3aUVibFBsTTFrazJ3Q2VVS1NuYTR0MjgvbE1CWEcKRmhNRXA2S3pIYmVXcnJKdGdjbTBLZkRkT25xZm4zbU1rYmpDbk0wV2FiZUN3eEpIWXZnbXR4RkVaTGNhODhGZAppTEF0Rms4UElUTVVXaTg2allXQmFmQkFJRW5mckJaY05mMitVMkF5S0dNN2lBeUMrZWFyQzBBOEJZOD0KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo=",
+      "MaxCPU": 2000,
+      "MaxMemory": 8000,
+      "TimeLimit": 3600,
+      "AdditionalTimeToLive": 600,
+      "NumberOfRetries": 1
+    }
+  },
+  "DataStores": {
+    "My_S3_Bucket": {
+      "Endpoint": "https://s3.us-west-2.amazonaws.com",
+      "Bucket": "faasr-bucket-0001",
+      "Region": "us-west-2",
+      "Writable": "TRUE"
+    },
+    "inflow_drivers": {
+      "Endpoint": "https://amnh1.osn.mghpcc.org",
+      "Bucket": "bio230121-bucket01",
+      "Region": "us-east-1",
+      "Writable": "TRUE"
+    },
+    "drivers": {
+      "Endpoint": "https://amnh1.osn.mghpcc.org",
+      "Bucket": "bio230121-bucket01",
+      "Region": "us-east-1",
+      "Writable": "TRUE"
+    },
+    "targets": {
+      "Endpoint": "https://amnh1.osn.mghpcc.org",
+      "Bucket": "bio230121-bucket01",
+      "Region": "us-east-1",
+      "Writable": "TRUE"
+    },
+    "forecasts_parquet": {
+      "Endpoint": "https://amnh1.osn.mghpcc.org",
+      "Bucket": "bio230121-bucket01",
+      "Region": "us-east-1",
+      "Writable": "TRUE"
+    },
+    "restart": {
+      "Endpoint": "https://amnh1.osn.mghpcc.org",
+      "Bucket": "bio230121-bucket01",
+      "Region": "us-east-1",
+      "Writable": "TRUE"
+    },
+    "scores": {
+      "Endpoint": "https://amnh1.osn.mghpcc.org",
+      "Bucket": "bio230121-bucket01",
+      "Region": "us-east-1",
+      "Writable": "TRUE"
+    },
+    "vera4cast_targets": {
+      "Endpoint": "https://amnh1.osn.mghpcc.org",
+      "Bucket": "bio230121-bucket01",
+      "Region": "us-east-1",
+      "Anonymous": "TRUE"
+    },
+    "vera4cast_forecasts": {
+      "Endpoint": "https://amnh1.osn.mghpcc.org",
+      "Bucket": "bio230121-bucket01",
+      "Region": "us-east-1",
+      "Anonymous": "TRUE"
+    }
+  },
+  "ActionList": {
+    "run-fcre-aed-forecast": {
+      "FunctionName": "run_fcre_aed_forecast",
+      "FaaSServer": "K8s",
+      "Type": "R",
+      "Arguments": {
+        "config_set_name": "glm_aed_flare_rs",
+        "configure_run_file": "configure_run.yml"
+      },
+      "InvokeNext": []
+    }
+  },
+  "ActionContainers": {
+    "run-fcre-aed-forecast": "docker.io/ramrakha/github-actions-glm-aed-flare-rs-k8s:main"
+  },
+  "FunctionGitRepo": {
+    "run_fcre_aed_forecast": [
+      "Ashish-Ramrakhiani/FCRE-forecast-code"
+    ]
+  },
+  "FunctionGitRepoBranch": {
+    "run_fcre_aed_forecast": "flare_faasr_int"
+  }
+}
