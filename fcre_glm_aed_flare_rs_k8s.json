@@ -1,6 +1,6 @@
 {
   "WorkflowName": "fcre-glm-aed-flare-rs",
-  "FunctionInvoke": "run-fcre-aed-forecast",
+  "FunctionInvoke": "start",
   "DefaultDataStore": "My_S3_Bucket",
   "LoggingDataStore": "My_S3_Bucket",
   "FaaSrLog": "FaaSrLog_fcre_glm_aed_flare_rs",
@@ -92,15 +92,30 @@
         "configure_run_file": "configure_run.yml"
       },
       "InvokeNext": []
+    },
+    "start": {
+      "FunctionName": "create_sample_data",
+      "FaaSServer": "GH",
+      "Type": "R",
+      "Arguments": {
+        "folder": "tutorial",
+        "output1": "sample1.csv",
+        "output2": "sample2.csv"
+      },
+      "InvokeNext": [
+        "run-fcre-aed-forecast"
+      ]
     }
   },
   "ActionContainers": {
-    "run-fcre-aed-forecast": "docker.io/ramrakha/github-actions-glm-aed-flare-rs-k8s:main"
+    "run-fcre-aed-forecast": "docker.io/ramrakha/github-actions-glm-aed-flare-rs-k8s:main",
+    "start": "docker.io/ramrakha/kubernetes-r:main"
   },
   "FunctionGitRepo": {
     "run_fcre_aed_forecast": [
       "Ashish-Ramrakhiani/FCRE-forecast-code"
-    ]
+    ],
+    "create_sample_data": "FaaSr/FaaSr-Functions/tutorial"
   },
   "FunctionGitRepoBranch": {
     "run_fcre_aed_forecast": "flare_faasr_int"
