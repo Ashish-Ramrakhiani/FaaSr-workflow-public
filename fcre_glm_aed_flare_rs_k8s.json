@@ -9,7 +9,7 @@
       "FaaSType": "GitHubActions",
       "UserName": "Ashish-Ramrakhiani",
       "ActionRepoName": "FaaSr-workflow-public",
-      "Branch": "main",
+      "Branch": "k8s-jack-test",
       "UseSecretStore": true
     },
     "K8s": {
