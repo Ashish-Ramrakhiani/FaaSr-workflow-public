@@ -21,8 +21,8 @@
       "SSLCertificate": "LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUN5RENDQWJDZ0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFRc0ZBREFWTVJNd0VRWURWUVFERXdwcmRXSmwKY201bGRHVnpNQjRYRFRFNE1ESXhOVEExTWpNek9Wb1hEVEk0TURJeE16QTFNak16T1Zvd0ZURVRNQkVHQTFVRQpBeE1LYTNWaVpYSnVaWFJsY3pDQ0FTSXdEUVlKS29aSWh2Y05BUUVCQlFBRGdnRVBBRENDQVFvQ2dnRUJBTTZxCm5tNUVSb3FGVHNzWWtJNUExNmZCVTJNbDN6SUpWZnN1dXY3aEpzNk1VMUlCdURuQTJQM0xkaGlpdXFpb0NNamQKRGdwcG92WTVnUVFOZXp1UVo0OGJiQmhac2dWZ1gwK3BUWUlPVjV6ZUo1bGdaclpzWHJsSWZJTHREc3BpcEo0YQpadTRiNnVuVmptSk1LeU4vTHdaRWlvU2d3MXdLRkhlcmF2czA4NHZzQ1F3R2NZNGh4bnhSNzJjdkpjdFFHeHVyCmRnUVNBd2V3U2oycXZWaGJHRzhWU3M3Mms1OU00QlIvMDhrMUxnVmF0alZtYUcvcG9VSnBETTkycVYzTnRwNjcKQUdaRnBNNjhYNHpwSU15NDlDMTNpY0hsZzRGVlNLblNiMUFvWlB0UWUrdGpNMWxTT2FPOWk3U2NxczFzWEdxYwpDazJLUFo3OEUzQUxzMVlpK0swQ0F3RUFBYU1qTUNFd0RnWURWUjBQQVFIL0JBUURBZ0trTUE4R0ExVWRFd0VCCi93UUZNQU1CQWY4d0RRWUpLb1pJaHZjTkFRRUxCUUFEZ2dFQkFIZ3hmRmwzVkk3eW9Sbzc3M25OOGpEMDhhT1cKQmwxZldORktZQTJhY3ZTZXFsTnk4WGdkaDNMQ3JGVUI0N24vTFlaUVhEeklEVnU5M0RZQ21EbzM1dFZiMXRDMwpUL1BNd202RnpkTW1NY2M3a210dkR2YXhXNDBWbFU5WGptZ214QnhieXd3VTZLUGtCUzVZTjRGZUpEakUvSTVWCll3Ui9HeXJrS2JiL0NYbURrUDNON2orQWEvS1FXcDVPMnA3aUVibFBsTTFrazJ3Q2VVS1NuYTR0MjgvbE1CWEcKRmhNRXA2S3pIYmVXcnJKdGdjbTBLZkRkT25xZm4zbU1rYmpDbk0wV2FiZUN3eEpIWXZnbXR4RkVaTGNhODhGZAppTEF0Rms4UElUTVVXaTg2allXQmFmQkFJRW5mckJaY05mMitVMkF5S0dNN2lBeUMrZWFyQzBBOEJZOD0KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo=",
       "MaxCPU": 2000,
       "MaxMemory": 8000,
-      "TimeLimit": 3600,
-      "AdditionalTimeToLive": 600,
+      "TimeLimit": 1800,
+      "AdditionalTimeToLive": 1800,
       "NumberOfRetries": 1
     }
   },
@@ -108,7 +108,7 @@
     }
   },
   "ActionContainers": {
-    "run-fcre-aed-forecast": "docker.io/ramrakha/github-actions-glm-aed-flare-rs-k8s:main",
+    "run-fcre-aed-forecast": "docker.io/ramrakha/github-actions-glm-aed-flare-rs-k8s:pubflarer",
     "start": "docker.io/ramrakha/kubernetes-r:main"
   },
   "FunctionGitRepo": {
@@ -118,6 +118,6 @@
     "create_sample_data": "FaaSr/FaaSr-Functions/tutorial"
   },
   "FunctionGitRepoBranch": {
-    "run_fcre_aed_forecast": "flare_faasr_int"
+    "run_fcre_aed_forecast": "flare_nrp_demo"
   }
 }
