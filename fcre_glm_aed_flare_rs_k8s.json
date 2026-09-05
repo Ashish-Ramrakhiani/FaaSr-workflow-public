@@ -22,7 +22,7 @@
       "MaxCPU": 2000,
       "MaxMemory": 8000,
       "TimeLimit": 1800,
-      "AdditionalTimeToLive": 1800,
+      "AdditionalTimeToLive": 3600,
       "NumberOfRetries": 1
     }
   },
