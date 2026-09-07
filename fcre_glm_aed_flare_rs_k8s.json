@@ -108,7 +108,7 @@
     }
   },
   "ActionContainers": {
-    "run-fcre-aed-forecast": "docker.io/ramrakha/github-actions-glm-aed-flare-rs-k8s:pubflarer",
+    "run-fcre-aed-forecast": "docker.io/ramrakha/github-actions-glm-aed-flare-rs-k8s:clean",
     "start": "docker.io/ramrakha/kubernetes-r:main"
   },
   "FunctionGitRepo": {
